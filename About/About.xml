@@ -1,31 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>Roads of the Rim</name>
+  <name>Roads of the Rim (Continued)</name>
+  <packageId>Mlie.RoadsOfTheRim</packageId>
   <author>Loconeko</author>
-  <url>https://github.com/LocoNeko/RoadsOfTheRim</url>
+  <url>https://github.com/emipa606/RoadsOfTheRim</url>
   <supportedVersions>
     <li>1.0</li>
     <li>1.1</li>
+    <li>1.2</li>
   </supportedVersions>
-  <packageId>Loconeko.RoadsOfTheRim</packageId>
-  <description>
-    This is still BETA - use at your own risk
-
-    Caravans can now create road construction sites to build roads between two neighbouring tiles on the world map. By using the "Work" action, caravans provide work and resources to the site until completion.
-
-    Building costs are based on the type of road to be built &amp; the terrain of both tiles. Roads cost wood, stones, steel &amp; chemfuel. If deemed too high, base costs can be reduced in the settings (but that's definitely OP).
-
-    Roads of the Rim changes the movement multipliers for existing roads as indicated in the "Terrain" tab under Movement difficulty. This can be switched off in the settings as well.
-
-    Feedback welcome on Steam and in the Forum thread : https://ludeon.com/forums/index.php?topic=47205.0
-
-    Changelog
-
-    2020-03-13 : Updated for RimWorld 1.1
-    2019-01-05 : Added conditional patching of Caravan comp for other mod compatibility (thanks Mehni for the tip)
-
-  </description>
   <modDependencies>
     <li>
       <packageId>brrainz.harmony</packageId>
@@ -35,8 +18,179 @@
     </li>
   </modDependencies>
   <loadAfter>
-	<li>Ludeon.RimWorld</li>
-	<li>Ludeon.RimWorld.Royalty</li>
-	<li>brrainz.harmony</li>
+    <li>brrainz.harmony</li>
   </loadAfter>
+  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+Update of Loconekos mod
+https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
+
+[img]https://i.imgur.com/7Gzt3Rg.png[/img]
+
+[table]
+    [tr]
+        [td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+        [td][url=https://github.com/emipa606/RoadsOfTheRim][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+    [/tr]
+[/table]
+	
+[img]https://i.imgur.com/NOW7jU1.png[/img]
+[h1]Roads of the Rim[/h1]
+
+[b]RotR - A Rimworld mod allowing road construction on the world map[/b]
+
+[h1]Introduction[/h1]
+
+I decided to reimplement Jecrell's amazing RimRoads mod since it had not been ported to Rimworld 1.0.
+
+[h1]Features[/h1]
+[list]
+  [*]Create Road Construction Sites on the world map
+  [*]Send Caravans with skilled colonists, pack animals, and resources to build the road
+  [*]Enjoy faster movement than the base game on high tier roads, including for all already existing roads (can be switched off in the settings)
+  [*]Part or all of the biome, hills, swamps and season movement difficulty is also cancelled
+  [*]Higher tier roads can be built through impassable terrain
+  [*]Get your allies to help you build
+[/list]
+
+[h1]=====LATEST NEWS=====[/h1]
+[b]HOTFIX  2020/06/05[/b]
+Corrected Caravan text that said resting instead of building
+Corrected AISR2G technology text and position
+[b]UPDATE 2020/05/06[/b]
+[list]
+[*] Both ISR2Gs are now craftable at a Machining table, cost less, and get their own "Road Equipment" category including when forming caravans
+[*] ISR2Gs from previous versions of the mod should all be converted
+[*] Glitter roads can be built on water
+[*] Better messages for caravans and construction legs
+[*] Cost in Uranium and Components are not increased by terrain any more
+[/list]
+[b]Please test and report any bugs here[/b]
+
+[h1]Details[/h1] 
+
+[b]Construct[/b]
+With RotR, caravans can create a construction site on the world map, players can then select a type of road, click from neighbouring tile to neighbouring tile until they reach their desired goal. If you make a mistake, clicking on a planned section of road will remove it and all sections after it. Clicking on the Construction Site or right-clicking anywhere will finalise the construction.
+
+[b]Work[/b]
+By using resources and colonists with Construction skill, the current section (or leg) can be built. A progress bar is shown on the world map.  Once a leg is finished, the caravan automatically moves on to the next leg. [i]Note : Road legs must be built in the order they were placed on the world map. [/i]
+
+Having all colonists down, resting during night time, or a moving caravan will prevent work. Similarly, some roads require a certain percentage of the workforce to have a certain construction skill. If only a lower percentage is available, work will be reduced. If no colonist in the caravan has the required skill, work will be impossible. Prisoners don't work.
+
+[b]Cancel construction[/b]
+A site can be removed by selecting it and clicking on the "Cancel Construction" button. A Caravan does not need to be there to do so. All resources spent so far will be lost.
+
+[b]Building costs modifiers[/b]
+Construction costs have two components : base costs that depend on the road and modifiers that depend on the terrain. Roads cost more at higher elevation, starting from 1000m. Hills and swamps also have an effect, which can be checked when clicking on a site. When ISR2G is not used, the total cost can be further reduced from 100% down to 10% in the settings. Anything lower than 100% is probably quite unrealistic, but feel free to use the option.
+
+[b]Important note[/b]
+It is not necessary to bring all resources at once in one caravan. A fraction is enough for a certain amount of work. However, it is necessary to bring each material with you.
+[i]As an example a tenth of the asphalt road: 360 Stone, 60 Steel, 30 Chemfuel is enough material for a tenth of the work (180 work.) [/i]
+
+[b]Upgrade[/b]
+When building a road over an existing one that is slower, 30% of the cost of the existing road will be deducted from the cost of the new road, as long as both roads use that same resource ([i]e.g. A dirt road will provide 120 work and 36 wood when upgrading to a Stone road[/i])
+
+[b] Allies help[/b] 
+Allied factions can help building roads
+
+[b]Impact on movement[/b] 
+The roads of RotR do not only provide a customised movement cost multiplier compared to the base game, they also cancel some or all of the movement cost of the terrain.
+
+See the summary below to see what percentage of a specific terrain feature is cancelled, depending on the road type. Note that these effects apply both to generated roads (from the base game) and built roads from RotR.
+
+[h1]Summary[/h1] 
+[table] 
+  [tr]
+    [th]Road[/th]
+    [th]Movement[/th] 
+    [th]Biome[/th] 
+    [th]Hills[/th] 
+    [th]Winter[/th] 
+    [th]Work[/th] 
+    [th]Wood[/th] 
+    [th]Stone[/th] 
+    [th]Steel[/th] 
+    [th]Chemfuel[/th] 
+    [th]Advanced[/th] 
+  [/tr]
+  [tr]
+    [td]Dirt path[/td]
+    [td]75%[/td]
+    [td]0%[/td]
+    [td]0%[/td]
+    [td]0%[/td]
+    [td]200[/td]
+    [td]0[/td]
+    [td]0[/td]
+    [td]0[/td]
+    [td]0[/td]
+    [td]0[/td]
+  [/tr]
+  [tr]
+    [td]Dirt road[/td]
+    [td]60%[/td]
+    [td]25%[/td]
+    [td]20%[/td]
+    [td]0%[/td]
+    [td]400[/td]
+    [td]120[/td]
+    [td]0[/td]
+    [td]0[/td]
+    [td]0[/td]
+    [td]0[/td]
+  [/tr]
+  [tr]
+    [td]Stone road[/td]
+    [td]50%[/td]
+    [td]75%[/td]
+    [td]40%[/td]
+    [td]0%[/td]
+    [td]1200[/td]
+    [td]240[/td]
+    [td]1800[/td]
+    [td]300[/td]
+    [td]0[/td]
+    [td]0[/td]
+  [/tr]
+  [tr]
+    [td]Asphalt road[/td]
+    [td]40%, can build through impassable[/td]
+    [td]100%[/td]
+    [td]60%[/td]
+    [td]20%[/td]
+    [td]1800[/td]
+    [td]0[/td]
+    [td]3600[/td]
+    [td]600[/td]
+    [td]300[/td]
+    [td]0[/td]
+  [/tr]
+  [tr]
+    [td]Glitter road[/td]
+    [td]25%, can build through impassable[/td]
+    [td]100%[/td]
+    [td]100%[/td]
+    [td]100%[/td]
+    [td]3600[/td]
+    [td]0[/td]
+    [td]3600[/td]
+    [td]900[/td]
+    [td]300[/td]
+    [td]290 plasteel, 35 Uranium , 20 components, 10 adv. components[/td]
+  [/tr]
+[/table]
+
+[h1]Following the project and reporting bugs[/h1] 
+       
+Feedback welcome on Steam and in the [url=https://ludeon.com/forums/index.php?topic=47205.0]Forum thread[/url]
+
+You can check the code on [url=https://github.com/LocoNeko/RoadsOfTheRim]GitHub[/url], as well as the [url=https://github.com/LocoNeko/RoadsOfTheRim/issues]roadmap and current bugs and issues[/url]
+
+[b]Quick fix for Construction sites stuck after an update : https://github.com/LocoNeko/RoadsOfTheRim/wiki/How-to-remove-construction-sites-stuck-after-mod-upgrade[/b]
+
+[b]IMPORTANT NOTE BEFORE REPORTING A BUG[/b]
+Please make sure you have the latest version by verifying integrity as described in [url=https://support.steampowered.com/kb_article.php?ref=2037-QEUH-3335]THIS POST[/url]
+
+It will save a lot of your time (and a little bit of mine ;-) )
+
+[url=https://ko-fi.com/F1F8Q45D][img]https://az743702.vo.msecnd.net/cdn/useruploads/png_KoFi_fe85fb88-0c0d-47dc-956b-84de7cd7bb34Ko-fi_Blue_post.jpg[/img][/url]</description>
 </ModMetaData>
