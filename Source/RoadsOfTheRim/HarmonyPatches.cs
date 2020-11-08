@@ -260,36 +260,33 @@ namespace RoadsOfTheRim
         [HarmonyPostfix]
         public static void PostFix(ref float __result, int tile, bool perceivedStatic, int? ticksAbs, StringBuilder explanation)
         {
-            if (__result <= 999f)
+            if (__result <= 999f || !Find.WorldGrid.InBounds(tile))
             {
                 return;
             }
             try
             {
-                if (!Find.WorldGrid.InBounds(tile))
-                {
-                    RoadsOfTheRim.DebugLog("[RotR] - CalculatedMovementDifficultyAt Patch - Tile out of bounds");
-                    return;
-                }
-                Tile tile2 = Find.WorldGrid.tiles[tile];
-                List<Tile.RoadLink> roads = tile2.Roads;
-                if ((roads?.Count) <= 0)
+                Tile tile2 = Find.WorldGrid[tile];
+                if(tile2.Roads == null)
                 {
                     return;
                 }
                 RoadDef BestRoad = null;
-                for (var i = 0; i < roads.Count; i++)
+                foreach (var roadLink in tile2.Roads)
                 {
+                    var currentRoad = roadLink.road;
+                    if(currentRoad == null)
+                    {
+                        continue;
+                    }
                     if (BestRoad == null)
                     {
-                        BestRoad = roads[i].road;
+                        BestRoad = currentRoad;
+                        continue;
                     }
-                    else
+                    if (BestRoad.movementCostMultiplier < currentRoad.movementCostMultiplier)
                     {
-                        if (BestRoad.movementCostMultiplier < roads[i].road.movementCostMultiplier)
-                        {
-                            BestRoad = roads[i].road;
-                        }
+                        BestRoad = roadLink.road;
                     }
                 }
                 if (BestRoad == null)
@@ -297,15 +294,19 @@ namespace RoadsOfTheRim
                     return;
                 }
                 DefModExtension_RotR_RoadDef roadDefExtension = BestRoad.GetModExtension<DefModExtension_RotR_RoadDef>();
-                if (roadDefExtension != null && ((tile2.biome.impassable && roadDefExtension.biomeModifier > 0) || (tile2.hilliness == Hilliness.Impassable)))
+                if (roadDefExtension == null)
+                {
+                    return;
+                }
+                if ((tile2.biome.impassable && roadDefExtension.biomeModifier > 0) || tile2.hilliness == Hilliness.Impassable)
                 {
                     __result = 12f;
-                    //RoadsOfTheRim.DebugLog(String.Format("[RotR] - Impassable Tile {0} of biome {1} movement difficulty patched to 12", tile , tile2.biome.label));
+                    RoadsOfTheRim.DebugLog(String.Format("[RotR] - Impassable Tile {0} of biome {1} movement difficulty patched to 12", tile , tile2.biome.label));
                 }
             }
             catch (Exception e)
             {
-                RoadsOfTheRim.DebugLog("[RotR] - CalculatedMovementDifficultyAt Patch - Catastrophic failure", e);
+                RoadsOfTheRim.DebugLog($"[RotR] - CalculatedMovementDifficultyAt Patch - Catastrophic failure for tile {Find.WorldGrid[tile]}", e);
                 return;
             }
         }
