@@ -2,7 +2,7 @@
 <Defs>
   <GenStepDef>
     <defName>RotR_CleanBuiltRoads</defName>
-    <order>850</order>
+    <order>250</order>
     <genStep Class="RoadsOfTheRim.GenStep_CleanBuiltRoads" />
   </GenStepDef>
 </Defs>
