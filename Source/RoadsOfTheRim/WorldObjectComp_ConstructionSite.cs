@@ -440,8 +440,9 @@ namespace RoadsOfTheRim
                         ISR2Gmsg = ISR2G == 1 ? "RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree".Translate() : "RoadsOfTheRim_ConstructionSiteDescription_AISR2GFree".Translate();
                     }
                 }
+
                 stringBuilder.Append("RoadsOfTheRim_ConstructionSiteDescription_Resource".Translate(
-                    resourceName,
+                    GetNiceResourceName(resourceName),
                     string.Format(resourceName == "Work" ? "{0:##.00}" : "{0:##}", GetLeft(resourceName)), // Only Work should be shown with 2 decimals
                     GetCost(resourceName),
                     ISR2Gmsg
@@ -449,6 +450,16 @@ namespace RoadsOfTheRim
             }
 
             return stringBuilder.ToString();
+        }
+
+        private string GetNiceResourceName(string defName)
+        {
+            var defThing = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+            if(defThing == null || string.IsNullOrEmpty(defThing.label))
+            {
+                return defName;
+            }
+            return defThing.label;
         }
 
         public float PercentageDone()
