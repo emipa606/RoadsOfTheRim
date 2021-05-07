@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Roads of the Rim (Continued)</name>
   <packageId>Mlie.RoadsOfTheRim</packageId>
@@ -23,6 +23,8 @@
   <description>[img]https://i.imgur.com/WAEzk68.png[/img]
 Update of Loconekos mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
+
+- Can be added to save-games
 
 [img]https://i.imgur.com/7Gzt3Rg.png[/img]
 
@@ -192,5 +194,15 @@ Please make sure you have the latest version by verifying integrity as described
 
 It will save a lot of your time (and a little bit of mine ;-) )
 
-[url=https://ko-fi.com/F1F8Q45D][img]https://az743702.vo.msecnd.net/cdn/useruploads/png_KoFi_fe85fb88-0c0d-47dc-956b-84de7cd7bb34Ko-fi_Blue_post.jpg[/img][/url]</description>
+[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[/list]
+</description>
 </ModMetaData>
+
