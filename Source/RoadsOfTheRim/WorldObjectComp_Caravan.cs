@@ -1,114 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
 namespace RoadsOfTheRim
 {
-    public enum CaravanState : byte
-    {
-        Moving,
-        NightResting,
-        AllOwnersHaveMentalBreak,
-        AllOwnersDowned,
-        ImmobilizedByMass,
-        ReadyToWork
-    }
-
-    public static class PawnBuildingUtility
-    {
-        public static bool HealthyColonist(Pawn p)
-        {
-            return p.IsFreeColonist && p.health.State == PawnHealthState.Mobile;
-        }
-
-        public static bool HealthyPackAnimal(Pawn p)
-        {
-            return p.RaceProps.packAnimal && p.health.State == PawnHealthState.Mobile;
-        }
-
-        public static float ConstructionValue(Pawn p)
-        {
-            return p.GetStatValue(StatDefOf.ConstructionSpeed) * p.GetStatValue(StatDefOf.ConstructSuccessChance);
-        }
-
-        public static int ConstructionLevel(Pawn p)
-        {
-            return p.skills.GetSkill(SkillDefOf.Construction).levelInt;
-        }
-
-        public static string ShowConstructionValue(Pawn p)
-        {
-            if (HealthyColonist(p))
-            {
-                return string.Format("{0:0.##}", ConstructionValue(p));
-            }
-            if (HealthyPackAnimal(p))
-            {
-                return string.Format("+{0:0.##}", ConstructionValue(p));
-            }
-            return "-";
-        }
-
-        public static string ShowSkill(Pawn p)
-        {
-            if (HealthyColonist(p))
-            {
-                return string.Format("{0:0}", ConstructionLevel(p));
-            }
-            return "-";
-        }
-
-        public static string ShowBestRoad(Pawn p)
-        {
-            RoadDef BestRoadDef = null;
-            if (!HealthyColonist(p))
-            {
-                return "-";
-            }
-            foreach (RoadDef thisDef in DefDatabase<RoadDef>.AllDefs)
-            {
-                if (!thisDef.HasModExtension<DefModExtension_RotR_RoadDef>() || !thisDef.GetModExtension<DefModExtension_RotR_RoadDef>().built) // Only add RoadDefs that are buildable, based on DefModExtension_RotR_RoadDef.built
-                {
-                    continue;
-                }
-                DefModExtension_RotR_RoadDef RoadDefMod = thisDef.GetModExtension<DefModExtension_RotR_RoadDef>();
-                if (ConstructionLevel(p) < RoadDefMod.minConstruction)
-                {
-                    continue;
-                }
-                if (BestRoadDef != null && thisDef.movementCostMultiplier >= BestRoadDef.movementCostMultiplier)
-                {
-                    continue;
-                }
-                BestRoadDef = thisDef;
-            }
-            if (BestRoadDef == null)
-            {
-                return "-";
-            }
-            return BestRoadDef.label;
-        }
-    }
-
     public class WorldObjectComp_Caravan : WorldObjectComp
     {
-        public bool currentlyWorkingOnSite = false;
-
-        // workOnWakeUp must be more than just working when waking up, it must tell the caravan to work as long as the site is not finished
-        public bool workOnWakeUp = false;
+        public bool currentlyWorkingOnSite;
 
         private RoadConstructionSite site;
 
-        public Caravan GetCaravan()
+        // workOnWakeUp must be more than just working when waking up, it must tell the caravan to work as long as the site is not finished
+        private bool workOnWakeUp;
+
+        private Caravan GetCaravan()
         {
-            return (Caravan)parent;
+            return (Caravan) parent;
         }
 
-        public bool IsThereAConstructionSiteHere()
+        private bool IsThereAConstructionSiteHere()
         {
-            return Find.WorldObjects.AnyWorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true), GetCaravan().Tile);
+            return Find.WorldObjects.AnyWorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"),
+                GetCaravan().Tile);
         }
 
         public RoadConstructionSite GetSite()
@@ -116,44 +30,47 @@ namespace RoadsOfTheRim
             return site;
         }
 
-        public bool SetSiteFromTile()
+        private void SetSiteFromTile()
         {
             try
             {
-                site = (RoadConstructionSite)Find.WorldObjects.WorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true), GetCaravan().Tile);
-                return true;
+                site = (RoadConstructionSite) Find.WorldObjects.WorldObjectOfDefAt(
+                    DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"), GetCaravan().Tile);
             }
             catch (Exception e)
             {
                 RoadsOfTheRim.DebugLog("", e);
-                return false;
             }
         }
 
-        public void UnsetSite()
+        private void UnsetSite()
         {
             site = null;
         }
 
         public CaravanState CaravanCurrentState()
         {
-            Caravan caravan = GetCaravan();
+            var caravan = GetCaravan();
             if (caravan.pather.MovingNow)
             {
                 return CaravanState.Moving;
             }
+
             if (caravan.AllOwnersDowned)
             {
                 return CaravanState.AllOwnersDowned;
             }
+
             if (caravan.AllOwnersHaveMentalBreak)
             {
                 return CaravanState.AllOwnersHaveMentalBreak;
             }
+
             if (caravan.NightResting)
             {
                 return CaravanState.NightResting;
             }
+
             return CaravanState.ReadyToWork;
         }
 
@@ -164,18 +81,21 @@ namespace RoadsOfTheRim
             {
                 return;
             }
-            Caravan caravan = GetCaravan();
+
+            var caravan = GetCaravan();
             // Wake up the caravan if it's ready to work
             if (workOnWakeUp && CaravanCurrentState() == CaravanState.ReadyToWork)
             {
                 workOnWakeUp = false;
                 currentlyWorkingOnSite = true;
-                Messages.Message("RotR_CaravanWakesUp".Translate(caravan.Label, site.roadDef.label), MessageTypeDefOf.NeutralEvent);
+                Messages.Message("RotR_CaravanWakesUp".Translate(caravan.Label, site.roadDef.label),
+                    MessageTypeDefOf.NeutralEvent);
             }
 
             // Do some work & stop working if finished
             // Caravan is working AND there's a site here AND caravan can work AND the site is indeed the same the caravan was working on
-            if (currentlyWorkingOnSite & IsThereAConstructionSiteHere() & (CaravanCurrentState() == CaravanState.ReadyToWork) && (GetCaravan().Tile == GetSite().Tile))
+            if (currentlyWorkingOnSite & IsThereAConstructionSiteHere() &
+                (CaravanCurrentState() == CaravanState.ReadyToWork) && GetCaravan().Tile == GetSite().Tile)
             {
                 base.CompTick();
                 site.TryToSkipBetterRoads(caravan); // No need to work if there's a better road here
@@ -187,7 +107,7 @@ namespace RoadsOfTheRim
             }
 
             // Site tile and Caravan tile mismatch 
-            if (GetSite() != null && (GetCaravan().Tile != GetSite().Tile))
+            if (GetSite() != null && GetCaravan().Tile != GetSite().Tile)
             {
                 StopWorking();
                 UnsetSite();
@@ -204,22 +124,27 @@ namespace RoadsOfTheRim
                 {
                     stoppedReason = "RotR_EveryoneDown".Translate();
                 }
+
                 if (CaravanCurrentState() == CaravanState.AllOwnersHaveMentalBreak)
                 {
                     stoppedReason = "RotR_EveryoneCrazy".Translate();
                 }
+
                 // I decided to remove this (Issue #38) so code should never reach here
                 if (CaravanCurrentState() == CaravanState.ImmobilizedByMass)
                 {
                     stoppedReason = "RotR_TooHeavy".Translate();
                 }
+
                 if (CaravanCurrentState() == CaravanState.NightResting)
                 {
                     stoppedReason = "RotR_RestingAtNight".Translate();
                 }
+
                 if (stoppedReason != "")
                 {
-                    Messages.Message("RotR_CaravanStopped".Translate(caravan.Label, site.roadDef.label) + stoppedReason, MessageTypeDefOf.RejectInput);
+                    Messages.Message("RotR_CaravanStopped".Translate(caravan.Label, site.roadDef.label) + stoppedReason,
+                        MessageTypeDefOf.RejectInput);
                 }
 
                 // This should not happen ?
@@ -240,7 +165,7 @@ namespace RoadsOfTheRim
         {
             if (CaravanCurrentState() == CaravanState.ReadyToWork)
             {
-                Caravan caravan = GetCaravan();
+                var caravan = GetCaravan();
                 caravan.pather.StopDead();
                 SetSiteFromTile();
                 currentlyWorkingOnSite = true;
@@ -265,18 +190,22 @@ namespace RoadsOfTheRim
         */
         public float AmountOfWork(bool verbose = false)
         {
-            List<Pawn> pawns = GetCaravan().PawnsListForReading;
+            var pawns = GetCaravan().PawnsListForReading;
             DefModExtension_RotR_RoadDef roadDefModExtension = null;
             try
             {
                 roadDefModExtension = site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>();
             }
-            catch { /* Either there's no site, no roaddef, or no modextension. In any case, not much to do here */}
+            catch
+            {
+                /* Either there's no site, no roaddef, or no modextension. In any case, not much to do here */
+            }
+
             //site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>().minConstruction ;
             var totalConstruction = 0f;
             var totalConstructionAboveMinLevel = 0f;
             var animalConstruction = 0f;
-            foreach (Pawn pawn in pawns)
+            foreach (var pawn in pawns)
             {
                 /*
                 if (pawn.IsFreeColonist && pawn.health.State == PawnHealthState.Mobile)
@@ -299,12 +228,15 @@ namespace RoadsOfTheRim
                 {
                     totalConstruction += PawnConstructionValue;
 
-                    if (roadDefModExtension != null && PawnBuildingUtility.ConstructionLevel(pawn) >= roadDefModExtension.minConstruction)
+                    if (roadDefModExtension != null && PawnBuildingUtility.ConstructionLevel(pawn) >=
+                        roadDefModExtension.minConstruction)
                     {
                         totalConstructionAboveMinLevel += PawnConstructionValue;
                     }
+
                     continue;
                 }
+
                 if (PawnBuildingUtility.HealthyPackAnimal(pawn))
                 {
                     animalConstruction += PawnConstructionValue;
@@ -317,11 +249,15 @@ namespace RoadsOfTheRim
                 if (ratioOfConstructionAboveMinLevel < roadDefModExtension.percentageOfminConstruction)
                 {
                     // Check minimum construction level requirements if needed
-                    var ratioActuallyWorked = ratioOfConstructionAboveMinLevel / roadDefModExtension.percentageOfminConstruction;
+                    var ratioActuallyWorked = ratioOfConstructionAboveMinLevel /
+                                              roadDefModExtension.percentageOfminConstruction;
                     totalConstruction *= ratioActuallyWorked;
                     if (verbose)
                     {
-                        Messages.Message("RoadsOfTheRim_InsufficientConstructionMinLevel".Translate(totalConstruction, roadDefModExtension.percentageOfminConstruction.ToString("P0"), roadDefModExtension.minConstruction), MessageTypeDefOf.NegativeEvent);
+                        Messages.Message(
+                            "RoadsOfTheRim_InsufficientConstructionMinLevel".Translate(totalConstruction,
+                                roadDefModExtension.percentageOfminConstruction.ToString("P0"),
+                                roadDefModExtension.minConstruction), MessageTypeDefOf.NegativeEvent);
                     }
                 }
             }
@@ -331,6 +267,7 @@ namespace RoadsOfTheRim
             {
                 animalConstruction = totalConstruction;
             }
+
             totalConstruction += animalConstruction;
             return totalConstruction;
         }
@@ -338,40 +275,47 @@ namespace RoadsOfTheRim
         public void TeachPawns(float ratio) // The pawns learn a little construction
         {
             ratio = Math.Max(Math.Min(1, ratio), 0);
-            List<Pawn> pawns = GetCaravan().PawnsListForReading;
+            var pawns = GetCaravan().PawnsListForReading;
             //RoadsOfTheRim.DebugLog("Teaching Construction to pawns");
-            foreach (Pawn pawn in pawns)
+            foreach (var pawn in pawns)
             {
                 if (!pawn.IsFreeColonist || pawn.health.State != PawnHealthState.Mobile || pawn.RaceProps.packAnimal)
                 {
                     continue;
                     //RoadsOfTheRim.DebugLog(pawn.Name+" learned " + ratio + " Xp = "+pawn.skills.GetSkill(SkillDefOf.Construction).XpTotalEarned);
                 }
-                pawn.skills.Learn(SkillDefOf.Construction, 3f * ratio, false);
+
+                pawn.skills.Learn(SkillDefOf.Construction, 3f * ratio);
             }
         }
 
         public int UseISR2G()
         {
             var result = 0;
-            RoadsOfTheRimSettings settings = LoadedModManager.GetMod<RoadsOfTheRim>().GetSettings<RoadsOfTheRimSettings>();
+            var settings = LoadedModManager.GetMod<RoadsOfTheRim>().GetSettings<RoadsOfTheRimSettings>();
             // Setting the caravan to use ISR2G or AISR2G if present and settings allow it
             // TO DO : I can do better than hardcode
-            if (settings.useISR2G)
+            if (!settings.useISR2G)
             {
-                foreach (Thing aThing in CaravanInventoryUtility.AllInventoryItems(GetCaravan()))
-                {
-                    if (result < 1 && aThing.GetInnerIfMinified().def.defName == "RotR_ISR2GNew")
-                    {
-                        result = 1;
-                    }
-                    if (result < 2 && aThing.GetInnerIfMinified().def.defName == "RotR_AISR2GNew")
-                    {
-                        result = 2;
-                        return result;
-                    }
-                }
+                return result;
             }
+
+            foreach (var aThing in CaravanInventoryUtility.AllInventoryItems(GetCaravan()))
+            {
+                if (result < 1 && aThing.GetInnerIfMinified().def.defName == "RotR_ISR2GNew")
+                {
+                    result = 1;
+                }
+
+                if (aThing.GetInnerIfMinified().def.defName != "RotR_AISR2GNew")
+                {
+                    continue;
+                }
+
+                result = 2;
+                return result;
+            }
+
             return result;
         }
 
@@ -384,12 +328,12 @@ namespace RoadsOfTheRim
         }
 
         // I had to take into account the old defs of ISR2G that used to be buildings, and replace them with new ISR2G defs that are craftable items
-        public void OldDefsCleanup()
+        private void OldDefsCleanup()
         {
             var newISRG2 = 0;
             var newAISRG2 = 0;
-            Caravan caravan = GetCaravan();
-            foreach (Thing aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
+            var caravan = GetCaravan();
+            foreach (var aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
             {
                 switch (aThing.GetInnerIfMinified().def.defName)
                 {
@@ -403,17 +347,19 @@ namespace RoadsOfTheRim
                         break;
                 }
             }
+
             for (var i = newISRG2; i > 0; i--)
             {
-                Thing newThing = ThingMaker.MakeThing(ThingDef.Named("RotR_ISR2GNew"));
+                var newThing = ThingMaker.MakeThing(ThingDef.Named("RotR_ISR2GNew"));
                 CaravanInventoryUtility.GiveThing(caravan, newThing);
-                RoadsOfTheRim.DebugLog("Replacing an ISR2G in caravan " + caravan.ToString());
+                RoadsOfTheRim.DebugLog("Replacing an ISR2G in caravan " + caravan);
             }
+
             for (var j = newAISRG2; j > 0; j--)
             {
-                Thing newThing = ThingMaker.MakeThing(ThingDef.Named("RotR_AISR2GNew"));
+                var newThing = ThingMaker.MakeThing(ThingDef.Named("RotR_AISR2GNew"));
                 CaravanInventoryUtility.GiveThing(caravan, newThing);
-                RoadsOfTheRim.DebugLog("Replacing an AISR2G in caravan " + caravan.ToString());
+                RoadsOfTheRim.DebugLog("Replacing an AISR2G in caravan " + caravan);
             }
         }
     }

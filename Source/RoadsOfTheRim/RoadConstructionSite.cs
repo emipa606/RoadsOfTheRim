@@ -1,6 +1,7 @@
-﻿using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -8,28 +9,13 @@ using Verse;
 
 namespace RoadsOfTheRim
 {
-    public class SettlementInfo // Convenience class to store Settlements and their distance to the Site
-    {
-        public Settlement settlement;
-
-        public int distance;
-
-        public SettlementInfo(Settlement s, int d)
-        {
-            settlement = s;
-            distance = d;
-        }
-    }
-
     public class RoadConstructionSite : WorldObject
     {
-        public RoadDef roadDef; // TO DO as part of the phasing out of road buildable
+        private static readonly int maxTicksToNeighbour = 2 * GenDate.TicksPerDay; // 2 days
 
-        public static int maxTicksToNeighbour = 2 * GenDate.TicksPerDay; // 2 days
+        private static readonly int maxNeighbourDistance = 100; // search 100 tiles away
 
-        public static int maxNeighbourDistance = 100; // search 100 tiles away
-
-        public static int MaxSettlementsInDescription = 5;
+        private static readonly int MaxSettlementsInDescription = 5;
 
         private static readonly Color ColorTransparent = new Color(0.0f, 0.0f, 0.0f, 0f);
 
@@ -37,13 +23,7 @@ namespace RoadsOfTheRim
 
         private static readonly Color ColorUnfilled = new Color(0.3f, 0.3f, 0.3f, 1f);
 
-        private Material ProgressBarMaterial;
-
-        public List<SettlementInfo> listOfSettlements;
-
-        public string NeighbouringSettlementsDescription;
-
-        public WorldObject LastLeg;
+        public float helpAmount; // How much will the faction help
 
         /*
         Factions help
@@ -57,62 +37,80 @@ namespace RoadsOfTheRim
 
         public int helpFromTick; // From when will the faction help
 
-        public float helpAmount; // How much will the faction help
-
         public float helpWorkPerTick; // How much will the faction help per tick
+
+        public WorldObject LastLeg;
+
+        private List<SettlementInfo> listOfSettlements;
+
+        private string NeighbouringSettlementsDescription;
+
+        private Material ProgressBarMaterial;
+        public RoadDef roadDef; // TO DO as part of the phasing out of road buildable
 
         public static void DeleteSite(RoadConstructionSite site)
         {
-            IEnumerable<WorldObject> constructionLegs = Find.WorldObjects.AllWorldObjects.Cast<WorldObject>().Where(
-                leg => leg.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg", true) &&
-                ((RoadConstructionLeg)leg).GetSite() == site
+            IEnumerable<WorldObject> constructionLegs = Find.WorldObjects.AllWorldObjects.Where(
+                leg => leg.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg") &&
+                       ((RoadConstructionLeg) leg).GetSite() == site
             ).ToArray();
-            foreach (RoadConstructionLeg l in constructionLegs)
+            foreach (var o in constructionLegs)
             {
+                var l = (RoadConstructionLeg) o;
                 Find.WorldObjects.Remove(l);
             }
+
             Find.WorldObjects.Remove(site);
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
-            foreach (Gizmo g in base.GetGizmos())
+            foreach (var g in base.GetGizmos())
             {
                 yield return g;
                 g.disabledReason = null;
             }
+
             // Ability to remove the construction site without needing to go there with a Caravan.
             yield return RoadsOfTheRim.RemoveConstructionSite(Tile);
-            yield break;
         }
 
-        public void InitListOfSettlements()
+        private void InitListOfSettlements()
         {
             if (listOfSettlements != null)
             {
                 return;
             }
+
             listOfSettlements = NeighbouringSettlements();
         }
 
-        public void PopulateDescription()
+        private void PopulateDescription()
         {
             InitListOfSettlements();
             var s = new List<string>();
-            if ((listOfSettlements != null) && (listOfSettlements.Count > 0))
+            if (listOfSettlements != null && listOfSettlements.Count > 0)
             {
-                foreach (SettlementInfo si in listOfSettlements.Take(MaxSettlementsInDescription))
+                foreach (var si in listOfSettlements.Take(MaxSettlementsInDescription))
                 {
-                    s.Add("RoadsOfTheRim_siteDescription".Translate(si.settlement.Name, string.Format("{0:0.00}", si.distance / (float)GenDate.TicksPerDay)));
+                    s.Add("RoadsOfTheRim_siteDescription".Translate(si.settlement.Name,
+                        $"{si.distance / (float) GenDate.TicksPerDay:0.00}"));
                 }
             }
+
             NeighbouringSettlementsDescription = string.Join(", ", s.ToArray());
             RoadsOfTheRim.DebugLog(NeighbouringSettlementsDescription);
-            if (listOfSettlements.Count <= MaxSettlementsInDescription)
+            if (listOfSettlements != null && listOfSettlements.Count <= MaxSettlementsInDescription)
             {
                 return;
             }
-            NeighbouringSettlementsDescription += "RoadsOfTheRim_siteDescriptionExtra".Translate(listOfSettlements.Count - MaxSettlementsInDescription);
+
+            if (listOfSettlements != null)
+            {
+                NeighbouringSettlementsDescription +=
+                    "RoadsOfTheRim_siteDescriptionExtra".Translate(
+                        listOfSettlements.Count - MaxSettlementsInDescription);
+            }
         }
 
         public string FullName()
@@ -122,42 +120,47 @@ namespace RoadsOfTheRim
             {
                 PopulateDescription();
             }
+
             var result = new StringBuilder();
             result.Append("RoadsOfTheRim_siteFullName".Translate(roadDef.label));
             if (NeighbouringSettlementsDescription.Length > 0)
             {
                 result.Append("RoadsOfTheRim_siteFullNameNeighbours".Translate(NeighbouringSettlementsDescription));
             }
+
             return result.ToString();
         }
 
-        public List<SettlementInfo> NeighbouringSettlements()
+        private List<SettlementInfo> NeighbouringSettlements()
         {
             if (Tile == -1)
             {
                 return null;
             }
+
             var result = new List<SettlementInfo>();
-            var tileSearched = new List<int>();
             SearchForSettlements(Tile, ref result);
             return result.OrderBy(si => si.distance).ToList();
         }
 
-        public void SearchForSettlements(int startTile, ref List<SettlementInfo> settlementsSearched)
+        private void SearchForSettlements(int startTile, ref List<SettlementInfo> settlementsSearched)
         {
-            var timer = System.Diagnostics.Stopwatch.StartNew();
-            WorldGrid worldGrid = Find.WorldGrid;
-            foreach (Settlement s in Find.WorldObjects.Settlements)
+            var timer = Stopwatch.StartNew();
+            var worldGrid = Find.WorldGrid;
+            foreach (var s in Find.WorldObjects.Settlements)
             {
-                if (worldGrid.ApproxDistanceInTiles(startTile, s.Tile) <= maxNeighbourDistance)
+                if (!(worldGrid.ApproxDistanceInTiles(startTile, s.Tile) <= maxNeighbourDistance))
                 {
-                    var distance = CaravanArrivalTimeEstimator.EstimatedTicksToArrive(startTile, s.Tile, null);
-                    if (distance <= maxTicksToNeighbour)
-                    {
-                        settlementsSearched.Add(new SettlementInfo(s, distance));
-                    }
+                    continue;
+                }
+
+                var distance = CaravanArrivalTimeEstimator.EstimatedTicksToArrive(startTile, s.Tile, null);
+                if (distance <= maxTicksToNeighbour)
+                {
+                    settlementsSearched.Add(new SettlementInfo(s, distance));
                 }
             }
+
             timer.Stop();
             RoadsOfTheRim.DebugLog("Time spent searching for settlements : " + timer.ElapsedMilliseconds + "ms");
         }
@@ -167,21 +170,29 @@ namespace RoadsOfTheRim
             InitListOfSettlements();
             var travelTicks = maxTicksToNeighbour;
             SettlementInfo closestSettlement = null;
-            if (listOfSettlements != null)
+            if (listOfSettlements == null)
             {
-                foreach (SettlementInfo si in listOfSettlements)
-                {
-                    if (si.settlement.Faction == faction)
-                    {
-                        var travelTicksFromHere = CaravanArrivalTimeEstimator.EstimatedTicksToArrive(si.settlement.Tile, Tile, null);
-                        if (travelTicksFromHere < travelTicks)
-                        {
-                            closestSettlement = si;
-                            travelTicks = travelTicksFromHere;
-                        }
-                    }
-                }
+                return null;
             }
+
+            foreach (var si in listOfSettlements)
+            {
+                if (si.settlement.Faction != faction)
+                {
+                    continue;
+                }
+
+                var travelTicksFromHere =
+                    CaravanArrivalTimeEstimator.EstimatedTicksToArrive(si.settlement.Tile, Tile, null);
+                if (travelTicksFromHere >= travelTicks)
+                {
+                    continue;
+                }
+
+                closestSettlement = si;
+                travelTicks = travelTicksFromHere;
+            }
+
             return closestSettlement;
         }
 
@@ -200,34 +211,41 @@ namespace RoadsOfTheRim
             {
                 return null;
             }
-            var CurrentLeg = (RoadConstructionLeg)LastLeg;
+
+            var CurrentLeg = (RoadConstructionLeg) LastLeg;
             while (CurrentLeg.Previous != null)
             {
                 CurrentLeg = CurrentLeg.Previous;
             }
+
             return CurrentLeg;
         }
 
         public void MoveWorkersToNextLeg(int fromTile)
         {
-            RoadConstructionLeg nextLeg = GetNextLeg();
+            var nextLeg = GetNextLeg();
             if (nextLeg == null)
             {
                 return;
             }
+
             var CaravansWorkingHere = new List<Caravan>();
             Find.WorldObjects.GetPlayerControlledCaravansAt(fromTile, CaravansWorkingHere);
-            foreach (Caravan c in CaravansWorkingHere) // Move to the nextLeg all caravans that are currently set to work on this site
+            foreach (var c in CaravansWorkingHere
+            ) // Move to the nextLeg all caravans that are currently set to work on this site
             {
                 if (c.GetComponent<WorldObjectComp_Caravan>().GetSite() == this)
                 {
                     c.pather.StartPath(Tile, new CaravanArrivalAction_StartWorkingOnRoad());
                 }
             }
-            if (helpFromFaction == null) // Delay when the help starts on the next leg by as many ticks as it would take a caravan to travel from the site to the next leg
+
+            if (helpFromFaction == null
+            ) // Delay when the help starts on the next leg by as many ticks as it would take a caravan to travel from the site to the next leg
             {
                 return;
             }
+
             var delay = CaravanArrivalTimeEstimator.EstimatedTicksToArrive(fromTile, Tile, null);
             if (helpFromTick > Find.TickManager.TicksGame)
             {
@@ -238,33 +256,42 @@ namespace RoadsOfTheRim
                 helpFromTick = Find.TickManager.TicksGame + delay;
             }
         }
+
         public void TryToSkipBetterRoads(Caravan caravan = null)
         {
-            RoadConstructionLeg nextLeg = GetNextLeg();
+            var nextLeg = GetNextLeg();
             if (nextLeg == null) // nextLeg == null should never happen
             {
                 return;
             }
-            RoadDef bestExistingRoad = RoadsOfTheRim.BestExistingRoad(Tile, nextLeg.Tile);
+
+            var bestExistingRoad = RoadsOfTheRim.BestExistingRoad(Tile, nextLeg.Tile);
             // We've found an existing road that is better than the one we intend to build : skip this leg and move to the next
             if (RoadsOfTheRim.IsRoadBetter(roadDef, bestExistingRoad))
             {
                 return;
             }
-            Messages.Message("RoadsOfTheRim_BetterRoadFound".Translate(caravan.Name, bestExistingRoad.label, roadDef.label), MessageTypeDefOf.NeutralEvent);
-            var currentTile = Tile;
-            Tile = nextLeg.Tile; // The construction site moves to the next leg
-            RoadConstructionLeg nextNextLeg = nextLeg.Next;
-            if (nextNextLeg != null)
+
+            if (caravan != null)
             {
-                nextNextLeg.Previous = null; // The nextNext leg is now the next
-                GetComponent<WorldObjectComp_ConstructionSite>().SetCosts();
-                MoveWorkersToNextLeg(currentTile);
+                Messages.Message(
+                    "RoadsOfTheRim_BetterRoadFound".Translate(caravan.Name, bestExistingRoad.label, roadDef.label),
+                    MessageTypeDefOf.NeutralEvent);
+                var currentTile = Tile;
+                Tile = nextLeg.Tile; // The construction site moves to the next leg
+                var nextNextLeg = nextLeg.Next;
+                if (nextNextLeg != null)
+                {
+                    nextNextLeg.Previous = null; // The nextNext leg is now the next
+                    GetComponent<WorldObjectComp_ConstructionSite>().SetCosts();
+                    MoveWorkersToNextLeg(currentTile);
+                }
+                else // Finish construction
+                {
+                    GetComponent<WorldObjectComp_ConstructionSite>().EndConstruction(caravan);
+                }
             }
-            else // Finish construction
-            {
-                GetComponent<WorldObjectComp_ConstructionSite>().EndConstruction(caravan);
-            }
+
             Find.World.worldObjects.Remove(nextLeg);
         }
 
@@ -287,7 +314,9 @@ namespace RoadsOfTheRim
             {
                 stringBuilder.AppendLine();
             }
-            stringBuilder.Append("RoadsOfTheRim_siteInspectString".Translate(roadDef.label, string.Format("{0:0.0}", roadDef.movementCostMultiplier)));
+
+            stringBuilder.Append("RoadsOfTheRim_siteInspectString".Translate(roadDef.label,
+                $"{roadDef.movementCostMultiplier:0.0}"));
             stringBuilder.AppendLine();
             stringBuilder.Append(GetComponent<WorldObjectComp_ConstructionSite>().ProgressDescription());
             return stringBuilder.ToString();
@@ -317,14 +346,7 @@ namespace RoadsOfTheRim
                 {
                     if (x >= 80)
                     {
-                        if (y < (int)(100 * percentageDone))
-                        {
-                            texture.SetPixel(x, y, ColorFilled);
-                        }
-                        else
-                        {
-                            texture.SetPixel(x, y, ColorUnfilled);
-                        }
+                        texture.SetPixel(x, y, y < (int) (100 * percentageDone) ? ColorFilled : ColorUnfilled);
                     }
                     else
                     {
@@ -332,6 +354,7 @@ namespace RoadsOfTheRim
                     }
                 }
             }
+
             texture.Apply();
         }
 
@@ -340,19 +363,23 @@ namespace RoadsOfTheRim
          */
         public override void Draw()
         {
-            if (RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting == this && roadDef != null) // Do not draw the site if it's not yet finalised or if we don't know the type of road to build yet
+            if (RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting == this && roadDef != null
+            ) // Do not draw the site if it's not yet finalised or if we don't know the type of road to build yet
             {
                 return;
             }
+
             base.Draw();
-            WorldGrid worldGrid = Find.WorldGrid;
-            Vector3 fromPos = worldGrid.GetTileCenter(Tile);
+            var worldGrid = Find.WorldGrid;
+            var fromPos = worldGrid.GetTileCenter(Tile);
             _ = GetComponent<WorldObjectComp_ConstructionSite>().PercentageDone();
             if (!ProgressBarMaterial)
             {
                 UpdateProgressBarMaterial();
             }
-            WorldRendererUtility.DrawQuadTangentialToPlanet(fromPos, Find.WorldGrid.averageTileSize * .8f, 0.15f, ProgressBarMaterial);
+
+            WorldRendererUtility.DrawQuadTangentialToPlanet(fromPos, Find.WorldGrid.averageTileSize * .8f, 0.15f,
+                ProgressBarMaterial);
         }
 
         public void InitiateFactionHelp(Faction faction, int tick, float amount, float amountPerTick)
@@ -363,11 +390,11 @@ namespace RoadsOfTheRim
             helpWorkPerTick = amountPerTick;
             Find.LetterStack.ReceiveLetter(
                 "RoadsOfTheRim_FactionStartsHelping".Translate(),
-                "RoadsOfTheRim_FactionStartsHelpingText".Translate(helpFromFaction.Name, FullName(), string.Format("{0:0.00}", (tick - Find.TickManager.TicksGame) / (float)GenDate.TicksPerDay)),
+                "RoadsOfTheRim_FactionStartsHelpingText".Translate(helpFromFaction.Name, FullName(),
+                    $"{(tick - Find.TickManager.TicksGame) / (float) GenDate.TicksPerDay:0.00}"),
                 LetterDefOf.PositiveEvent,
                 new GlobalTargetInfo(this)
             );
-
         }
 
         public float FactionHelp()
@@ -377,6 +404,7 @@ namespace RoadsOfTheRim
             {
                 return amountOfHelp;
             }
+
             if (helpFromFaction.PlayerRelationKind == FactionRelationKind.Ally)
             {
                 // amountOfHelp is capped at the total amount of help provided (which is site.helpAmount)
@@ -387,6 +415,7 @@ namespace RoadsOfTheRim
                     //Log.Message(String.Format("[RotR] - faction {0} helps with {1:0.00} work", helpFromFaction.Name, amountOfHelp));
                     EndFactionHelp();
                 }
+
                 helpAmount -= amountOfHelp;
             }
             // Cancel help if the faction is not an ally any more
@@ -400,10 +429,11 @@ namespace RoadsOfTheRim
                 );
                 EndFactionHelp();
             }
+
             return amountOfHelp;
         }
 
-        public void EndFactionHelp()
+        private void EndFactionHelp()
         {
             RoadsOfTheRim.FactionsHelp.HelpFinished(helpFromFaction);
             helpFromFaction = null;
@@ -422,5 +452,4 @@ namespace RoadsOfTheRim
     - Applies the effects of work done by a caravan
     - Creates the road once work is done
      */
-
 }

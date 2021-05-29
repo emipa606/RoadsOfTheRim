@@ -6,6 +6,7 @@ Update of Loconekos mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
 
 - Can be added to save-games
+- Russian translation added, thanks Festival!
 
 ![Image](https://i.imgur.com/7Gzt3Rg.png)
 
@@ -200,6 +201,7 @@ It will save a lot of your time (and a little bit of mine ;-) )
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
 
 
 

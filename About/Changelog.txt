@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.0.6.0 - Restructured the settings menu to make it less confusing
+
+
 1.0.5.0 - Russian translation added, thanks Festival!
 
 

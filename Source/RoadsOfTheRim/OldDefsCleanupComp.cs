@@ -19,15 +19,17 @@ namespace RoadsOfTheRim
                     level = 2;
                     break;
             }
+
             if (level <= 0)
             {
                 return;
             }
+
             var newThingDefName = level == 1 ? "RotR_ISR2GNew" : "RotR_AISR2GNew";
-            Thing newThing = ThingMaker.MakeThing(ThingDef.Named(newThingDefName));
-            IntVec3 position = oldISR2G.Position;
-            Map map = oldISR2G.MapHeld;
-            RoadsOfTheRim.DebugLog("Replacing a ISR2G level " + level + " at position " + position.ToString());
+            var newThing = ThingMaker.MakeThing(ThingDef.Named(newThingDefName));
+            var position = oldISR2G.Position;
+            var map = oldISR2G.MapHeld;
+            RoadsOfTheRim.DebugLog("Replacing a ISR2G level " + level + " at position " + position);
             oldISR2G.Destroy();
             GenPlace.TryPlaceThing(newThing, position, map, ThingPlaceMode.Near);
         }

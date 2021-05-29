@@ -1,55 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
-using Verse;
 using RimWorld.Planet;
-using Verse.Sound;
 using UnityEngine;
-using System;
+using Verse;
+using Verse.Sound;
 
 namespace RoadsOfTheRim
 {
-    [StaticConstructorOnStartup]
-    static class RotR_StaticConstructorOnStartup
-    {
-        public static readonly Texture2D ConstructionLeg_MouseAttachment = ContentFinder<Texture2D>.Get("UI/Overlays/ConstructionLeg", true);
-
-        public static Material ConstructionLegLast_Material = MaterialPool.MatFrom("World/WorldObjects/ConstructionLegLast", ShaderDatabase.WorldOverlayTransparentLit, WorldMaterials.DynamicObjectRenderQueue);
-    }
-
-    public class RoadsOfTheRimSettings : ModSettings
-    {
-        // Constants
-        public const int MinBaseEffort = 1;
-        public const int DefaultBaseEffort = 10;
-        public const int MaxBaseEffort = 10;
-        public const float ElevationCostDouble = 2000f;
-        public const float HillinessCostDouble = 4f;
-        public const float SwampinessCostDouble = 0.5f;
-        public int BaseEffort = DefaultBaseEffort;
-        public bool OverrideCosts = true;
-        public float CostIncreaseElevationThreshold = 1000f;
-        public int CostUpgradeRebate = 30;
-        public bool useISR2G = true;
-
-        public override void ExposeData()
-        {
-            base.ExposeData();
-            // Costs are always 100% when using ISR2G
-            if (useISR2G) { BaseEffort = MaxBaseEffort; }
-            Scribe_Values.Look(ref BaseEffort, "BaseEffort", DefaultBaseEffort, true);
-            Scribe_Values.Look(ref OverrideCosts, "OverrideCosts", true, true);
-            Scribe_Values.Look(ref CostIncreaseElevationThreshold, "CostIncreaseElevationThreshold", 1000f, true);
-            Scribe_Values.Look(ref CostUpgradeRebate, "CostUpgradeRebate", 30, true);
-            Scribe_Values.Look(ref useISR2G, "useISR2G", true, true);
-        }
-    }
-
     public class RoadsOfTheRim : Mod
     {
         public static RoadsOfTheRimSettings settings;
 
-        public static List<TerrainDef> builtRoadTerrains = new List<TerrainDef>();
+        public static readonly List<TerrainDef> builtRoadTerrains = new List<TerrainDef>();
 
         public RoadsOfTheRim(ModContentPack content) : base(content)
         {
@@ -65,10 +29,12 @@ namespace RoadsOfTheRim
         {
             get
             {
-                if (Find.World.GetComponent(typeof(WorldComponent_FactionRoadConstructionHelp)) is WorldComponent_FactionRoadConstructionHelp f)
+                if (Find.World.GetComponent(typeof(WorldComponent_FactionRoadConstructionHelp)) is
+                    WorldComponent_FactionRoadConstructionHelp f)
                 {
                     return f;
                 }
+
                 Log.Warning("[RotR] - ERROR, couldn't find WorldComponent_FactionRoadConstructionHelp");
                 return null;
             }
@@ -78,10 +44,12 @@ namespace RoadsOfTheRim
         {
             get
             {
-                if (Find.World.GetComponent(typeof(WorldComponent_RoadBuildingState)) is WorldComponent_RoadBuildingState f)
+                if (Find.World.GetComponent(typeof(WorldComponent_RoadBuildingState)) is
+                    WorldComponent_RoadBuildingState f)
                 {
                     return f;
                 }
+
                 Log.Message("[RotR] - ERROR, couldn't find WorldComponent_RoadBuildingState");
                 return null;
             }
@@ -105,7 +73,8 @@ namespace RoadsOfTheRim
 #endif
         }
 
-        public static float CalculateRoadModifier(RoadDef roadDef, float BiomeMovementDifficulty, float HillinessOffset, float WinterOffset, out float BiomeModifier, out float HillModifier, out float WinterModifier)
+        public static float CalculateRoadModifier(RoadDef roadDef, float BiomeMovementDifficulty, float HillinessOffset,
+            float WinterOffset, out float BiomeModifier, out float HillModifier, out float WinterModifier)
         {
             BiomeModifier = 0f;
             HillModifier = 0f;
@@ -116,9 +85,11 @@ namespace RoadsOfTheRim
                 HillModifier = roadDef.GetModExtension<DefModExtension_RotR_RoadDef>().hillinessModifier;
                 WinterModifier = roadDef.GetModExtension<DefModExtension_RotR_RoadDef>().winterModifier;
             }
+
             var BiomeCoef = (1 + ((BiomeMovementDifficulty - 1) * (1 - BiomeModifier))) / BiomeMovementDifficulty;
             //RoadsOfTheRim.DebugLog("calculateRoadModifier: BiomeCoef=" +BiomeCoef+ ", BiomeMovementDifficulty="+ BiomeMovementDifficulty+ ", HillModifier"+ HillModifier+ ", HillinessOffset="+ HillinessOffset+ ", WinterModifier="+ WinterModifier+ ", WinterOffset="+ WinterOffset);
-            return ((BiomeCoef * BiomeMovementDifficulty) + ((1 - HillModifier) * HillinessOffset) + ((1 - WinterModifier) * WinterOffset)) / (BiomeMovementDifficulty + HillinessOffset + WinterOffset);
+            return ((BiomeCoef * BiomeMovementDifficulty) + ((1 - HillModifier) * HillinessOffset) +
+                    ((1 - WinterModifier) * WinterOffset)) / (BiomeMovementDifficulty + HillinessOffset + WinterOffset);
         }
 
 
@@ -133,8 +104,8 @@ namespace RoadsOfTheRim
         */
         public static bool DoSomeWork(Caravan caravan, RoadConstructionSite site, out bool noMoreResources)
         {
-            WorldObjectComp_Caravan caravanComp = caravan.GetComponent<WorldObjectComp_Caravan>();
-            WorldObjectComp_ConstructionSite siteComp = site.GetComponent<WorldObjectComp_ConstructionSite>();
+            var caravanComp = caravan.GetComponent<WorldObjectComp_Caravan>();
+            var siteComp = site.GetComponent<WorldObjectComp_ConstructionSite>();
             _ = site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>();
             noMoreResources = false;
             var useISR2G = caravanComp.UseISR2G();
@@ -162,7 +133,8 @@ namespace RoadsOfTheRim
             // Work was 0 (not enough skill)
             if (Math.Abs(amountOfWork) < double.Epsilon)
             {
-                Messages.Message("RoadsOfTheRim_CaravanNoWork".Translate(caravan.Name, site.roadDef.label), MessageTypeDefOf.RejectInput);
+                Messages.Message("RoadsOfTheRim_CaravanNoWork".Translate(caravan.Name, site.roadDef.label),
+                    MessageTypeDefOf.RejectInput);
                 caravanComp.StopWorking();
                 return false;
             }
@@ -173,7 +145,7 @@ namespace RoadsOfTheRim
                 available[resourceName] = 0;
             }
 
-            foreach (Thing aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
+            foreach (var aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
             {
                 foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources)
                 {
@@ -191,34 +163,42 @@ namespace RoadsOfTheRim
             // Materials that would be needed to do that much work
             foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources)
             {
-                needed[resourceName] = (int)Math.Round(siteComp.GetLeft(resourceName) - (percentOfWorkLeftToDoAfter * siteComp.GetCost(resourceName)));
+                needed[resourceName] = (int) Math.Round(siteComp.GetLeft(resourceName) -
+                                                        (percentOfWorkLeftToDoAfter * siteComp.GetCost(resourceName)));
                 // Check if there's enough material to go through this batch. Materials with a cost of 0 are always OK
                 // Don't check when ISR2G is in use for this resource, don't check for work
-                if (!DefModExtension_RotR_RoadDef.GetInSituModifier(resourceName, useISR2G) && resourceName != "Work")
+                if (DefModExtension_RotR_RoadDef.GetInSituModifier(resourceName, useISR2G) || resourceName == "Work")
                 {
-                    ratio[resourceName] = needed[resourceName] == 0 ? 1f : Math.Min(available[resourceName] / (float)needed[resourceName], 1f);
-                    if (ratio[resourceName] < ratio_final)
-                    {
-                        ratio_final = ratio[resourceName];
-                    }
+                    continue;
+                }
+
+                ratio[resourceName] = needed[resourceName] == 0
+                    ? 1f
+                    : Math.Min(available[resourceName] / (float) needed[resourceName], 1f);
+                if (ratio[resourceName] < ratio_final)
+                {
+                    ratio_final = ratio[resourceName];
                 }
             }
 
             // The caravan didn't have enough resources for a full batch of work. Use as much as we can then stop working
             if (ratio_final < 1f)
             {
-                Messages.Message("RoadsOfTheRim_CaravanNoResource".Translate(caravan.Name, site.roadDef.label), MessageTypeDefOf.RejectInput);
+                Messages.Message("RoadsOfTheRim_CaravanNoResource".Translate(caravan.Name, site.roadDef.label),
+                    MessageTypeDefOf.RejectInput);
                 foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources)
                 {
-                    needed[resourceName] = (int)(needed[resourceName] * ratio_final);
+                    needed[resourceName] = (int) (needed[resourceName] * ratio_final);
                 }
+
                 caravanComp.StopWorking();
             }
             //RoadsOfTheRim.DebugLog("[RotR] ISR2G DEBUG ratio final = " + ratio_final);
 
             // Consume resources from the caravan 
-            _ = site.roadDef.defName == "DirtPathBuilt"; // Always consider resources have been consumed when the road is a dirt path
-            foreach (Thing aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
+            _ = site.roadDef.defName ==
+                "DirtPathBuilt"; // Always consider resources have been consumed when the road is a dirt path
+            foreach (var aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
             {
                 foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources)
                 {
@@ -229,7 +209,10 @@ namespace RoadsOfTheRim
                             continue;
                             //RoadsOfTheRim.DebugLog("[RotR] ISR2G consumption DEBUG =" + resourceName + " Qty consumed = " + amountUsed);
                         }
-                        var amountUsed = (aThing.stackCount > needed[resourceName]) ? needed[resourceName] : aThing.stackCount;
+
+                        var amountUsed = aThing.stackCount > needed[resourceName]
+                            ? needed[resourceName]
+                            : aThing.stackCount;
                         aThing.stackCount -= amountUsed;
                         // Reduce how much of this resource is needed
                         needed[resourceName] -= amountUsed;
@@ -241,11 +224,13 @@ namespace RoadsOfTheRim
                         {
                             continue;
                         }
+
                         //RoadsOfTheRim.DebugLog("[RotR] ISR2G consumption DEBUG =" + resourceName + " Qty freely awarded = " + needed[resourceName]);
                         siteComp.ReduceLeft(resourceName, needed[resourceName]);
                         needed[resourceName] = 0;
                     }
                 }
+
                 if (aThing.stackCount == 0)
                 {
                     aThing.Destroy();
@@ -258,6 +243,7 @@ namespace RoadsOfTheRim
             {
                 amountOfWork = amountOfWork * 0.25f * useISR2G;
             }
+
             // Update amountOfWork based on the actual ratio worked & finally reducing the work & resources left
             amountOfWork = ratio_final * amountOfWork;
             return siteComp.UpdateProgress(amountOfWork, caravan);
@@ -278,32 +264,44 @@ namespace RoadsOfTheRim
             var CurrentOverOverrideCosts = settings.OverrideCosts;
             var listing_Standard = new Listing_Standard();
             listing_Standard.Begin(rect);
-            listing_Standard.Label("RoadsOfTheRimSettingsBaseEffort".Translate() + ": " + string.Format("{0:0%}", (float)settings.BaseEffort / 10));
+            listing_Standard.CheckboxLabeled("RoadsOfTheRimSettingsOverrideCosts".Translate() + ": ",
+                ref settings.OverrideCosts);
             listing_Standard.Gap();
-            settings.BaseEffort = (int)listing_Standard.Slider(settings.BaseEffort, RoadsOfTheRimSettings.MinBaseEffort, RoadsOfTheRimSettings.MaxBaseEffort);
+            listing_Standard.Label("RoadsOfTheRimSettingsElevationThreshold".Translate() + ": " +
+                                   settings.CostIncreaseElevationThreshold);
             listing_Standard.Gap();
-            listing_Standard.CheckboxLabeled("RoadsOfTheRimSettingsOverrideCosts".Translate() + ": ", ref settings.OverrideCosts);
+            settings.CostIncreaseElevationThreshold =
+                listing_Standard.Slider(settings.CostIncreaseElevationThreshold, 0f, 5000f);
             listing_Standard.Gap();
-            listing_Standard.Label("RoadsOfTheRimSettingsElevationThreshold".Translate() + ": " + settings.CostIncreaseElevationThreshold);
+            listing_Standard.Label("RoadsOfTheRimSettingsUpgradeRebate".Translate() + ": " +
+                                   settings.CostUpgradeRebate + "%");
             listing_Standard.Gap();
-            settings.CostIncreaseElevationThreshold = listing_Standard.Slider(settings.CostIncreaseElevationThreshold, 0f, 5000f);
-            listing_Standard.Gap();
-            listing_Standard.Label("RoadsOfTheRimSettingsUpgradeRebate".Translate() + ": " + settings.CostUpgradeRebate + "%");
-            listing_Standard.Gap();
-            settings.CostUpgradeRebate = (int)listing_Standard.Slider(settings.CostUpgradeRebate, 0, 100);
+            settings.CostUpgradeRebate = (int) listing_Standard.Slider(settings.CostUpgradeRebate, 0, 100);
             listing_Standard.Gap();
             listing_Standard.CheckboxLabeled("RoadsOfTheRimSettingsUseISR2G".Translate() + ": ", ref settings.useISR2G);
-            listing_Standard.End();
             // Always make sure to set costs to 100% when using ISR2G
             if (settings.useISR2G)
             {
                 settings.BaseEffort = RoadsOfTheRimSettings.MaxBaseEffort;
             }
+            else
+            {
+                listing_Standard.Gap();
+                listing_Standard.Label("RoadsOfTheRimSettingsBaseEffort".Translate() + ": " +
+                                       $"{(float) settings.BaseEffort / 10:0%}");
+                listing_Standard.Gap();
+                settings.BaseEffort = (int) listing_Standard.Slider(settings.BaseEffort,
+                    RoadsOfTheRimSettings.MinBaseEffort, RoadsOfTheRimSettings.MaxBaseEffort);
+            }
+
+            listing_Standard.End();
+
             settings.Write();
             if (CurrentOverOverrideCosts == settings.OverrideCosts)
             {
                 return;
             }
+
             try
             {
                 Find.WorldPathGrid.RecalculateAllPerceivedPathCosts();
@@ -324,10 +322,12 @@ namespace RoadsOfTheRim
             {
                 defaultLabel = "RoadsOfTheRimAddConstructionSite".Translate(),
                 defaultDesc = "RoadsOfTheRimAddConstructionSiteDescription".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/AddConstructionSite", true),
-                action = delegate ()
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/AddConstructionSite"),
+                action = delegate
                 {
-                    var constructionSite = (RoadConstructionSite)WorldObjectMaker.MakeWorldObject(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true));
+                    var constructionSite =
+                        (RoadConstructionSite) WorldObjectMaker.MakeWorldObject(
+                            DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"));
                     constructionSite.Tile = caravan.Tile;
                     Find.WorldObjects.Add(constructionSite);
 
@@ -336,7 +336,8 @@ namespace RoadsOfTheRim
                     if (menu.CountBuildableRoads() == 0)
                     {
                         Find.WorldObjects.Remove(constructionSite);
-                        Messages.Message("RoadsOfTheRim_NoBetterRoadCouldBeBuilt".Translate(), MessageTypeDefOf.RejectInput);
+                        Messages.Message("RoadsOfTheRim_NoBetterRoadCouldBeBuilt".Translate(),
+                            MessageTypeDefOf.RejectInput);
                     }
                     else
                     {
@@ -348,7 +349,8 @@ namespace RoadsOfTheRim
             };
 
             // Disable if there's already a construction site here
-            if (Find.WorldObjects.AnyWorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true), caravan.Tile))
+            if (Find.WorldObjects.AnyWorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"),
+                caravan.Tile))
             {
                 command_Action.Disable("RoadsOfTheRimBuildConstructionSiteAlreadyHere".Translate());
             }
@@ -394,10 +396,10 @@ namespace RoadsOfTheRim
             {
                 defaultLabel = "RoadsOfTheRimWorkOnSite".Translate(),
                 defaultDesc = "RoadsOfTheRimWorkOnSiteDescription".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/AddConstructionSite", true),
-                action = delegate ()
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/AddConstructionSite"),
+                action = delegate
                 {
-                    SoundStarter.PlayOneShotOnCamera(SoundDefOf.Click, null);
+                    SoundDefOf.Click.PlayOneShotOnCamera();
                     caravan.GetComponent<WorldObjectComp_Caravan>().StartWorking();
                 }
             };
@@ -406,6 +408,7 @@ namespace RoadsOfTheRim
             {
                 command_Action.Disable("RoadsOfTheRimBuildWorkOnSiteCantWork".Translate(caravan.GetDescription()));
             }
+
             return command_Action;
         }
 
@@ -418,10 +421,10 @@ namespace RoadsOfTheRim
             {
                 defaultLabel = "RoadsOfTheRimStopWorkingOnSite".Translate(),
                 defaultDesc = "RoadsOfTheRimStopWorkingOnSiteDescription".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/RemoveConstructionSite", true),
-                action = delegate ()
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/RemoveConstructionSite"),
+                action = delegate
                 {
-                    SoundStarter.PlayOneShotOnCamera(SoundDefOf.CancelMode, null);
+                    SoundDefOf.CancelMode.PlayOneShotOnCamera();
                     caravan.GetComponent<WorldObjectComp_Caravan>().StopWorking();
                 }
             };
@@ -438,10 +441,10 @@ namespace RoadsOfTheRim
             {
                 defaultLabel = "RoadsOfTheRimRemoveConstructionSite".Translate(),
                 defaultDesc = "RoadsOfTheRimRemoveConstructionSiteDescription".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/RemoveConstructionSite", true),
-                action = delegate ()
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/RemoveConstructionSite"),
+                action = delegate
                 {
-                    SoundStarter.PlayOneShotOnCamera(SoundDefOf.CancelMode, null);
+                    SoundDefOf.CancelMode.PlayOneShotOnCamera();
                     DeleteConstructionSite(tile);
                 }
             };
@@ -449,35 +452,41 @@ namespace RoadsOfTheRim
             var ConstructionSiteAlreadyHere = false;
             try
             {
-                ConstructionSiteAlreadyHere = Find.WorldObjects.AnyWorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true), tile);
+                ConstructionSiteAlreadyHere =
+                    Find.WorldObjects.AnyWorldObjectOfDefAt(
+                        DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"), tile);
             }
             catch
             {
-
+                // ignored
             }
+
             if (!ConstructionSiteAlreadyHere)
             {
                 command_Action.Disable("RoadsOfTheRimBuildConstructionSiteNotAlreadyHere".Translate());
             }
+
             return command_Action;
         }
 
         /*Delete Construction Site    */
         public static void DeleteConstructionSite(int tile)
         {
-            var ConstructionSite = (RoadConstructionSite)Find.WorldObjects.WorldObjectOfDefAt(DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true), tile);
+            var ConstructionSite =
+                (RoadConstructionSite) Find.WorldObjects.WorldObjectOfDefAt(
+                    DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite"), tile);
             if (ConstructionSite == null)
             {
                 return;
             }
+
             // Confirm construction site deletion if resources were already consumed
             var s = ConstructionSite.ResourcesAlreadyConsumed();
             if (!s.NullOrEmpty())
             {
-                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("RoadsOfTheRim_ConfirmDestroyResourcesAlreadyConsumed".Translate(s), delegate
-                    {
-                        DeleteConstructionSiteConfirmed(ConstructionSite);
-                    }, false, null));
+                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                    "RoadsOfTheRim_ConfirmDestroyResourcesAlreadyConsumed".Translate(s),
+                    delegate { DeleteConstructionSiteConfirmed(ConstructionSite); }));
             }
             else
             {
@@ -486,12 +495,13 @@ namespace RoadsOfTheRim
         }
 
         /*Delete Cosntruction Site once it's been confirmed, or no confirmation was necessary */
-        public static void DeleteConstructionSiteConfirmed(RoadConstructionSite ConstructionSite)
+        private static void DeleteConstructionSiteConfirmed(RoadConstructionSite ConstructionSite)
         {
             if (ConstructionSite.helpFromFaction != null)
             {
                 FactionsHelp.HelpFinished(ConstructionSite.helpFromFaction);
             }
+
             RoadConstructionSite.DeleteSite(ConstructionSite);
         }
 
@@ -500,7 +510,8 @@ namespace RoadsOfTheRim
             var dialog = new DiaOption("RoadsOfTheRim_commsAskHelp".Translate());
 
             // Find all construction sites on the world map
-            IEnumerable<WorldObject> constructionSites = Find.WorldObjects.AllWorldObjects.Cast<WorldObject>().Where(site => site.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite", true)).ToArray();
+            IEnumerable<WorldObject> constructionSites = Find.WorldObjects.AllWorldObjects
+                .Where(site => site.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite")).ToArray();
             // If none : option should be disabled
             if (!constructionSites.Any())
             {
@@ -508,14 +519,12 @@ namespace RoadsOfTheRim
             }
 
             var diaNode = new DiaNode("RoadsOfTheRim_commsSitesList".Translate());
-            foreach (RoadConstructionSite site in constructionSites)
+            foreach (var o in constructionSites)
             {
+                var site = (RoadConstructionSite) o;
                 var diaOption = new DiaOption(site.FullName())
                 {
-                    action = delegate
-                    {
-                        FactionsHelp.StartHelping(faction, site, negotiator);
-                    }
+                    action = delegate { FactionsHelp.StartHelping(faction, site, negotiator); }
                 };
                 // Disable sites that do not have a settlement of this faction close enough (as defined by ConstructionSite.maxTicksToNeighbour)
                 if (site.ClosestSettlementOfFaction(faction) == null)
@@ -523,19 +532,25 @@ namespace RoadsOfTheRim
                     diaOption = new DiaOption("Invalid site");
                     diaOption.Disable("RoadsOfTheRim_commsNotClose".Translate(faction.Name));
                 }
+
                 if (site.helpFromFaction != null)
                 {
                     diaOption = new DiaOption("Invalid site");
                     diaOption.Disable("RoadsOfTheRim_commsAnotherFactionIsHelping".Translate(site.helpFromFaction));
                 }
-                if (!FactionsHelp.IsDeveloppedEnough(faction, site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>()))
+
+                if (!FactionsHelp.IsDeveloppedEnough(faction,
+                    site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>()))
                 {
                     diaOption = new DiaOption("Invalid site");
-                    diaOption.Disable("RoadsOfTheRim_commsNotDevelopedEnough".Translate(faction.Name, site.roadDef.label));
+                    diaOption.Disable(
+                        "RoadsOfTheRim_commsNotDevelopedEnough".Translate(faction.Name, site.roadDef.label));
                 }
+
                 diaNode.options.Add(diaOption);
                 diaOption.resolveTree = true;
             }
+
             // If the faction is already helping, it must be disabled
             if (FactionsHelp.GetCurrentlyHelping(faction))
             {
@@ -547,7 +562,8 @@ namespace RoadsOfTheRim
             if (FactionsHelp.InCooldown(faction))
             {
                 dialog = new DiaOption("Can't help build roads");
-                dialog.Disable("RoadsOfTheRim_commsHasHelpedRecently".Translate(string.Format("{0:0.0}", FactionsHelp.DaysBeforeFactionCanHelp(faction))));
+                dialog.Disable("RoadsOfTheRim_commsHasHelpedRecently".Translate(
+                    $"{FactionsHelp.DaysBeforeFactionCanHelp(faction):0.0}"));
             }
 
             // Cancel option (needed when all sites are disabled for one of the above reason)
@@ -571,32 +587,32 @@ namespace RoadsOfTheRim
             {
                 return false;
             }
+
             if (roadB == null)
             {
                 return true;
             }
+
             return roadA.movementCostMultiplier < roadB.movementCostMultiplier;
         }
 
         /*
         Tells me whether or not a ThingDef is what I want
         */
-        public static bool IsThis(ThingDef def, string name)
+        private static bool IsThis(ThingDef def, string name)
         {
             if (name == "Stone" && def.IsWithinCategory(ThingCategoryDefOf.StoneBlocks))
             {
                 return true;
             }
-            else
+
+            try
             {
-                try
-                {
-                    return def.Equals(DefDatabase<ThingDef>.GetNamed(name, false));
-                }
-                catch
-                {
-                    return false;
-                }
+                return def.Equals(DefDatabase<ThingDef>.GetNamed(name, false));
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -609,25 +625,26 @@ namespace RoadsOfTheRim
             RoadDef bestExistingRoad = null;
             try
             {
-                WorldGrid worldGrid = Find.WorldGrid;
-                Tile fromTile = worldGrid[fromTile_int];
-                Tile toTile = worldGrid[toTile_int];
+                var worldGrid = Find.WorldGrid;
+                var fromTile = worldGrid[fromTile_int];
+                var toTile = worldGrid[toTile_int];
 
                 if (fromTile.potentialRoads != null)
                 {
-                    foreach (Tile.RoadLink aLink in fromTile.potentialRoads)
+                    foreach (var aLink in fromTile.potentialRoads)
                     {
-                        if (aLink.neighbor == toTile_int & IsRoadBetter(aLink.road, bestExistingRoad))
+                        if ((aLink.neighbor == toTile_int) & IsRoadBetter(aLink.road, bestExistingRoad))
                         {
                             bestExistingRoad = aLink.road;
                         }
                     }
                 }
+
                 if (toTile.potentialRoads != null)
                 {
-                    foreach (Tile.RoadLink aLink in toTile.potentialRoads)
+                    foreach (var aLink in toTile.potentialRoads)
                     {
-                        if (aLink.neighbor == fromTile_int & IsRoadBetter(aLink.road, bestExistingRoad))
+                        if ((aLink.neighbor == fromTile_int) & IsRoadBetter(aLink.road, bestExistingRoad))
                         {
                             bestExistingRoad = aLink.road;
                         }
@@ -638,8 +655,8 @@ namespace RoadsOfTheRim
             {
                 DebugLog(null, e);
             }
+
             return bestExistingRoad;
         }
-
     }
 }
