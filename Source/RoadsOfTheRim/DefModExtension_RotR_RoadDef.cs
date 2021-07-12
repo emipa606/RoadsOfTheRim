@@ -58,7 +58,7 @@ namespace RoadsOfTheRim
         public int GetCost(string name)
         {
             var aCost = costs.Find(c => c.name == name);
-            return aCost == null ? 0 : aCost.count;
+            return aCost?.count ?? 0;
         }
 
         public static bool GetInSituModifier(string resourceName, int ISR2G)

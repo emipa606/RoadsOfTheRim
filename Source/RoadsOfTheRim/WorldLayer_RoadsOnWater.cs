@@ -64,7 +64,7 @@ namespace RoadsOfTheRim
 
                         foreach (var roadWorldLayerDef in roadLayerDefs)
                         {
-                            var flag = false;
+                            var layerWidthPositive = false;
                             list.Clear();
                             for (var l = 0; l < tile.potentialRoads.Count; l++)
                             {
@@ -72,7 +72,7 @@ namespace RoadsOfTheRim
                                 var layerWidth = road.GetLayerWidth(roadWorldLayerDef);
                                 if (layerWidth > 0f)
                                 {
-                                    flag = true;
+                                    layerWidthPositive = true;
                                 }
 
                                 list.Add(new OutputDirection
@@ -84,7 +84,7 @@ namespace RoadsOfTheRim
                                 });
                             }
 
-                            if (flag)
+                            if (layerWidthPositive)
                             {
                                 GeneratePaths(subMesh, i, list, roadWorldLayerDef.color, allowSmoothTransition);
                             }

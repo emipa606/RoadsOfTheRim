@@ -419,9 +419,8 @@ namespace RoadsOfTheRim
 
         public void EndConstruction(Caravan caravan = null)
         {
-            var parentSite = parent as RoadConstructionSite;
             // On the last leg, send letter & remove the construction site
-            if (parentSite == null)
+            if (!(parent is RoadConstructionSite parentSite))
             {
                 return;
             }

@@ -58,15 +58,17 @@ namespace RoadsOfTheRim
                 );
                 var resultBefore = __result;
                 __result *= RoadModifier;
-                if (explanation != null)
+                if (explanation == null)
                 {
-                    explanation.AppendLine();
-                    explanation.Append(string.Format(
-                        "The road cancels {0:P0} of the biome ({3:##.###}), {1:P0} of the hills ({4:##.###}) & {2:P0} of winter movement costs. Total modifier={5} applied to {6}",
-                        BiomeModifier, HillModifier, WinterModifier,
-                        biomeMovementDifficulty, HillinessOffset, RoadModifier, resultBefore
-                    ));
+                    return;
                 }
+
+                explanation.AppendLine();
+                explanation.Append(string.Format(
+                    "The road cancels {0:P0} of the biome ({3:##.###}), {1:P0} of the hills ({4:##.###}) & {2:P0} of winter movement costs. Total modifier={5} applied to {6}",
+                    BiomeModifier, HillModifier, WinterModifier,
+                    biomeMovementDifficulty, HillinessOffset, RoadModifier, resultBefore
+                ));
 
                 return;
             }

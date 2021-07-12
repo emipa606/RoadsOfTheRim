@@ -54,7 +54,7 @@ namespace RoadsOfTheRim
         private void DoRows(ref float curY, Rect scrollViewRect, Rect scrollOutRect)
         {
             var pawns = Pawns;
-            var flag = false;
+            var listSeparator = false;
             foreach (var pawn in pawns)
             {
                 if (!pawn.IsColonist)
@@ -62,16 +62,16 @@ namespace RoadsOfTheRim
                     continue;
                 }
 
-                if (!flag)
+                if (!listSeparator)
                 {
                     Widgets.ListSeparator(ref curY, scrollViewRect.width, "CaravanColonists".Translate());
-                    flag = true;
+                    listSeparator = true;
                 }
 
                 DoRow(ref curY, scrollViewRect, scrollOutRect, pawn);
             }
 
-            var flag2 = false;
+            listSeparator = false;
             foreach (var pawn2 in pawns)
             {
                 if (pawn2.IsColonist)
@@ -79,10 +79,10 @@ namespace RoadsOfTheRim
                     continue;
                 }
 
-                if (!flag2)
+                if (!listSeparator)
                 {
                     Widgets.ListSeparator(ref curY, scrollViewRect.width, "CaravanPrisonersAndAnimals".Translate());
-                    flag2 = true;
+                    listSeparator = true;
                 }
 
                 DoRow(ref curY, scrollViewRect, scrollOutRect, pawn2);

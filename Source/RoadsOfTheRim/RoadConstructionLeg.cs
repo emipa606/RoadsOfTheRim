@@ -228,7 +228,7 @@ namespace RoadsOfTheRim
         {
             // Log.Warning("[RotR] - Target(site)");
             Find.WorldTargeter.BeginTargeting(
-                delegate(GlobalTargetInfo target) { return ActionOnTile(site, target.Tile); },
+                target => ActionOnTile(site, target.Tile),
                 true, RotR_StaticConstructorOnStartup.ConstructionLeg_MouseAttachment, false, null,
                 delegate { return "RoadsOfTheRim_BuildToHere".Translate(); });
         }

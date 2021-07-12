@@ -30,7 +30,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
 # Introduction
 
 
-I decided to reimplement Jecrell's amazing RimRoads mod since it had not been ported to Rimworld 1.0.
+I decided to reimplement Jecrell&apos;s amazing RimRoads mod since it had not been ported to Rimworld 1.0.
 
 # Features
 
@@ -53,7 +53,7 @@ Corrected AISR2G technology text and position
 **UPDATE 2020/05/06**
 
 
--  Both ISR2Gs are now craftable at a Machining table, cost less, and get their own "Road Equipment" category including when forming caravans
+-  Both ISR2Gs are now craftable at a Machining table, cost less, and get their own &quot;Road Equipment&quot; category including when forming caravans
 -  ISR2Gs from previous versions of the mod should all be converted
 -  Glitter roads can be built on water
 -  Better messages for caravans and construction legs
@@ -71,10 +71,10 @@ With RotR, caravans can create a construction site on the world map, players can
 **Work**
 By using resources and colonists with Construction skill, the current section (or leg) can be built. A progress bar is shown on the world map.  Once a leg is finished, the caravan automatically moves on to the next leg. *Note : Road legs must be built in the order they were placed on the world map. *
 
-Having all colonists down, resting during night time, or a moving caravan will prevent work. Similarly, some roads require a certain percentage of the workforce to have a certain construction skill. If only a lower percentage is available, work will be reduced. If no colonist in the caravan has the required skill, work will be impossible. Prisoners don't work.
+Having all colonists down, resting during night time, or a moving caravan will prevent work. Similarly, some roads require a certain percentage of the workforce to have a certain construction skill. If only a lower percentage is available, work will be reduced. If no colonist in the caravan has the required skill, work will be impossible. Prisoners don&apos;t work.
 
 **Cancel construction**
-A site can be removed by selecting it and clicking on the "Cancel Construction" button. A Caravan does not need to be there to do so. All resources spent so far will be lost.
+A site can be removed by selecting it and clicking on the &quot;Cancel Construction&quot; button. A Caravan does not need to be there to do so. All resources spent so far will be lost.
 
 **Building costs modifiers**
 Construction costs have two components : base costs that depend on the road and modifiers that depend on the terrain. Roads cost more at higher elevation, starting from 1000m. Hills and swamps also have an effect, which can be checked when clicking on a site. When ISR2G is not used, the total cost can be further reduced from 100% down to 10% in the settings. Anything lower than 100% is probably quite unrealistic, but feel free to use the option.
