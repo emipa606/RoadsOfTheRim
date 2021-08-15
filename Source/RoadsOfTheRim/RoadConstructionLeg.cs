@@ -122,19 +122,19 @@ namespace RoadsOfTheRim
                 {
                     // Action on the construction site = we're done
                     if (o.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionSite") &&
-                        (RoadConstructionSite) o == site)
+                        (RoadConstructionSite)o == site)
                     {
                         return true;
                     }
 
                     // Action on a leg that's part of this chain = we should delete all legs after that & keep targetting
                     if (o.def != DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg") ||
-                        ((RoadConstructionLeg) o).site != site)
+                        ((RoadConstructionLeg)o).site != site)
                     {
                         continue;
                     }
 
-                    Remove((RoadConstructionLeg) o);
+                    Remove((RoadConstructionLeg)o);
                     Target(site);
                     return false;
                 }
@@ -145,6 +145,9 @@ namespace RoadsOfTheRim
                 // This is not a neighbour : do nothing
                 if (!neighbouringTiles.Contains(site.LastLeg.Tile))
                 {
+                    Messages.Message(
+                        text: "RoadsOfTheRim_MustPickNeighbouringTile".Translate(),
+                        def: MessageTypeDefOf.RejectInput);
                     Target(site);
                     return false;
                 }
@@ -169,7 +172,7 @@ namespace RoadsOfTheRim
                 }
 
                 var newLeg =
-                    (RoadConstructionLeg) WorldObjectMaker.MakeWorldObject(
+                    (RoadConstructionLeg)WorldObjectMaker.MakeWorldObject(
                         DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg"));
                 newLeg.Tile = tile;
                 newLeg.site = site;
@@ -239,7 +242,7 @@ namespace RoadsOfTheRim
         public static void Remove(RoadConstructionLeg leg)
         {
             var site = leg.site;
-            var CurrentLeg = (RoadConstructionLeg) site.LastLeg;
+            var CurrentLeg = (RoadConstructionLeg)site.LastLeg;
             while (CurrentLeg != leg.previous)
             {
                 if (CurrentLeg.previous != null)

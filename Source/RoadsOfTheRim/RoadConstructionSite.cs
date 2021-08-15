@@ -52,11 +52,11 @@ namespace RoadsOfTheRim
         {
             IEnumerable<WorldObject> constructionLegs = Find.WorldObjects.AllWorldObjects.Where(
                 leg => leg.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg") &&
-                       ((RoadConstructionLeg) leg).GetSite() == site
+                       ((RoadConstructionLeg)leg).GetSite() == site
             ).ToArray();
             foreach (var o in constructionLegs)
             {
-                var l = (RoadConstructionLeg) o;
+                var l = (RoadConstructionLeg)o;
                 Find.WorldObjects.Remove(l);
             }
 
@@ -77,53 +77,35 @@ namespace RoadsOfTheRim
 
         private void InitListOfSettlements()
         {
-            if (listOfSettlements != null)
-            {
-                return;
-            }
-
-            listOfSettlements = NeighbouringSettlements();
+            if (listOfSettlements is null)
+                listOfSettlements = NeighbouringSettlements();
         }
 
         private void PopulateDescription()
         {
             InitListOfSettlements();
-            var s = new List<string>();
-            if (listOfSettlements != null && listOfSettlements.Count > 0)
-            {
-                foreach (var si in listOfSettlements.Take(MaxSettlementsInDescription))
-                {
-                    s.Add("RoadsOfTheRim_siteDescription".Translate(si.settlement.Name,
-                        $"{si.distance / (float) GenDate.TicksPerDay:0.00}"));
-                }
-            }
 
-            NeighbouringSettlementsDescription = string.Join(", ", s.ToArray());
+            var infoList = listOfSettlements
+                .Take(MaxSettlementsInDescription)
+                .Select(Info => "RoadsOfTheRim_siteDescription".Translate(Info.settlement.Name, $"{Info.distance / (float)GenDate.TicksPerDay:0.00}"));
+
+            NeighbouringSettlementsDescription = string.Join(", ", infoList);
+
             RoadsOfTheRim.DebugLog(NeighbouringSettlementsDescription);
-            if (listOfSettlements != null && listOfSettlements.Count <= MaxSettlementsInDescription)
-            {
-                return;
-            }
-
-            if (listOfSettlements != null)
-            {
+            if (listOfSettlements != null && listOfSettlements.Count > MaxSettlementsInDescription)
                 NeighbouringSettlementsDescription +=
                     "RoadsOfTheRim_siteDescriptionExtra".Translate(
                         listOfSettlements.Count - MaxSettlementsInDescription);
-            }
         }
 
         public string FullName()
         {
-            // The first time we ask for the site's full name, let's make sure everything is properly populated : neighbouringSettlements , NeighbouringSettlementsDescription
-            if (listOfSettlements == null)
-            {
-                PopulateDescription();
-            }
+            // Make sure everything is properly populated : neighbouringSettlements , NeighbouringSettlementsDescription
+            PopulateDescription();
 
             var result = new StringBuilder();
             result.Append("RoadsOfTheRim_siteFullName".Translate(roadDef.label));
-            if (NeighbouringSettlementsDescription.Length > 0)
+            if (!string.IsNullOrEmpty(NeighbouringSettlementsDescription))
             {
                 result.Append("RoadsOfTheRim_siteFullNameNeighbours".Translate(NeighbouringSettlementsDescription));
             }
@@ -196,6 +178,7 @@ namespace RoadsOfTheRim
             return closestSettlement;
         }
 
+
         public override void PostAdd()
         {
             LastLeg = this;
@@ -212,7 +195,7 @@ namespace RoadsOfTheRim
                 return null;
             }
 
-            var CurrentLeg = (RoadConstructionLeg) LastLeg;
+            var CurrentLeg = (RoadConstructionLeg)LastLeg;
             while (CurrentLeg.Previous != null)
             {
                 CurrentLeg = CurrentLeg.Previous;
@@ -346,7 +329,7 @@ namespace RoadsOfTheRim
                 {
                     if (x >= 80)
                     {
-                        texture.SetPixel(x, y, y < (int) (100 * percentageDone) ? ColorFilled : ColorUnfilled);
+                        texture.SetPixel(x, y, y < (int)(100 * percentageDone) ? ColorFilled : ColorUnfilled);
                     }
                     else
                     {
@@ -391,7 +374,7 @@ namespace RoadsOfTheRim
             Find.LetterStack.ReceiveLetter(
                 "RoadsOfTheRim_FactionStartsHelping".Translate(),
                 "RoadsOfTheRim_FactionStartsHelpingText".Translate(helpFromFaction.Name, FullName(),
-                    $"{(tick - Find.TickManager.TicksGame) / (float) GenDate.TicksPerDay:0.00}"),
+                    $"{(tick - Find.TickManager.TicksGame) / (float)GenDate.TicksPerDay:0.00}"),
                 LetterDefOf.PositiveEvent,
                 new GlobalTargetInfo(this)
             );
