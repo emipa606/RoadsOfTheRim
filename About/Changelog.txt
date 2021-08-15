@@ -1,7 +1,7 @@
 # Changelog for RoadsOfTheRim
 
 1.0.7.1 - Fixed bug with stuck worksites,
-          Error is now seen if trying to build a road not near prvious location
+          Error is now seen if trying to build a road not near previous location
 
 1.0.7.0 - Mod updated for 1.3 and passed autotests
 
