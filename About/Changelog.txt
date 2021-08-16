@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.0.8.0 - Republish as some things seem to have changed from the beta to the current version
+
+
 1.0.7.0 - Mod updated for 1.3 and passed autotests
 
 

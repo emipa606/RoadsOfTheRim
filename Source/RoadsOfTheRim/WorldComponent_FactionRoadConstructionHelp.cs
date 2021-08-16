@@ -144,13 +144,13 @@ namespace RoadsOfTheRim
                 {
                     return 0;
                 }
+
+                return (float) (tick - Find.TickManager.TicksGame) / GenDate.TicksPerDay;
             }
             catch
             {
                 return 0;
             }
-
-            return (float) (GetHelpAgainTick(faction) - Find.TickManager.TicksGame) / GenDate.TicksPerDay;
         }
     }
 }
