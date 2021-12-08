@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.0.9.0 - The sandstone flagstone terrain in this mod should now have the same color as normal sandstone instead of slate-like
+
+
 1.0.8.0 - Republish as some things seem to have changed from the beta to the current version
 
 

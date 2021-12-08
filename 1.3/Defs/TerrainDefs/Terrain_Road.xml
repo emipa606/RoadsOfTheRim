@@ -37,7 +37,7 @@
     <defName>StoneRecent</defName>
     <label>Recently built sandstone flagstone</label>
     <texturePath>Terrain/Surfaces/Flagstone</texturePath>
-    <color>(64,64,64)</color>
+    <color>(126,104,94)</color>
     <edgeType>FadeRough</edgeType>
     <renderPrecedence>220</renderPrecedence>
     <pathCost>0</pathCost>
