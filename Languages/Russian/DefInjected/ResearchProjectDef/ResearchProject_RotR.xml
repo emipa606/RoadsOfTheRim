@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <ResearchProject_RotRStoneRoad.label>Строительство каменной дороги</ResearchProject_RotRStoneRoad.label>
+  <ResearchProject_RotRStoneRoad.description>Позволяет строить каменные дороги на карте мира</ResearchProject_RotRStoneRoad.description>
+  <ResearchProject_RotRAsphaltRoad.label>Строительство асфальтированной дороги</ResearchProject_RotRAsphaltRoad.label>
+  <ResearchProject_RotRAsphaltRoad.description>Позволяет строить асфальтированные дороги на карте мира</ResearchProject_RotRAsphaltRoad.description>
+  <ResearchProject_RotRGlitterRoad.label>Сверкающее дорожное строительство</ResearchProject_RotRGlitterRoad.label>
+  <ResearchProject_RotRGlitterRoad.description>Позволяет строить сверкающие дороги на карте мира</ResearchProject_RotRGlitterRoad.description>
+  <ResearchProject_RotRISR2G.label>Сборщик дорожных ресурсов</ResearchProject_RotRISR2G.label>
+  <ResearchProject_RotRISR2G.description>Позволяет построить Сборщик дорожных ресурсов(СДР). Использует местные ресурсы при строительстве дорог, полностью устраняя необходимость в доставке дерева и камня при затратах в 4 раза больше работы.</ResearchProject_RotRISR2G.description>
+  <ResearchProject_RotRAISR2G.label>Продвинутый Сборщик дорожных ресурсов</ResearchProject_RotRAISR2G.label>
+  <ResearchProject_RotRAISR2G.description>Позволяет построить Продвинутый Сборщик дорожных ресурсов (ПСДР). Использует местные ресурсы при строительстве дорог, полностью устраняя необходимость в доставке дерева, камня, стали, химтоплива, пластали и урана при удвоенной затрате работы.</ResearchProject_RotRAISR2G.description>
+</LanguageData>

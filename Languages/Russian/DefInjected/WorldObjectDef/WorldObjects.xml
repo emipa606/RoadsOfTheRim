@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RoadConstructionSite.label>дорожно-строительная площадка</RoadConstructionSite.label>
+  <RoadConstructionSite.description>Стройплощадка строящейся дороги</RoadConstructionSite.description>
+  <RoadConstructionLeg.label>участок дорожно-строительных работ</RoadConstructionLeg.label>
+  <RoadConstructionLeg.description>Участок планируемой дороги</RoadConstructionLeg.description>
+</LanguageData>

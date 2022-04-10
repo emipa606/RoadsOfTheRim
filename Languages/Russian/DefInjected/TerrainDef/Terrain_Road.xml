@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <DirtRecent.label>Недавно утрамбованная грязь</DirtRecent.label>
+  <DirtRecent.description>Утрамбованная земля для недавно проложенных путей и дорог. Ни красивые, ни чистые, они все равно делают хорошие покрытия для дешевых дорог. Демонтаж упакованной грязи не дает никаких ресурсов.</DirtRecent.description>
+  <StoneRecent.label>Недавно построенный плитняк из песчаника</StoneRecent.label>
+  <StoneRecent.description>Грубо обтесанная каменная недавно построенная плитка. Они некрасивы, но из них получаются хорошие покрытия для дорог и открытых дорожек. Демонтаж каменных плит не дает никаких ресурсов.</StoneRecent.description>
+  <AsphaltRecent.label>Недавно проложенный асфальт</AsphaltRecent.label>
+  <AsphaltRecent.description>Недавно проложенный асфальт. Отлично подходит для дорог. Демонтаж асфальта не дает никаких ресурсов.</AsphaltRecent.description>
+  <ConcreteBridge.label>бетонный мост</ConcreteBridge.label>
+  <ConcreteBridge.description>Бетонный мост, который будет построен над водой. На этих мостах могут быть построены тяжелые конструкции, но они все равно могут быть разрушены. Если мост падает, здания на нем тоже падают.</ConcreteBridge.description>
+  <GlitterRoad.label>сверкающая дорога</GlitterRoad.label>
+  <GlitterRoad.description>Демонтаж блестящих дорог не дает никаких ресурсов.</GlitterRoad.description>
+</LanguageData>

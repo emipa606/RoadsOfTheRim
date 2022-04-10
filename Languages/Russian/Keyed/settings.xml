@@ -8,14 +8,14 @@
   <RoadsOfTheRimRemoveConstructionSiteDescription>Удалить площадку для строительства дороги</RoadsOfTheRimRemoveConstructionSiteDescription>
   <RoadsOfTheRim_ConfirmDestroyResourcesAlreadyConsumed>Удалив эту площадку, вы потеряете ресурсы: {0}</RoadsOfTheRim_ConfirmDestroyResourcesAlreadyConsumed>
   <RoadsOfTheRim_ConstructionSiteDescription_Main>Постройка {0} завершена</RoadsOfTheRim_ConstructionSiteDescription_Main>
-  <RoadsOfTheRim_ConstructionSiteDescription_Help>, helped by {0} [{1} work@{2}/sec]</RoadsOfTheRim_ConstructionSiteDescription_Help>
+  <RoadsOfTheRim_ConstructionSiteDescription_Help>, помощь {0} [{1} work@{2}/sec]</RoadsOfTheRim_ConstructionSiteDescription_Help>
   <RoadsOfTheRim_ConstructionSiteDescription_HelpStartsWhen> начнётся в течении {0} дней</RoadsOfTheRim_ConstructionSiteDescription_HelpStartsWhen>
   <RoadsOfTheRim_ConstructionSiteDescription_CostModifiers>. + {0} : Возвышенность {1}, Большие холмы {2}, болота {3}, мосты {4}</RoadsOfTheRim_ConstructionSiteDescription_CostModifiers>
   <RoadsOfTheRim_ConstructionSiteDescription_Resource>{1} {0} осталось {2}{3}</RoadsOfTheRim_ConstructionSiteDescription_Resource>
-  <RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>, ISR2G замедляет работу в 4 раза</RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>
-  <RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>, AISR2G замедляет работу в 2 раза</RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>
-  <RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>, Бесплатный сбор ресурсов с помощью ISR2G</RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>
-  <RoadsOfTheRim_ConstructionSiteDescription_AISR2GFree>, Бесплатный сбор ресурсов с помощью AISR2G</RoadsOfTheRim_ConstructionSiteDescription_AISR2GFree>
+  <RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>, Сборщик дорожных ресурсов замедляет работу в 4 раза</RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>
+  <RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>, Продвинутый Сборщик дорожных ресурсов замедляет работу в 2 раза</RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>
+  <RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>, Бесплатный сбор ресурсов с помощью Сборщик дорожных ресурсов</RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>
+  <RoadsOfTheRim_ConstructionSiteDescription_AISR2GFree>, Бесплатный сбор ресурсов с помощью Продвинутый Сборщик дорожных ресурсов</RoadsOfTheRim_ConstructionSiteDescription_AISR2GFree>
   <RoadsOfTheRim_WITab_Caravan_Build>Строить</RoadsOfTheRim_WITab_Caravan_Build>
   <RoadsOfTheRim_commsAskHelp>Обратиться к союзнику за помощью в дорожном строительстве (стоимость: 10 репутации)</RoadsOfTheRim_commsAskHelp>
   <RoadsOfTheRim_commsNoSites>Не найдено строительных площадок</RoadsOfTheRim_commsNoSites>
@@ -25,7 +25,7 @@
   <RoadsOfTheRim_commsAnotherFactionIsHelping>{0} уже помогает с этой стройкой</RoadsOfTheRim_commsAnotherFactionIsHelping>
   <RoadsOfTheRim_commsNotDevelopedEnough>{0} недостаточно развит, чтобы строить {1}</RoadsOfTheRim_commsNotDevelopedEnough>
   <RoadsOfTheRim_commsSitesList>Строительные площадки</RoadsOfTheRim_commsSitesList>
-  <RoadsOfTheRim_commsCancel>Отмена - не зватает репутации</RoadsOfTheRim_commsCancel>
+  <RoadsOfTheRim_commsCancel>Отмена - не хватает репутации</RoadsOfTheRim_commsCancel>
   <RoadsOfTheRim_FactionStartsHelping>Помощь в строительстве</RoadsOfTheRim_FactionStartsHelping>
   <RoadsOfTheRim_FactionStartsHelpingText>{0} согласился помочь построить {1}, помощь начнётся через {2} дней</RoadsOfTheRim_FactionStartsHelpingText>
   <RoadsOfTheRim_FactionStopsHelping>Помощь отменена</RoadsOfTheRim_FactionStopsHelping>
@@ -68,6 +68,6 @@
   <RoadsOfTheRim_UpgradeRebateDetail>{0} {1}</RoadsOfTheRim_UpgradeRebateDetail>
   <RoadsOfTheRim_RoadBuilt>Дорога построена</RoadsOfTheRim_RoadBuilt>
   <RoadsOfTheRim_RoadBuiltLetterText>{0} был построен {1}</RoadsOfTheRim_RoadBuiltLetterText>
-  <RoadsOfTheRim_RoadBuiltByAlly>твой союзник</RoadsOfTheRim_RoadBuiltByAlly>
+  <RoadsOfTheRim_RoadBuiltByAlly>ваш союзник</RoadsOfTheRim_RoadBuiltByAlly>
   <RoadsOfTheRim_RoadEquipment>Дорожная техника</RoadsOfTheRim_RoadEquipment>
 </LanguageData>

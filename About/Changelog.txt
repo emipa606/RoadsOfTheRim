@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.3.1 - Complete russian translation, thank you kamikadza13
+
+
 1.0.9.0 - The sandstone flagstone terrain in this mod should now have the same color as normal sandstone instead of slate-like
 
 
