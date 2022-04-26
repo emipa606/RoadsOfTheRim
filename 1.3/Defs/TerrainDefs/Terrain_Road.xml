@@ -105,6 +105,7 @@
     <renderPrecedence>400</renderPrecedence>
     <description>A concrete bridge to be built over water. Heavy structures can be built on these bridges, but they can still be destroyed. If a bridge falls, buildings on top of it fall as well.</description>
     <layerable>true</layerable>
+    <bridge>true</bridge>
     <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
     <statBases>
       <WorkToBuild>4500</WorkToBuild>
