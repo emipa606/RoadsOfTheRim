@@ -70,4 +70,5 @@
   <RoadsOfTheRim_RoadBuiltLetterText>{0} has been built by {1}</RoadsOfTheRim_RoadBuiltLetterText>
   <RoadsOfTheRim_RoadBuiltByAlly>your ally</RoadsOfTheRim_RoadBuiltByAlly>
   <RoadsOfTheRim_RoadEquipment>Road equipment</RoadsOfTheRim_RoadEquipment>
+  <RoadsOfTheRim_ModVersion>Installed mod-version: {0}</RoadsOfTheRim_ModVersion>
 </LanguageData>

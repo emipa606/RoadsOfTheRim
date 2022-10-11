@@ -1,12 +1,11 @@
 ﻿using RimWorld;
 
-namespace RoadsOfTheRim
+namespace RoadsOfTheRim;
+
+public class CompProperties_RoadsOfTheRimConstructionSite : WorldObjectCompProperties
 {
-    public class CompProperties_RoadsOfTheRimConstructionSite : WorldObjectCompProperties
+    public CompProperties_RoadsOfTheRimConstructionSite()
     {
-        public CompProperties_RoadsOfTheRimConstructionSite()
-        {
-            compClass = typeof(WorldObjectComp_ConstructionSite);
-        }
+        compClass = typeof(WorldObjectComp_ConstructionSite);
     }
 }

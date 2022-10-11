@@ -1,12 +1,11 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim
+namespace RoadsOfTheRim;
+
+[DefOf]
+public static class TerrainAffordanceDefOf
 {
-    [DefOf]
-    public static class TerrainAffordanceDefOf
-    {
-        public static TerrainAffordanceDef Bridgeable;
-        public static TerrainAffordanceDef BridgeableAny;
-    }
+    public static TerrainAffordanceDef Bridgeable;
+    public static TerrainAffordanceDef BridgeableAny;
 }

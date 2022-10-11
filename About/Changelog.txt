@@ -1,5 +1,9 @@
 # Changelog for RoadsOfTheRim
 
+1.4.1 - Mod updated for 1.4 and passed autotests.
+Used DeepL to update translations for ChineseSimplified, Russian
+
+
 1.3.2 - Fixed the bridge-graphic for the asphalt bridge
 
 

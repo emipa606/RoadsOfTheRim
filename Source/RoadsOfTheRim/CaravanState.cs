@@ -1,12 +1,11 @@
-﻿namespace RoadsOfTheRim
+﻿namespace RoadsOfTheRim;
+
+public enum CaravanState : byte
 {
-    public enum CaravanState : byte
-    {
-        Moving,
-        NightResting,
-        AllOwnersHaveMentalBreak,
-        AllOwnersDowned,
-        ImmobilizedByMass,
-        ReadyToWork
-    }
+    Moving,
+    NightResting,
+    AllOwnersHaveMentalBreak,
+    AllOwnersDowned,
+    ImmobilizedByMass,
+    ReadyToWork
 }
