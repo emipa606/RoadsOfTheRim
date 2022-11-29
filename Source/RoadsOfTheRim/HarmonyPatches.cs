@@ -9,9 +9,6 @@ namespace RoadsOfTheRim;
 [StaticConstructorOnStartup]
 public class HarmonyPatches
 {
-    public static RoadsOfTheRimSettings settings =
-        LoadedModManager.GetMod<RoadsOfTheRim>().GetSettings<RoadsOfTheRimSettings>();
-
     static HarmonyPatches()
     {
         var harmony = new Harmony("Loconeko.Rimworld.RoadsOfTheRim");
