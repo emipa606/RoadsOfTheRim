@@ -20,9 +20,7 @@ public class RoadsOfTheRim : Mod
     public RoadsOfTheRim(ModContentPack content) : base(content)
     {
         settings = GetSettings<RoadsOfTheRimSettings>();
-        ModMetaData modMetaData = ModLister.GetActiveModWithIdentifier("Mlie.RoadsOfTheRim", /* ignorePostfix= */true);
-        currentVersion = (modMetaData != null) ?
-            VersionFromManifest.GetVersionFromModMetaData(modMetaData) : null;
+        currentVersion = VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
 
 
