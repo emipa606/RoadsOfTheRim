@@ -1,6 +1,5 @@
 # RoadsOfTheRim
 
-
 ![Image](https://i.imgur.com/buuPQel.png)
 
 Update of Loconekos mod
@@ -170,13 +169,6 @@ See the summary below to see what percentage of a specific terrain feature is ca
   [/tr]
 [/table]
 
-# Following the project and reporting bugs
- 
-       
-Feedback welcome on Steam and in the https://ludeon.com/forums/index.php?topic=47205.0]Forum thread
-
-You can check the code on https://github.com/LocoNeko/RoadsOfTheRim]GitHub, as well as the https://github.com/LocoNeko/RoadsOfTheRim/issues]roadmap and current bugs and issues
-
 **Quick fix for Construction sites stuck after an update : https://github.com/LocoNeko/RoadsOfTheRim/wiki/How-to-remove-construction-sites-stuck-after-mod-upgrade**
 
 **IMPORTANT NOTE BEFORE REPORTING A BUG**
@@ -196,5 +188,4 @@ It will save a lot of your time (and a little bit of mine ;-) )
 -  If you have the solution for a problem, please post it to the GitHub repository.
 
 
-
-https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2022-11-30
+https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2023-04-29

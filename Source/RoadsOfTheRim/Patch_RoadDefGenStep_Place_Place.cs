@@ -13,8 +13,7 @@ public static class Patch_RoadDefGenStep_Place_Place
     }
 
     [HarmonyPostfix]
-    public static void Postfix(ref RoadDefGenStep_Place __instance, Map map, IntVec3 position, TerrainDef rockDef,
-        IntVec3 origin, GenStep_Roads.DistanceElement[,] distance)
+    public static void Postfix(ref RoadDefGenStep_Place __instance, Map map, IntVec3 position)
     {
         if (__instance.place == TerrainDefOf.ConcreteBridge && position.GetTerrain(map).IsWater)
         {

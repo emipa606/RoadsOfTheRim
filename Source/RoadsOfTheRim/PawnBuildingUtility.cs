@@ -22,7 +22,7 @@ public static class PawnBuildingUtility
 
     public static int ConstructionLevel(Pawn p)
     {
-        return p.skills.GetSkill(SkillDefOf.Construction).levelInt;
+        return p.skills.GetSkill(SkillDefOf.Construction).Level;
     }
 
     public static string ShowConstructionValue(Pawn p)

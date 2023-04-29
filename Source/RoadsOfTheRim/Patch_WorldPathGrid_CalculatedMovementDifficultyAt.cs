@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
@@ -11,8 +10,7 @@ namespace RoadsOfTheRim;
 internal static class Patch_WorldPathGrid_CalculatedMovementDifficultyAt
 {
     [HarmonyPostfix]
-    public static void PostFix(ref float __result, int tile, bool perceivedStatic, int? ticksAbs,
-        StringBuilder explanation)
+    public static void PostFix(ref float __result, int tile)
     {
         if (__result <= 999f || !Find.WorldGrid.InBounds(tile))
         {

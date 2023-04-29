@@ -13,10 +13,10 @@ namespace RoadsOfTheRim;
 public static class Patch_CaravanUIUtility_CreateCaravanTransferableWidgets
 {
     [HarmonyPostfix]
-    public static void Postfix(List<TransferableOneWay> transferables, ref TransferableOneWayWidget pawnsTransfer,
+    public static void Postfix(List<TransferableOneWay> transferables,
         ref TransferableOneWayWidget itemsTransfer, string thingCountTip,
         IgnorePawnsInventoryMode ignorePawnInventoryMass, Func<float> availableMassGetter,
-        bool ignoreSpawnedCorpsesGearAndInventoryMass, int tile, bool playerPawnsReadOnly)
+        bool ignoreSpawnedCorpsesGearAndInventoryMass, int tile)
     {
         var modifiedTransferables = transferables.Where(x => x.ThingDef.category != ThingCategory.Pawn).ToList();
         modifiedTransferables = modifiedTransferables

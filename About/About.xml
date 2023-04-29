@@ -22,8 +22,7 @@
   <loadAfter>
     <li>brrainz.harmony</li>
   </loadAfter>
-  <description>
-[img]https://i.imgur.com/buuPQel.png[/img]
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of Loconekos mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
 
@@ -35,7 +34,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
 
 [table]
     [tr]
-        [td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+        [td][url=https://dsc.gg/mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
         [td][url=https://github.com/emipa606/RoadsOfTheRim][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
     [/tr]
     [tr]
@@ -190,12 +189,6 @@ See the summary below to see what percentage of a specific terrain feature is ca
   [/tr]
 [/table]
 
-[h1]Following the project and reporting bugs[/h1] 
-       
-Feedback welcome on Steam and in the [url=https://ludeon.com/forums/index.php?topic=47205.0]Forum thread[/url]
-
-You can check the code on [url=https://github.com/LocoNeko/RoadsOfTheRim]GitHub[/url], as well as the [url=https://github.com/LocoNeko/RoadsOfTheRim/issues]roadmap and current bugs and issues[/url]
-
 [b]Quick fix for Construction sites stuck after an update : https://github.com/LocoNeko/RoadsOfTheRim/wiki/How-to-remove-construction-sites-stuck-after-mod-upgrade[/b]
 
 [b]IMPORTANT NOTE BEFORE REPORTING A BUG[/b]
@@ -212,6 +205,5 @@ It will save a lot of your time (and a little bit of mine ;-) )
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
-
-[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2022-11-30[/url]</description>
+[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2023-04-29[/url]</description>
 </ModMetaData>
