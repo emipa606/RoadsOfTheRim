@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.4.4 - Updated french-translation, thanks Chklang!
+
+
 1.4.3 - Construction skill should now take genes into account
 
 
