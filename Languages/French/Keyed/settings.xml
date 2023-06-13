@@ -12,7 +12,7 @@
   <RoadsOfTheRim_ConstructionSiteDescription_Help>aidé par {0} [{1} travail@{2}/sec]</RoadsOfTheRim_ConstructionSiteDescription_Help>
   <RoadsOfTheRim_ConstructionSiteDescription_HelpStartsWhen>à partir de {0} jours</RoadsOfTheRim_ConstructionSiteDescription_HelpStartsWhen>
   <RoadsOfTheRim_ConstructionSiteDescription_CostModifiers>.   {0} : Élévation {1}, collines {2}, marécages {3}, ponts {4}</RoadsOfTheRim_ConstructionSiteDescription_CostModifiers>
-  <RoadsOfTheRim_ConstructionSiteDescription_Resource>{1} {0} à gauche de {2}{3}</RoadsOfTheRim_ConstructionSiteDescription_Resource>
+  <RoadsOfTheRim_ConstructionSiteDescription_Resource>{1} {0} restant sur {2}{3}</RoadsOfTheRim_ConstructionSiteDescription_Resource>
   <RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>L'ISR2G rend le travail 4 fois plus lent.</RoadsOfTheRim_ConstructionSiteDescription_ISR2Gwork>
   <RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>AISR2G rend le travail 2 fois plus lent.</RoadsOfTheRim_ConstructionSiteDescription_AISR2Gwork>
   <RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>Recueillis gratuitement par l'ISR2G.</RoadsOfTheRim_ConstructionSiteDescription_ISR2GFree>
@@ -64,7 +64,7 @@
   <RoadsOfTheRim_siteFullName>Construction du site {0}</RoadsOfTheRim_siteFullName>
   <RoadsOfTheRim_siteFullNameNeighbours>près de {0}</RoadsOfTheRim_siteFullNameNeighbours>
   <RoadsOfTheRim_CaravanNoResource>{0} a manqué de ressources pour construire {1}. Le travail est arrêté.</RoadsOfTheRim_CaravanNoResource>
-  <RoadsOfTheRim_CaravanNoWork>{0} n'a pas de pion capable de construire {1}. Travail arrêté.</RoadsOfTheRim_CaravanNoWork>
+  <RoadsOfTheRim_CaravanNoWork>{0} n'a pas de personnage capable de construire {1}. Travail arrêté.</RoadsOfTheRim_CaravanNoWork>
   <RoadsOfTheRim_UpgradeRebate>La route existante réduit les coûts de construction de {0} par {1}.</RoadsOfTheRim_UpgradeRebate>
   <RoadsOfTheRim_UpgradeRebateDetail>{0} {1}</RoadsOfTheRim_UpgradeRebateDetail>
   <RoadsOfTheRim_RoadBuilt>Route construite</RoadsOfTheRim_RoadBuilt>
