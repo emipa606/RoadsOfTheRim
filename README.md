@@ -188,4 +188,4 @@ It will save a lot of your time (and a little bit of mine ;-) )
 -  If you have the solution for a problem, please post it to the GitHub repository.
 
 
-https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2023-06-13
+https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231]Last updated 2023-08-31

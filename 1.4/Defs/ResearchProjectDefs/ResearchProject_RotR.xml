@@ -6,6 +6,9 @@
     <description>Allows construction of Stone roads on the world map</description>
     <baseCost>500</baseCost>
     <techLevel>Medieval</techLevel>
+    <prerequisites>
+      <li>Stonecutting</li>
+    </prerequisites>
     <tab>LocoNekoMods</tab>
     <researchViewX>1</researchViewX>
     <researchViewY>0</researchViewY>
@@ -45,6 +48,7 @@
     <techLevel>Industrial</techLevel>
     <prerequisites>
       <li>ResearchProject_RotRStoneRoad</li>
+      <li>Machining</li>
     </prerequisites>
     <tab>LocoNekoMods</tab>
     <researchViewX>2</researchViewX>
@@ -59,6 +63,7 @@
     <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
     <prerequisites>
       <li>ResearchProject_RotRAsphaltRoad</li>
+      <li>Fabrication</li>
     </prerequisites>
     <tab>LocoNekoMods</tab>
     <researchViewX>3</researchViewX>
