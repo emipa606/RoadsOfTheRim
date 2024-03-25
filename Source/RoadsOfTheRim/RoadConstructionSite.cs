@@ -27,7 +27,7 @@ public class RoadConstructionSite : WorldObject
 
     /*
     Factions help
-    - Faction that helps 
+    - Faction that helps
     - Tick at which help starts
     - Total amount of work that will be provided (helping factions are always considered having enough resources to help)
     - Amount of work that will be done per tick
@@ -203,7 +203,7 @@ public class RoadConstructionSite : WorldObject
     }
 
     /*
-     * Returns the next leg in the chain, or null if all is left is the construction site (which should never happen, since it should get destroyed when the last leg is built)       
+     * Returns the next leg in the chain, or null if all is left is the construction site (which should never happen, since it should get destroyed when the last leg is built)
      */
     public RoadConstructionLeg GetNextLeg()
     {
@@ -418,7 +418,7 @@ public class RoadConstructionSite : WorldObject
 
             helpAmount -= amountOfHelp;
         }
-        // Cancel help if the faction is not an ally any more
+        // Cancel help if the faction is not an ally anymore
         else
         {
             Find.LetterStack.ReceiveLetter(

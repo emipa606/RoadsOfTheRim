@@ -6,7 +6,7 @@ using Verse;
 
 namespace RoadsOfTheRim;
 
-public class WorldComponent_FactionRoadConstructionHelp : WorldComponent
+public class WorldComponent_FactionRoadConstructionHelp(World world) : WorldComponent(world)
 {
     private const int
         helpCooldownTicks =
@@ -22,20 +22,16 @@ public class WorldComponent_FactionRoadConstructionHelp : WorldComponent
     private const float helpPerTickVariance = 10f;
 
     private const float helpPerTickMin = 5f;
-    private List<bool> boolList_currentlyHelping = new List<bool>();
+    private List<bool> boolList_currentlyHelping = [];
 
     private Dictionary<Faction, int> canHelpAgainAtTick = new Dictionary<Faction, int>();
 
     private Dictionary<Faction, bool> currentlyHelping = new Dictionary<Faction, bool>();
 
     // those lists are used for ExposeData() to load & save correctly
-    private List<Faction> factionList_canHelpAgainAtTick = new List<Faction>();
-    private List<Faction> factionList_currentlyHelping = new List<Faction>();
-    private List<int> intList_canHelpAgainAtTick = new List<int>();
-
-    public WorldComponent_FactionRoadConstructionHelp(World world) : base(world)
-    {
-    }
+    private List<Faction> factionList_canHelpAgainAtTick = [];
+    private List<Faction> factionList_currentlyHelping = [];
+    private List<int> intList_canHelpAgainAtTick = [];
 
     public override void ExposeData()
     {

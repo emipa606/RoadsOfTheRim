@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(ThingFilter), "SetFromPreset")]
 //Remove Road equipment from Item tab when forming caravans

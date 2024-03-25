@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System.Text;
 using HarmonyLib;
 using RimWorld;
-using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Alert_CaravanIdle), "GetReport")]
-public static class Patch_Alert_CaravanIdle_GetReport
+[HarmonyPatch(typeof(Alert_CaravanIdle), "GetExplanation")]
+public static class Patch_Alert_CaravanIdle_GetExplanation
 {
     [HarmonyPostfix]
-    public static void Postfix(ref AlertReport __result)
+    public static void Postfix(ref TaggedString __result)
     {
-        var newList = new List<Caravan>();
+        var stringBuilder = new StringBuilder();
         foreach (var caravan in Find.WorldObjects.Caravans)
         {
             var caravanComp = caravan.GetComponent<WorldObjectComp_Caravan>();
@@ -22,9 +21,9 @@ public static class Patch_Alert_CaravanIdle_GetReport
                 continue;
             }
 
-            newList.Add(caravan);
+            stringBuilder.AppendLine($"  - {caravan.Label}");
         }
 
-        __result = AlertReport.CulpritsAre(newList);
+        __result = "CaravanIdleDesc".Translate(stringBuilder.ToString());
     }
 }

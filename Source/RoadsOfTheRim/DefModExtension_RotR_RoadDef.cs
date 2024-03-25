@@ -8,40 +8,41 @@ namespace RoadsOfTheRim;
 
 public class DefModExtension_RotR_RoadDef : DefModExtension
 {
-    public static string[] allResources =
-        { "WoodLog", "Stone", "Steel", "Chemfuel", "Plasteel", "Uranium", "ComponentIndustrial", "ComponentSpacer" };
+    public static readonly string[] allResources =
+        ["WoodLog", "Stone", "Steel", "Chemfuel", "Plasteel", "Uranium", "ComponentIndustrial", "ComponentSpacer"];
 
-    public static string[] allResourcesAndWork =
-    {
+    public static readonly string[] allResourcesAndWork =
+    [
         "Work", "WoodLog", "Stone", "Steel", "Chemfuel", "Plasteel", "Uranium", "ComponentIndustrial",
         "ComponentSpacer"
-    };
+    ];
 
-    public static string[] allResourcesWithoutModifiers = { "Uranium", "ComponentIndustrial", "ComponentSpacer" };
+    public static readonly string[] allResourcesWithoutModifiers =
+        ["Uranium", "ComponentIndustrial", "ComponentSpacer"];
     // Base roads (DirtPath, DirtRoad, StoneRoad, AncientAsphaltRoad, AncientAsphaltHighway) will have this set to false, 
     // Built roads (DirtPath+, DirtRoad+, StoneRoad+, AsphaltRoad+, GlitterRoad) will have this set to true
     // Built roads will prevent rocks from being generated on top of them on maps
 
-    public float biomeModifier = 0f;
-    public bool built = false; // Whether or not this road is built or generated
+    public readonly float biomeModifier = 0f;
+    public readonly bool built = false; // Whether this road is built or generated
 
-    public bool canBuildOnImpassable = false;
+    public readonly bool canBuildOnImpassable = false;
 
-    public bool canBuildOnWater = false;
+    public readonly bool canBuildOnWater = false;
 
-    public List<RotR_cost> costs = new List<RotR_cost>();
+    public readonly List<RotR_cost> costs = [];
 
-    public float hillinessModifier = 0f;
+    public readonly float hillinessModifier = 0f;
 
-    public float minConstruction = 0f;
+    public readonly float minConstruction = 0f;
 
-    public float percentageOfminConstruction = 0f;
+    public readonly float percentageOfminConstruction = 0f;
 
-    public TechLevel techlevelToBuild = TechLevel.Neolithic;
+    public readonly TechLevel techlevelToBuild = TechLevel.Neolithic;
 
-    public ResearchProjectDef techNeededToBuild = null;
+    public readonly ResearchProjectDef techNeededToBuild = null;
 
-    public float winterModifier = 0f;
+    public readonly float winterModifier = 0f;
 
     public string GetCosts()
     {

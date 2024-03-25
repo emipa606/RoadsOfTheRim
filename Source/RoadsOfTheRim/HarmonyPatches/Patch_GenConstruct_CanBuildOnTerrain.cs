@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(GenConstruct), "CanBuildOnTerrain")]
 public static class Patch_GenConstruct_CanBuildOnTerrain

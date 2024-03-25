@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using RimWorld;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(WorldTargeter), "StopTargeting")]
 public static class Patch_WorldTargeter_StopTargeting

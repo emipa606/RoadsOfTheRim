@@ -2,7 +2,7 @@
 using HarmonyLib;
 using RimWorld.Planet;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(Tile), "Roads", MethodType.Getter)]
 public static class Patch_Tile_Roads

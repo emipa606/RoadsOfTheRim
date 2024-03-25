@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(RoadDefGenStep_Place), "Place")]
 public static class Patch_RoadDefGenStep_Place_Place

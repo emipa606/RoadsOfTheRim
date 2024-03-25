@@ -14,32 +14,25 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
     private Dictionary<string, int> costs = new Dictionary<string, int>();
 
     // Used for ExposeData()
-    private List<string> costs_Keys = new List<string>();
-    private List<int> costs_Values = new List<int>();
+    private List<string> costs_Keys = [];
+    private List<int> costs_Values = [];
 
     private Dictionary<string, float> left = new Dictionary<string, float>();
-    private List<string> left_Keys = new List<string>();
-    private List<float> left_Values = new List<float>();
+    private List<string> left_Keys = [];
+    private List<float> left_Values = [];
 
     public CompProperties_RoadsOfTheRimConstructionSite Properties =>
         (CompProperties_RoadsOfTheRimConstructionSite)props;
 
     public int GetCost(string name)
     {
-        return !costs.TryGetValue(name, out var value)
-            ? 0
-            : // TO DO : Throwing an excepion would be bettah
-            value;
+        // TO DO : Throwing an excepion would be bettah
+        return costs.GetValueOrDefault(name, 0);
     }
 
     public float GetLeft(string name)
     {
-        if (!left.TryGetValue(name, out var value))
-        {
-            return 0; // TO DO : Throwing an excepion would be bettah
-        }
-
-        return value;
+        return left.GetValueOrDefault(name, 0); // TO DO : Throwing an excepion would be bettah
     }
 
     public void ReduceLeft(string name, float amount)
@@ -84,7 +77,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
                 : (toTile.elevation - settings.CostIncreaseElevationThreshold) /
                   RoadsOfTheRimSettings.ElevationCostDouble;
 
-            // Hilliness and swampiness are the average between that of the from & to tiles
+            // Hilliness and swampiness are the average between that of the form & to tiles
             // Hilliness is 0 on flat terrain, never negative. It's between 0 (flat) and 5(Impassable)
             var hilliness = Math.Max((((float)fromTile.hilliness + (float)toTile.hilliness) / 2) - 1, 0);
             var swampiness = (fromTile.swampiness + toTile.swampiness) / 2;
@@ -110,7 +103,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
     }
 
     /*
-     * For resources (including work) that are part of the cost of both the road to build and the best existing road, 
+     * For resources (including work) that are part of the cost of both the road to build and the best existing road,
      * grant CostUpgradeRebate% (default 30%) of the best existing road build costs as a rebate on the costs of the road to be built
      * i.e. the exisitng road cost 300 stones, the new road cost 600 stones, the rebate is 300*30% = 90 stones
      */
@@ -179,7 +172,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
 
 
     /*
-     * Faction help must be handled here, since it's independent of whether or not a caravan is here.
+     * Faction help must be handled here, since it's independent of whether a caravan is here.
      * Make it with a delay of 1/50 s compared to the CaravanComp so both functions end up playing nicely along each other
      * Don't work at night !
      */
@@ -347,7 +340,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             }
             else
             {
-                fromTile.potentialRoads = new List<Tile.RoadLink>();
+                fromTile.potentialRoads = [];
             }
 
             if (toTile.potentialRoads != null)
@@ -363,7 +356,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             }
             else
             {
-                toTile.potentialRoads = new List<Tile.RoadLink>();
+                toTile.potentialRoads = [];
             }
 
             // Add the road to fromTile & toTile
@@ -413,7 +406,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
     public void EndConstruction(Caravan caravan = null)
     {
         // On the last leg, send letter & remove the construction site
-        if (!(parent is RoadConstructionSite parentSite))
+        if (parent is not RoadConstructionSite parentSite)
         {
             return;
         }

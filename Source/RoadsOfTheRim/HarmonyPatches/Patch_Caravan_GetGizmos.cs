@@ -6,7 +6,7 @@ using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(Caravan), "GetGizmos")]
 public static class Patch_Caravan_GetGizmos

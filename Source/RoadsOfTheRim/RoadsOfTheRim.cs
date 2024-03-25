@@ -14,7 +14,7 @@ public class RoadsOfTheRim : Mod
 {
     public static RoadsOfTheRimSettings settings;
 
-    public static readonly List<TerrainDef> builtRoadTerrains = new List<TerrainDef>();
+    public static readonly List<TerrainDef> builtRoadTerrains = [];
     private static string currentVersion;
 
     public RoadsOfTheRim(ModContentPack content) : base(content)
@@ -25,8 +25,8 @@ public class RoadsOfTheRim : Mod
 
 
     /***********************************
-      * Static links to WorldComponents *       
-      ***********************************/
+     * Static links to WorldComponents *
+     ***********************************/
 
     public static WorldComponent_FactionRoadConstructionHelp FactionsHelp
     {
@@ -100,17 +100,16 @@ public class RoadsOfTheRim : Mod
     Based on the Caravan's resources, Pawns & the road's cost (modified by terrain) :
     - Determine the amount of work done in a tick
     - Consume the caravan's resources
-    - Return whether or not the Caravan must now stop because it ran out of resources
+    - Return whether the Caravan must now stop because it ran out of resources
     - NOTE : Does this need to be here ? Maybe better in Mod.cs
     * Returns TRUE if work finished
-    * CALLED FROM : CompTick() of WorldObjectComp_Caravan        
+    * CALLED FROM : CompTick() of WorldObjectComp_Caravan
     */
-    public static bool DoSomeWork(Caravan caravan, RoadConstructionSite site, out bool noMoreResources)
+    public static bool DoSomeWork(Caravan caravan, RoadConstructionSite site)
     {
         var caravanComp = caravan.GetComponent<WorldObjectComp_Caravan>();
         var siteComp = site.GetComponent<WorldObjectComp_ConstructionSite>();
         _ = site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>();
-        noMoreResources = false;
         var useISR2G = caravanComp.UseISR2G();
         var available = new Dictionary<string, int>();
         var needed = new Dictionary<string, int>();
@@ -254,7 +253,7 @@ public class RoadsOfTheRim : Mod
 
 
     /***********************************
-     * Settings                        *       
+     * Settings                        *
      ***********************************/
 
     public override string SettingsCategory()
@@ -324,7 +323,7 @@ public class RoadsOfTheRim : Mod
     }
 
     /********************************
-     * Gizmos commands              *       
+     * Gizmos commands              *
      ********************************/
 
     public static Command AddConstructionSite(Caravan caravan)
@@ -447,7 +446,7 @@ public class RoadsOfTheRim : Mod
      */
     public static Command RemoveConstructionSite(int tile)
     {
-        // TO DO : Refactor this so we find the site first, to pass it to Deleteconstructionsite directly, or even get rid of that function all together
+        // TO DO : Refactor this, so we find the site first, to pass it to Deleteconstructionsite directly, or even get rid of that function all together
         var command_Action = new Command_Action
         {
             defaultLabel = "RoadsOfTheRimRemoveConstructionSite".Translate(),
@@ -588,7 +587,7 @@ public class RoadsOfTheRim : Mod
 
 
     /********************************
-     * Convenience static functions *       
+     * Convenience static functions *
      ********************************/
 
     // Compares the movement cost multiplier of 2 roaddefs, returns TRUE if roadA is better or roadB is null. returns FALSE in all other cases
@@ -608,7 +607,7 @@ public class RoadsOfTheRim : Mod
     }
 
     /*
-    Tells me whether or not a ThingDef is what I want
+    Tells me whether a ThingDef is what I want
     */
     private static bool IsThis(ThingDef def, string name)
     {

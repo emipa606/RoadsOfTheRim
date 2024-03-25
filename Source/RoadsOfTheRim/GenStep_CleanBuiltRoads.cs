@@ -33,7 +33,7 @@ public class GenStep_CleanBuiltRoads : GenStep
 
             if (thingList.Count > 0)
             {
-                //RoadsOfTheRim.DebugLog("Placed " + thingList.Count + " things on top of " + terrainDefHere.label);
+                //RoadsOfTheRim.DebugLog ( "Placed " + thingList.Count + " things on top of " + terrainDefHere.label);
                 MoveThings(map, current);
             }
 

@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(Designator_RemoveBridge), "CanDesignateCell")]
 public static class Patch_Designator_RemoveBridge_CanDesignateCell

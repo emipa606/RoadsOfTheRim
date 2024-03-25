@@ -2,13 +2,8 @@
 
 namespace RoadsOfTheRim;
 
-public class WorldComponent_RoadBuildingState : WorldComponent
+public class WorldComponent_RoadBuildingState(World world) : WorldComponent(world)
 {
-    public WorldComponent_RoadBuildingState(World world) : base(world)
-    {
-        CurrentlyTargeting = null;
-    }
-
     public RoadConstructionSite CurrentlyTargeting { get; set; }
 
     public Caravan Caravan { get; set; }

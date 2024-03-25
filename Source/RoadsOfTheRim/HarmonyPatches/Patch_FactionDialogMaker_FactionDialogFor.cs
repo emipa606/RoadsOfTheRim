@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(FactionDialogMaker), "FactionDialogFor")]
 public static class Patch_FactionDialogMaker_FactionDialogFor

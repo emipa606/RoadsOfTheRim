@@ -4,7 +4,7 @@ using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(WorldPathGrid), "CalculatedMovementDifficultyAt")]
 internal static class Patch_WorldPathGrid_CalculatedMovementDifficultyAt

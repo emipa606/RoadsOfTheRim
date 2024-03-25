@@ -4,12 +4,12 @@ using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(CaravanUIUtility), "AddPawnsSections")]
 /*
-* Adds a Road equipment section to pawns & animals
-*/
+ * Adds a Road equipment section to pawns & animals
+ */
 public static class Patch_CaravanUIUtility_AddPawnsSections
 {
     [HarmonyPostfix]

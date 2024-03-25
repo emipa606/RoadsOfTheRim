@@ -4,7 +4,7 @@ using HarmonyLib;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(Caravan), "GetInspectString")]
 public static class Patch_Caravan_GetInspectString

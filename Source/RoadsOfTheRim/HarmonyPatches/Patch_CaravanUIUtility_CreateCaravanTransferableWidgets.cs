@@ -6,7 +6,7 @@ using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(CaravanUIUtility), "CreateCaravanTransferableWidgets")]
 //Remove Road equipment from Item tab when forming caravans

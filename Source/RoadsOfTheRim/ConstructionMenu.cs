@@ -8,7 +8,7 @@ using Verse.Sound;
 
 namespace RoadsOfTheRim;
 /*
-Nice looking cartridge-style option picker 
+Nice looking cartridge-style option picker
 Layout : 1 vertical cartridge per type of buidalble road
 Each cartridge has :
 - A square image at the top, representing the type of road
@@ -19,7 +19,7 @@ Each cartridge has :
 > Stone
 > Steel
 > Chemfuel
-> etc..   
+> etc.
 Each line starts with the icon of the resource (work uses the construction site icon)
 Upon clicking outside, the cartridge is closed with no further actions
 Upon clicking on a road icon, we set the roaddef of the site to that road and start targeting the map to add legs
@@ -28,11 +28,9 @@ Check, among others :
 * Widgets many methods
 */
 
-public class ConstructionMenu : Window
+public class ConstructionMenu(RoadConstructionSite site, Caravan caravan) : Window
 {
-    private readonly List<RoadDef> buildableRoads;
-    private readonly Caravan caravan;
-    private readonly RoadConstructionSite site;
+    private readonly List<RoadDef> buildableRoads = [];
 
     // TO DO : Use the below to dynamically draw the window based on number of buildable roads (which could include technolcogy limits)
     // public bool resizeable = true ;
@@ -40,13 +38,7 @@ public class ConstructionMenu : Window
     // private Rect resizeLaterRect ;
 
 
-    public ConstructionMenu(RoadConstructionSite site, Caravan caravan)
-    {
-        this.site = site;
-        this.caravan = caravan;
-        buildableRoads = new List<RoadDef>();
-        // TO DO : COunt number of buildable roads, set the resize later rect based on that
-    }
+    // TO DO : COunt number of buildable roads, set the resize later rect based on that
 
     public override Vector2 InitialSize => new Vector2(676 + 128, 544 + 128);
 

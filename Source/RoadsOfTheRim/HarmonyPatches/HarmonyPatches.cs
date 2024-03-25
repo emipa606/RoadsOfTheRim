@@ -4,7 +4,7 @@ using HarmonyLib;
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [StaticConstructorOnStartup]
 public class HarmonyPatches
@@ -47,7 +47,7 @@ public class HarmonyPatches
 
 // TO DO : Ideally, this should be a transpiler. But should I bother ? The code below does the job
 /*
- * Patching roads so they cancel all or part of the Tile.biome.movementDifficulty and Hilliness
+ * Patching roads, so they cancel all or part of the Tile.biome.movementDifficulty and Hilliness
  * The actual rates are stored in static method RoadsOfTheRim.calculateRoadModifier
  */
 

@@ -94,7 +94,7 @@ public class WorldObjectComp_Caravan : WorldObjectComp
         {
             base.CompTick();
             site.TryToSkipBetterRoads(caravan); // No need to work if there's a better road here
-            if (RoadsOfTheRim.DoSomeWork(caravan, GetSite(), out _))
+            if (RoadsOfTheRim.DoSomeWork(caravan, GetSite()))
             {
                 StopWorking();
                 UnsetSite();
@@ -179,10 +179,10 @@ public class WorldObjectComp_Caravan : WorldObjectComp
     }
 
     /*
-    * Amount of work :
-    * - Construction speed (0.5 + 0.15 per level) times the construct success chance (0.75 to 1.13 - lvl 8 is 1)
-    * - Pack animals help as well (see below)
-    */
+     * Amount of work :
+     * - Construction speed (0.5 + 0.15 per level) times the construct success chance (0.75 to 1.13 - lvl 8 is 1)
+     * - Pack animals help as well (see below)
+     */
     public float AmountOfWork(bool verbose = false)
     {
         var pawns = GetCaravan().PawnsListForReading;

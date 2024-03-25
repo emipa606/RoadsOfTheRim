@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(GenConstruct), "CanPlaceBlueprintAt")]
 public static class Patch_GenConstruct_CanPlaceBlueprintAt

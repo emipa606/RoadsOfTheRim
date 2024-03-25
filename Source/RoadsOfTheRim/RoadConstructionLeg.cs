@@ -227,7 +227,7 @@ public class RoadConstructionLeg : WorldObject
     }
 
     /*
-     * Remove all legs up to and including the one passed in argument      
+     * Remove all legs up to and including the one passed in argument
      */
     public static void Remove(RoadConstructionLeg leg)
     {

@@ -4,13 +4,13 @@ using HarmonyLib;
 using RimWorld.Planet;
 using Verse;
 
-namespace RoadsOfTheRim;
+namespace RoadsOfTheRim.HarmonyPatches;
 
 [HarmonyPatch(typeof(WorldGrid), "GetRoadMovementDifficultyMultiplier")]
 public static class Patch_WorldGrid_GetRoadMovementDifficultyMultiplier
 {
     private static readonly MethodInfo HillinessMovementDifficultyOffset = AccessTools.Method(typeof(WorldPathGrid),
-        "HillinessMovementDifficultyOffset", new[] { typeof(Hilliness) });
+        "HillinessMovementDifficultyOffset", [typeof(Hilliness)]);
 
     [HarmonyPostfix]
     public static void Postifx(ref float __result, WorldGrid __instance, ref int fromTile, ref int toTile,
@@ -36,7 +36,7 @@ public static class Patch_WorldGrid_GetRoadMovementDifficultyMultiplier
 
             var ToTileAsTile = Find.WorldGrid[toTile];
             var HillinessOffset =
-                (float)HillinessMovementDifficultyOffset.Invoke(null, new object[] { ToTileAsTile.hilliness });
+                (float)HillinessMovementDifficultyOffset.Invoke(null, [ToTileAsTile.hilliness]);
             if (HillinessOffset > 12f)
             {
                 HillinessOffset = 12f;
