@@ -8,11 +8,10 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(CaravanUIUtility), "CreateCaravanTransferableWidgets")]
+[HarmonyPatch(typeof(CaravanUIUtility), nameof(CaravanUIUtility.CreateCaravanTransferableWidgets))]
 //Remove Road equipment from Item tab when forming caravans
-public static class Patch_CaravanUIUtility_CreateCaravanTransferableWidgets
+public static class CaravanUIUtility_CreateCaravanTransferableWidgets
 {
-    [HarmonyPostfix]
     public static void Postfix(List<TransferableOneWay> transferables,
         ref TransferableOneWayWidget itemsTransfer, string thingCountTip,
         IgnorePawnsInventoryMode ignorePawnInventoryMass, Func<float> availableMassGetter,

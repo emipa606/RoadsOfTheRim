@@ -4,10 +4,9 @@ using RimWorld.Planet;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Tile), "Roads", MethodType.Getter)]
-public static class Patch_Tile_Roads
+[HarmonyPatch(typeof(Tile), nameof(Tile.Roads), MethodType.Getter)]
+public static class Tile_Roads
 {
-    [HarmonyPostfix]
     public static void Postfix(Tile __instance, ref List<Tile.RoadLink> __result)
     {
         __result = __instance.potentialRoads;

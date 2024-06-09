@@ -8,10 +8,9 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Caravan), "GetGizmos")]
-public static class Patch_Caravan_GetGizmos
+[HarmonyPatch(typeof(Caravan), nameof(Caravan.GetGizmos))]
+public static class Caravan_GetGizmos
 {
-    [HarmonyPostfix]
     public static void Postfix(ref IEnumerable<Gizmo> __result, Caravan __instance)
     {
         var isThereAConstructionSiteHere =

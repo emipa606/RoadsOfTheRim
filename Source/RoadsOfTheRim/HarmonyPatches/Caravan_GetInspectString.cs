@@ -6,10 +6,9 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Caravan), "GetInspectString")]
-public static class Patch_Caravan_GetInspectString
+[HarmonyPatch(typeof(Caravan), nameof(Caravan.GetInspectString))]
+public static class Caravan_GetInspectString
 {
-    [HarmonyPostfix]
     public static void Postfix(ref string __result, Caravan __instance)
     {
         try

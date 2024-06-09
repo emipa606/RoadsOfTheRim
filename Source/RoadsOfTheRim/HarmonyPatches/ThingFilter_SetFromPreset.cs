@@ -4,11 +4,10 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(ThingFilter), "SetFromPreset")]
+[HarmonyPatch(typeof(ThingFilter), nameof(ThingFilter.SetFromPreset))]
 //Remove Road equipment from Item tab when forming caravans
-public static class Patch_ThingFilter_SetFromPreset
+public static class ThingFilter_SetFromPreset
 {
-    [HarmonyPostfix]
     public static void Postfix(ref ThingFilter __instance, StorageSettingsPreset preset)
     {
         if (preset != StorageSettingsPreset.DefaultStockpile)

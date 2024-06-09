@@ -4,10 +4,9 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(GenConstruct), "CanPlaceBlueprintAt")]
-public static class Patch_GenConstruct_CanPlaceBlueprintAt
+[HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt_NewTemp))]
+public static class GenConstruct_CanPlaceBlueprintAt_NewTemp
 {
-    [HarmonyPostfix]
     public static void Postfix(ref AcceptanceReport __result, BuildableDef entDef, IntVec3 center, Map map)
     {
         if (entDef != TerrainDefOf.ConcreteBridge || !map.terrainGrid.TerrainAt(center).affordances

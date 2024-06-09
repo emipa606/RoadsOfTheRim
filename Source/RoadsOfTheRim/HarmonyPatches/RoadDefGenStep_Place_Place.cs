@@ -4,8 +4,8 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(RoadDefGenStep_Place), "Place")]
-public static class Patch_RoadDefGenStep_Place_Place
+[HarmonyPatch(typeof(RoadDefGenStep_Place), nameof(RoadDefGenStep_Place.Place))]
+public static class RoadDefGenStep_Place_Place
 {
     public static bool IsGoodTerrain(TerrainDef terrain)
     {

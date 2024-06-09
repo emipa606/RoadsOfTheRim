@@ -6,10 +6,9 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Alert_CaravanIdle), "GetReport")]
-public static class Patch_Alert_CaravanIdle_GetReport
+[HarmonyPatch(typeof(Alert_CaravanIdle), nameof(Alert_CaravanIdle.GetReport))]
+public static class Alert_CaravanIdle_GetReport
 {
-    [HarmonyPostfix]
     public static void Postfix(ref AlertReport __result)
     {
         var newList = new List<Caravan>();

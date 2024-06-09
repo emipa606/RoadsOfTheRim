@@ -6,14 +6,13 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(WorldGrid), "GetRoadMovementDifficultyMultiplier")]
-public static class Patch_WorldGrid_GetRoadMovementDifficultyMultiplier
+[HarmonyPatch(typeof(WorldGrid), nameof(WorldGrid.GetRoadMovementDifficultyMultiplier))]
+public static class WorldGrid_GetRoadMovementDifficultyMultiplier
 {
     private static readonly MethodInfo HillinessMovementDifficultyOffset = AccessTools.Method(typeof(WorldPathGrid),
         "HillinessMovementDifficultyOffset", [typeof(Hilliness)]);
 
-    [HarmonyPostfix]
-    public static void Postifx(ref float __result, WorldGrid __instance, ref int fromTile, ref int toTile,
+    public static void Postfix(ref float __result, WorldGrid __instance, ref int fromTile, ref int toTile,
         ref StringBuilder explanation)
     {
         var roads = __instance.tiles[fromTile].Roads;

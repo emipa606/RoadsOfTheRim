@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <RoadsOfTheRim>边缘之路</RoadsOfTheRim>
   <RoadsOfTheRimAddConstructionSite>修建道路</RoadsOfTheRimAddConstructionSite>
@@ -74,5 +74,5 @@
   <RoadsOfTheRim_UpgradeRebateDetail>{0} {1}</RoadsOfTheRim_UpgradeRebateDetail>
   <RoadsOfTheRim_RoadBuiltByAlly>你的盟友</RoadsOfTheRim_RoadBuiltByAlly>
   <RoadsOfTheRim_RoadEquipment>公路设备</RoadsOfTheRim_RoadEquipment>
-  <RoadsOfTheRim_ModVersion>已安装的mod-version。{0}</RoadsOfTheRim_ModVersion>
+  <RoadsOfTheRim_ModVersion>已安装的模组版本：{0}</RoadsOfTheRim_ModVersion>
 </LanguageData>

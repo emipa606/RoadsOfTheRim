@@ -6,13 +6,12 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(CaravanUIUtility), "AddPawnsSections")]
+[HarmonyPatch(typeof(CaravanUIUtility), nameof(CaravanUIUtility.AddPawnsSections))]
 /*
  * Adds a Road equipment section to pawns & animals
  */
-public static class Patch_CaravanUIUtility_AddPawnsSections
+public static class CaravanUIUtility_AddPawnsSections
 {
-    [HarmonyPostfix]
     public static void Postfix(ref TransferableOneWayWidget widget, List<TransferableOneWay> transferables)
     {
         RoadsOfTheRim.DebugLog("DEBUG AddPawnsSection: ");

@@ -6,11 +6,10 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(WorldPathGrid), "CalculatedMovementDifficultyAt")]
-internal static class Patch_WorldPathGrid_CalculatedMovementDifficultyAt
+[HarmonyPatch(typeof(WorldPathGrid), nameof(WorldPathGrid.CalculatedMovementDifficultyAt))]
+internal static class WorldPathGrid_CalculatedMovementDifficultyAt
 {
-    [HarmonyPostfix]
-    public static void PostFix(ref float __result, int tile)
+    public static void Postfix(ref float __result, int tile)
     {
         if (__result <= 999f || !Find.WorldGrid.InBounds(tile))
         {

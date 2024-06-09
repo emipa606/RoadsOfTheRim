@@ -1,5 +1,8 @@
 # Changelog for RoadsOfTheRim
 
+1.5.1 - Added check for active game during harmony patching to avoid issues with mods like ReGrowth Expanded World Generation
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 
 

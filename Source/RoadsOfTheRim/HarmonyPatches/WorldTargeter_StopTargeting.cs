@@ -1,14 +1,19 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(WorldTargeter), "StopTargeting")]
-public static class Patch_WorldTargeter_StopTargeting
+[HarmonyPatch(typeof(WorldTargeter), nameof(WorldTargeter.StopTargeting))]
+public static class WorldTargeter_StopTargeting
 {
-    [HarmonyPrefix]
     public static void Prefix()
     {
+        if (Current.ProgramState != ProgramState.Playing)
+        {
+            return;
+        }
+
         if (RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting == null)
         {
             return;

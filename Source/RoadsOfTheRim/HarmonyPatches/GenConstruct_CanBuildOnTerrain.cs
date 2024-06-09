@@ -4,10 +4,9 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(GenConstruct), "CanBuildOnTerrain")]
-public static class Patch_GenConstruct_CanBuildOnTerrain
+[HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanBuildOnTerrain))]
+public static class GenConstruct_CanBuildOnTerrain
 {
-    [HarmonyPostfix]
     public static void Postfix(ref bool __result, BuildableDef entDef, IntVec3 c, Map map)
     {
         if (entDef != TerrainDefOf.ConcreteBridge && entDef != TerrainDefOf.AsphaltRecent &&
