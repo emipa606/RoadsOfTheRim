@@ -7,7 +7,7 @@ public static class PawnBuildingUtility
 {
     public static bool HealthyColonist(Pawn p)
     {
-        return p.IsFreeColonist && p.health.State == PawnHealthState.Mobile;
+        return p.IsFreeColonist && p.health.State == PawnHealthState.Mobile || p.IsColonyMech && !p.IsDeactivated();
     }
 
     public static bool HealthyPackAnimal(Pawn p)
@@ -22,7 +22,7 @@ public static class PawnBuildingUtility
 
     public static int ConstructionLevel(Pawn p)
     {
-        return p.skills.GetSkill(SkillDefOf.Construction).Level;
+        return p.IsColonyMech ? p.RaceProps.mechFixedSkillLevel : p.skills.GetSkill(SkillDefOf.Construction).Level;
     }
 
     public static string ShowConstructionValue(Pawn p)

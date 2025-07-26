@@ -11,13 +11,13 @@ namespace RoadsOfTheRim;
 public class WorldObjectComp_ConstructionSite : WorldObjectComp
 {
     // TO DO : Make those 2 private
-    private Dictionary<string, int> costs = new Dictionary<string, int>();
+    private Dictionary<string, int> costs = new();
 
     // Used for ExposeData()
     private List<string> costs_Keys = [];
     private List<int> costs_Values = [];
 
-    private Dictionary<string, float> left = new Dictionary<string, float>();
+    private Dictionary<string, float> left = new();
     private List<string> left_Keys = [];
     private List<float> left_Values = [];
 
@@ -324,8 +324,8 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
         {
             var fromTile_int = parentSite.Tile;
             var toTile_int = parentSite.GetNextLeg().Tile;
-            var fromTile = Find.WorldGrid[fromTile_int];
-            var toTile = Find.WorldGrid[toTile_int];
+            var fromTile = (SurfaceTile)Find.WorldGrid[fromTile_int];
+            var toTile = (SurfaceTile)Find.WorldGrid[toTile_int];
 
             // Remove lesser roads, they don't deserve to live
             if (fromTile.potentialRoads != null)
@@ -360,14 +360,14 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             }
 
             // Add the road to fromTile & toTile
-            fromTile.potentialRoads.Add(new Tile.RoadLink { neighbor = toTile_int, road = parentSite.roadDef });
-            toTile.potentialRoads.Add(new Tile.RoadLink { neighbor = fromTile_int, road = parentSite.roadDef });
+            fromTile.potentialRoads.Add(new SurfaceTile.RoadLink { neighbor = toTile_int, road = parentSite.roadDef });
+            toTile.potentialRoads.Add(new SurfaceTile.RoadLink { neighbor = fromTile_int, road = parentSite.roadDef });
             try
             {
-                Find.World.renderer.SetDirty<WorldLayer_Roads>();
-                Find.World.renderer.SetDirty<WorldLayer_Paths>();
-                Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(fromTile_int);
-                Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(toTile_int);
+                Find.World.renderer.SetDirty<WorldDrawLayer_Paths>(PlanetLayer.Selected);
+                Find.World.renderer.SetDirty<WorldDrawLayer_Paths>(PlanetLayer.Selected);
+                Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(fromTile_int, out _);
+                Find.WorldPathGrid.RecalculatePerceivedMovementDifficultyAt(toTile_int, out _);
             }
             catch (Exception e)
             {

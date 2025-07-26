@@ -4,8 +4,8 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt_NewTemp))]
-public static class GenConstruct_CanPlaceBlueprintAt_NewTemp
+[HarmonyPatch(typeof(GenConstruct), nameof(GenConstruct.CanPlaceBlueprintAt))]
+public static class GenConstruct_CanPlaceBlueprintAt
 {
     public static void Postfix(ref AcceptanceReport __result, BuildableDef entDef, IntVec3 center, Map map)
     {

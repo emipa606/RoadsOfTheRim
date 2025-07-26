@@ -2,6 +2,17 @@
   "Continued": true,
   "CanAdd": "0",
   "CanRemove": "2",
-  "PreviewVersion": "1.5",
-  "SocialImageSet": true
+  "PreviewVersion": "1.6",
+  "SocialImageSet": true,
+  "Patches": true,
+  "Defs": true,
+  "Assemblies": true,
+  "LinesOfCode": 141238,
+  "LinesOfXML": 34550,
+  "CodeBaseSize": 83,
+  "LastXmlCleaning": "2025-07-26T21:07:58.0881675+02:00",
+  "SearchTags": [
+    "roads",
+    " construction"
+  ]
 }

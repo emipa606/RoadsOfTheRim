@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: recently built asphalt -->
+  <AsphaltRecent.label>recently built asphalt</AsphaltRecent.label>
+  <!-- EN: Recently built Asphalt. Excellent for roads. Deconstructing asphalt yields no resources. -->
+  <AsphaltRecent.description>Recently built Asphalt. Excellent for roads. Deconstructing asphalt yields no resources.</AsphaltRecent.description>
+  <!-- EN: concrete bridge -->
+  <ConcreteBridge.label>concrete bridge</ConcreteBridge.label>
+  <!-- EN: A concrete bridge to be built over water. Heavy structures can be built on these bridges, but they can still be destroyed. If a bridge falls, buildings on top of it fall as well. -->
+  <ConcreteBridge.description>A concrete bridge to be built over water. Heavy structures can be built on these bridges, but they can still be destroyed. If a bridge falls, buildings on top of it fall as well.</ConcreteBridge.description>
+  <!-- EN: Recently packed dirt -->
+  <DirtRecent.label>Recently packed dirt</DirtRecent.label>
+  <!-- EN: Packed dirt for recently built paths and roads. Neither beautiful nor clean, they still make good surfaces for cheap roads. Deconstructing packed dirt yields no resources. -->
+  <DirtRecent.description>Packed dirt for recently built paths and roads. Neither beautiful nor clean, they still make good surfaces for cheap roads. Deconstructing packed dirt yields no resources.</DirtRecent.description>
+  <!-- EN: glitter road -->
+  <GlitterRoad.label>glitter road</GlitterRoad.label>
+  <!-- EN: Spacer level actively supported roads. Deconstructing glitter roads yields no resources. -->
+  <GlitterRoad.description>Spacer level actively supported roads. Deconstructing glitter roads yields no resources.</GlitterRoad.description>
+  <!-- EN: Recently built sandstone flagstone -->
+  <StoneRecent.label>Recently built sandstone flagstone</StoneRecent.label>
+  <!-- EN: Roughly-cut stone recently built tiles. These are not beautiful, but they make good surfaces for roads and outdoor walkways. Deconstructing flagstone yields no resources. -->
+  <StoneRecent.description>Roughly-cut stone recently built tiles. These are not beautiful, but they make good surfaces for roads and outdoor walkways. Deconstructing flagstone yields no resources.</StoneRecent.description>
+</LanguageData>

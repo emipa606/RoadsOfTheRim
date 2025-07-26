@@ -9,7 +9,7 @@ namespace RoadsOfTheRim.HarmonyPatches;
 [HarmonyPatch(typeof(WorldPathGrid), nameof(WorldPathGrid.CalculatedMovementDifficultyAt))]
 internal static class WorldPathGrid_CalculatedMovementDifficultyAt
 {
-    public static void Postfix(ref float __result, int tile)
+    public static void Postfix(ref float __result, PlanetTile tile)
     {
         if (__result <= 999f || !Find.WorldGrid.InBounds(tile))
         {
@@ -18,7 +18,7 @@ internal static class WorldPathGrid_CalculatedMovementDifficultyAt
 
         try
         {
-            var tile2 = Find.WorldGrid[tile];
+            var tile2 = (SurfaceTile)Find.WorldGrid[tile];
             if (tile2.Roads == null)
             {
                 return;
@@ -51,7 +51,7 @@ internal static class WorldPathGrid_CalculatedMovementDifficultyAt
                 return;
             }
 
-            if ((!tile2.biome.impassable || !(roadDefExtension.biomeModifier > 0)) &&
+            if ((!tile2.PrimaryBiome.impassable || !(roadDefExtension.biomeModifier > 0)) &&
                 tile2.hilliness != Hilliness.Impassable)
             {
                 return;
@@ -59,7 +59,7 @@ internal static class WorldPathGrid_CalculatedMovementDifficultyAt
 
             __result = 12f;
             RoadsOfTheRim.DebugLog(
-                $"[RotR] - Impassable Tile {tile} of biome {tile2.biome.label} movement difficulty patched to 12");
+                $"[RotR] - Impassable Tile {tile} of biome {tile2.PrimaryBiome.label} movement difficulty patched to 12");
         }
         catch (Exception e)
         {

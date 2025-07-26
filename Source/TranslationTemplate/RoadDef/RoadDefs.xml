@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: asphalt road -->
+  <AsphaltRoad.label>asphalt road</AsphaltRoad.label>
+  <!-- EN: dirt path+ -->
+  <DirtPathBuilt.label>dirt path+</DirtPathBuilt.label>
+  <!-- EN: dirt road+ -->
+  <DirtRoadBuilt.label>dirt road+</DirtRoadBuilt.label>
+  <!-- EN: glitter road -->
+  <GlitterRoad.label>glitter road</GlitterRoad.label>
+  <!-- EN: stone road+ -->
+  <StoneRoadBuilt.label>stone road+</StoneRoadBuilt.label>
+</LanguageData>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Those are buildable roads, they are never generated during World generation
     On a map, roadGenSteps must be less random (the roads have not degraded) and the material (<place> tag) must prevent things to spawn on them during map generation

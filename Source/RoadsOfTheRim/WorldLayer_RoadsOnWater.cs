@@ -11,7 +11,7 @@ using Verse.Noise;
 
 namespace RoadsOfTheRim;
 
-public class WorldLayer_RoadsOnWater : WorldLayer_Paths
+public class WorldLayer_RoadsOnWater : WorldDrawLayer_Paths
 {
     private readonly ModuleBase roadDisplacementX = new Perlin(1.0, 2.0, 0.5, 3, 78951234, QualityMode.Medium);
 

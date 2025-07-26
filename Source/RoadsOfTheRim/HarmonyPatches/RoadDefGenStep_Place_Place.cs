@@ -7,7 +7,7 @@ namespace RoadsOfTheRim.HarmonyPatches;
 [HarmonyPatch(typeof(RoadDefGenStep_Place), nameof(RoadDefGenStep_Place.Place))]
 public static class RoadDefGenStep_Place_Place
 {
-    public static bool IsGoodTerrain(TerrainDef terrain)
+    private static bool IsGoodTerrain(TerrainDef terrain)
     {
         return terrain == TerrainDefOf.Mud || terrain == TerrainDefOf.MarshyTerrain;
     }

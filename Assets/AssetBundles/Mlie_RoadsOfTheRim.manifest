@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 397152175
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2133a074e0adead0ec9f7ed794c35b3b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2612ac43db082a73502ee80f2eceb73f
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 2133a074e0adead0ec9f7ed794c35b3b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/RemoveConstructionSite.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/Terrain/Surfaces/GlitterRoad.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/Build_DirtPathBuilt.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/RoadsOfTheRim_AsphaltRoad.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/RoadsOfTheRim_DirtPath.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/Terrain/Surfaces/AsphaltRecent.jpg
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/ConstructionLegLast.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/Build_DirtRoadBuilt.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/Build_AsphaltRoad.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/Buildings/ISR2G.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/RoadsOfTheRim_DirtRoad.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Overlays/ConstructionLeg.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/Buildings/AISR2G.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/road-construction-signs-clipart-1.jpg
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/ConstructionSite.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/Build_GlitterRoad.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/AddConstructionSite.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/Expanding/ConstructionSite.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Commands/Build_StoneRoadBuilt.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/Terrain/Surfaces/ConcreteBridge_MenuIcon.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/UI/Icons/ThingCategories/RoadEquipment.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/ConstructionLeg.png
+- Assets/Data/Mlie.RoadsOfTheRim/Textures/World/WorldObjects/RoadsOfTheRim_StoneRoad.png
+Dependencies: []

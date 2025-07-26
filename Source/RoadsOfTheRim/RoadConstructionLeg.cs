@@ -133,7 +133,7 @@ public class RoadConstructionLeg : WorldObject
             }
 
             // Check whether we clicked on a neighbour
-            var neighbouringTiles = new List<int>();
+            var neighbouringTiles = new List<PlanetTile>();
             Find.WorldGrid.GetTileNeighbors(tile, neighbouringTiles);
             // This is not a neighbour : do nothing
             if (!neighbouringTiles.Contains(site.LastLeg.Tile))
@@ -229,7 +229,7 @@ public class RoadConstructionLeg : WorldObject
     /*
      * Remove all legs up to and including the one passed in argument
      */
-    public static void Remove(RoadConstructionLeg leg)
+    private static void Remove(RoadConstructionLeg leg)
     {
         var site = leg.site;
         var CurrentLeg = (RoadConstructionLeg)site.LastLeg;

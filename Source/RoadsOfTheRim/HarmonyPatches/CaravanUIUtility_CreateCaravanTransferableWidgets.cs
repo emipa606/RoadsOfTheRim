@@ -15,7 +15,7 @@ public static class CaravanUIUtility_CreateCaravanTransferableWidgets
     public static void Postfix(List<TransferableOneWay> transferables,
         ref TransferableOneWayWidget itemsTransfer, string thingCountTip,
         IgnorePawnsInventoryMode ignorePawnInventoryMass, Func<float> availableMassGetter,
-        bool ignoreSpawnedCorpsesGearAndInventoryMass, int tile)
+        bool ignoreSpawnedCorpsesGearAndInventoryMass, PlanetTile tile)
     {
         var modifiedTransferables = transferables.Where(x => x.ThingDef.category != ThingCategory.Pawn).ToList();
         modifiedTransferables = modifiedTransferables

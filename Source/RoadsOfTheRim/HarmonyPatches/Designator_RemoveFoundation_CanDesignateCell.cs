@@ -4,10 +4,10 @@ using Verse;
 
 namespace RoadsOfTheRim.HarmonyPatches;
 
-[HarmonyPatch(typeof(Designator_RemoveBridge), nameof(Designator_RemoveBridge.CanDesignateCell))]
-public static class Designator_RemoveBridge_CanDesignateCell
+[HarmonyPatch(typeof(Designator_RemoveFoundation), nameof(Designator_RemoveFoundation.CanDesignateCell))]
+public static class Designator_RemoveFoundation_CanDesignateCell
 {
-    public static void Postfix(ref AcceptanceReport __result, Designator_RemoveBridge __instance, IntVec3 c)
+    public static void Postfix(ref AcceptanceReport __result, Designator_RemoveFoundation __instance, IntVec3 c)
     {
         if (!c.InBounds(__instance.Map) || c.GetTerrain(__instance.Map) != TerrainDefOf.ConcreteBridge)
         {

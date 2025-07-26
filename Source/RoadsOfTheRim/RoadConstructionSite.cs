@@ -17,11 +17,11 @@ public class RoadConstructionSite : WorldObject
 
     private static readonly int MaxSettlementsInDescription = 5;
 
-    private static readonly Color ColorTransparent = new Color(0.0f, 0.0f, 0.0f, 0f);
+    private static readonly Color ColorTransparent = new(0.0f, 0.0f, 0.0f, 0f);
 
-    private static readonly Color ColorFilled = new Color(0.9f, 0.85f, 0.2f, 1f);
+    private static readonly Color ColorFilled = new(0.9f, 0.85f, 0.2f, 1f);
 
-    private static readonly Color ColorUnfilled = new Color(0.3f, 0.3f, 0.3f, 1f);
+    private static readonly Color ColorUnfilled = new(0.3f, 0.3f, 0.3f, 1f);
 
     public float helpAmount; // How much will the faction help
 
@@ -50,9 +50,9 @@ public class RoadConstructionSite : WorldObject
 
     public static void DeleteSite(RoadConstructionSite site)
     {
-        IEnumerable<WorldObject> constructionLegs = Find.WorldObjects.AllWorldObjects.Where(
-            leg => leg.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg") &&
-                   ((RoadConstructionLeg)leg).GetSite() == site
+        IEnumerable<WorldObject> constructionLegs = Find.WorldObjects.AllWorldObjects.Where(leg =>
+            leg.def == DefDatabase<WorldObjectDef>.GetNamed("RoadConstructionLeg") &&
+            ((RoadConstructionLeg)leg).GetSite() == site
         ).ToArray();
         foreach (var o in constructionLegs)
         {
@@ -143,12 +143,17 @@ public class RoadConstructionSite : WorldObject
         return result.OrderBy(si => si.distance).ToList();
     }
 
-    private void SearchForSettlements(int startTile, ref List<SettlementInfo> settlementsSearched)
+    private void SearchForSettlements(PlanetTile startTile, ref List<SettlementInfo> settlementsSearched)
     {
         var timer = Stopwatch.StartNew();
         var worldGrid = Find.WorldGrid;
         foreach (var s in Find.WorldObjects.Settlements)
         {
+            if (s.Tile.Layer != Tile.Layer)
+            {
+                continue;
+            }
+
             if (!(worldGrid.ApproxDistanceInTiles(startTile, s.Tile) <= maxNeighbourDistance))
             {
                 continue;
@@ -378,7 +383,7 @@ public class RoadConstructionSite : WorldObject
             UpdateProgressBarMaterial();
         }
 
-        WorldRendererUtility.DrawQuadTangentialToPlanet(fromPos, Find.WorldGrid.averageTileSize * .8f, 0.15f,
+        WorldRendererUtility.DrawQuadTangentialToPlanet(fromPos, Find.WorldGrid.AverageTileSize * .8f, 0.15f,
             ProgressBarMaterial);
     }
 

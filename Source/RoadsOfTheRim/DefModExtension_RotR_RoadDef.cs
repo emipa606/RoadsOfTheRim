@@ -26,11 +26,11 @@ public class DefModExtension_RotR_RoadDef : DefModExtension
     public readonly float biomeModifier = 0f;
     public readonly bool built = false; // Whether this road is built or generated
 
-    public readonly bool canBuildOnImpassable = false;
+    private readonly bool canBuildOnImpassable = false;
 
-    public readonly bool canBuildOnWater = false;
+    private readonly bool canBuildOnWater = false;
 
-    public readonly List<RotR_cost> costs = [];
+    private readonly List<RotR_cost> costs = [];
 
     public readonly float hillinessModifier = 0f;
 
@@ -68,20 +68,12 @@ public class DefModExtension_RotR_RoadDef : DefModExtension
         switch (resourceName)
         {
             case "WoodLog":
-                result = ISR2G > 0;
-                break;
             case "Stone":
                 result = ISR2G > 0;
                 break;
             case "Steel":
-                result = ISR2G > 1;
-                break;
             case "Chemfuel":
-                result = ISR2G > 1;
-                break;
             case "Plasteel":
-                result = ISR2G > 1;
-                break;
             case "Uranium":
                 result = ISR2G > 1;
                 break;
@@ -93,19 +85,19 @@ public class DefModExtension_RotR_RoadDef : DefModExtension
     public static bool BiomeAllowed(int tile, RoadDef roadDef, out BiomeDef biomeHere)
     {
         var RoadDefMod = roadDef.GetModExtension<DefModExtension_RotR_RoadDef>();
-        biomeHere = Find.WorldGrid.tiles[tile].biome;
-        if (RoadDefMod.canBuildOnWater && (biomeHere.defName == "Ocean" || biomeHere.defName == "Lake"))
+        biomeHere = Find.WorldGrid.Surface.Tiles[tile].PrimaryBiome;
+        if (RoadDefMod.canBuildOnWater && biomeHere is { defName: "Ocean" } or { defName: "Lake" })
         {
             return true;
         }
 
-        return biomeHere.allowRoads;
+        return biomeHere is { allowRoads: true };
     }
 
     public static bool ImpassableAllowed(int tile, RoadDef roadDef)
     {
         var RoadDefMod = roadDef.GetModExtension<DefModExtension_RotR_RoadDef>();
-        var hillinnessHere = Find.WorldGrid.tiles[tile].hilliness;
+        var hillinnessHere = Find.WorldGrid.Surface.Tiles[tile].hilliness;
         if (RoadDefMod.canBuildOnImpassable && hillinnessHere == Hilliness.Impassable)
         {
             return true;

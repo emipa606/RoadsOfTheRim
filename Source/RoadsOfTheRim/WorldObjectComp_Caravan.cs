@@ -202,31 +202,16 @@ public class WorldObjectComp_Caravan : WorldObjectComp
         var animalConstruction = 0f;
         foreach (var pawn in pawns)
         {
-            /*
-            if (pawn.IsFreeColonist && pawn.health.State == PawnHealthState.Mobile)
-            {
-                totalConstruction += pawn.GetStatValue(StatDefOf.ConstructionSpeed) * pawn.GetStatValue(StatDefOf.ConstructSuccessChance);
-
-                if (roadDefModExtension!=null && pawn.skills.GetSkill(SkillDefOf.Construction).levelInt >= roadDefModExtension.minConstruction)
-                {
-                    totalConstructionAboveMinLevel += pawn.GetStatValue(StatDefOf.ConstructionSpeed) * pawn.GetStatValue(StatDefOf.ConstructSuccessChance);
-                }
-            }
-            else if (pawn.RaceProps.packAnimal  && pawn.health.State == PawnHealthState.Mobile)
-            {
-                animalConstruction += pawn.GetStatValue(StatDefOf.ConstructionSpeed) * pawn.GetStatValue(StatDefOf.ConstructSuccessChance);
-            }
-            */
-            var PawnConstructionValue = PawnBuildingUtility.ConstructionValue(pawn);
+            var pawnConstructionValue = PawnBuildingUtility.ConstructionValue(pawn);
 
             if (PawnBuildingUtility.HealthyColonist(pawn))
             {
-                totalConstruction += PawnConstructionValue;
+                totalConstruction += pawnConstructionValue;
 
                 if (roadDefModExtension != null && PawnBuildingUtility.ConstructionLevel(pawn) >=
                     roadDefModExtension.minConstruction)
                 {
-                    totalConstructionAboveMinLevel += PawnConstructionValue;
+                    totalConstructionAboveMinLevel += pawnConstructionValue;
                 }
 
                 continue;
@@ -234,7 +219,7 @@ public class WorldObjectComp_Caravan : WorldObjectComp
 
             if (PawnBuildingUtility.HealthyPackAnimal(pawn))
             {
-                animalConstruction += PawnConstructionValue;
+                animalConstruction += pawnConstructionValue;
             }
         }
 
@@ -271,13 +256,11 @@ public class WorldObjectComp_Caravan : WorldObjectComp
     {
         ratio = Math.Max(Math.Min(1, ratio), 0);
         var pawns = GetCaravan().PawnsListForReading;
-        //RoadsOfTheRim.DebugLog("Teaching Construction to pawns");
         foreach (var pawn in pawns)
         {
             if (!pawn.IsFreeColonist || pawn.health.State != PawnHealthState.Mobile || pawn.RaceProps.packAnimal)
             {
                 continue;
-                //RoadsOfTheRim.DebugLog(pawn.Name+" learned " + ratio + " Xp = "+pawn.skills.GetSkill(SkillDefOf.Construction).XpTotalEarned);
             }
 
             pawn.skills.Learn(SkillDefOf.Construction, 3f * ratio);

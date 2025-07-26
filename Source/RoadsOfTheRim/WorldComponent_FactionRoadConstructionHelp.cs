@@ -24,9 +24,9 @@ public class WorldComponent_FactionRoadConstructionHelp(World world) : WorldComp
     private const float helpPerTickMin = 5f;
     private List<bool> boolList_currentlyHelping = [];
 
-    private Dictionary<Faction, int> canHelpAgainAtTick = new Dictionary<Faction, int>();
+    private Dictionary<Faction, int> canHelpAgainAtTick = new();
 
-    private Dictionary<Faction, bool> currentlyHelping = new Dictionary<Faction, bool>();
+    private Dictionary<Faction, bool> currentlyHelping = new();
 
     // those lists are used for ExposeData() to load & save correctly
     private List<Faction> factionList_canHelpAgainAtTick = [];
@@ -45,15 +45,9 @@ public class WorldComponent_FactionRoadConstructionHelp(World world) : WorldComp
             return;
         }
 
-        if (canHelpAgainAtTick == null)
-        {
-            canHelpAgainAtTick = new Dictionary<Faction, int>();
-        }
+        canHelpAgainAtTick ??= new Dictionary<Faction, int>();
 
-        if (currentlyHelping == null)
-        {
-            currentlyHelping = new Dictionary<Faction, bool>();
-        }
+        currentlyHelping ??= new Dictionary<Faction, bool>();
     }
 
     private void SetHelpAgainTick(Faction faction, int tick)
@@ -116,7 +110,7 @@ public class WorldComponent_FactionRoadConstructionHelp(World world) : WorldComp
         return helpAgainTick != null && !(Find.TickManager.TicksGame >= GetHelpAgainTick(faction));
     }
 
-    public bool IsDeveloppedEnough(Faction faction, DefModExtension_RotR_RoadDef RoadDefModExtension)
+    public static bool IsDeveloppedEnough(Faction faction, DefModExtension_RotR_RoadDef RoadDefModExtension)
     {
         return faction.def.techLevel >= RoadDefModExtension.techlevelToBuild;
     }

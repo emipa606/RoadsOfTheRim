@@ -40,7 +40,7 @@ public class ConstructionMenu(RoadConstructionSite site, Caravan caravan) : Wind
 
     // TO DO : COunt number of buildable roads, set the resize later rect based on that
 
-    public override Vector2 InitialSize => new Vector2(676 + 128, 544 + 128);
+    public override Vector2 InitialSize => new(676 + 128, 544 + 128);
 
     public int CountBuildableRoads()
     {

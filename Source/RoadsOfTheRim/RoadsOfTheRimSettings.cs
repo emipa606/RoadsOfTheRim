@@ -6,7 +6,7 @@ public class RoadsOfTheRimSettings : ModSettings
 {
     // Constants
     public const int MinBaseEffort = 1;
-    public const int DefaultBaseEffort = 10;
+    private const int DefaultBaseEffort = 10;
     public const int MaxBaseEffort = 10;
     public const float ElevationCostDouble = 2000f;
     public const float HillinessCostDouble = 4f;

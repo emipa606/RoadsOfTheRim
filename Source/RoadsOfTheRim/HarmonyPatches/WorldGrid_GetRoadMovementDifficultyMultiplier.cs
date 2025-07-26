@@ -12,10 +12,10 @@ public static class WorldGrid_GetRoadMovementDifficultyMultiplier
     private static readonly MethodInfo HillinessMovementDifficultyOffset = AccessTools.Method(typeof(WorldPathGrid),
         "HillinessMovementDifficultyOffset", [typeof(Hilliness)]);
 
-    public static void Postfix(ref float __result, WorldGrid __instance, ref int fromTile, ref int toTile,
+    public static void Postfix(ref float __result, WorldGrid __instance, ref PlanetTile fromTile, ref PlanetTile toTile,
         ref StringBuilder explanation)
     {
-        var roads = __instance.tiles[fromTile].Roads;
+        var roads = ((SurfaceTile)__instance.Surface.Tiles[fromTile]).Roads;
         if (roads == null)
         {
             return;
@@ -43,7 +43,7 @@ public static class WorldGrid_GetRoadMovementDifficultyMultiplier
 
             // If the tile has an impassable biome, set the biomemovement difficulty to 12, as per the patch for CalculatedMovementDifficultyAt
             var biomeMovementDifficulty =
-                ToTileAsTile.biome.impassable ? 12f : ToTileAsTile.biome.movementDifficulty;
+                ToTileAsTile.PrimaryBiome.impassable ? 12f : ToTileAsTile.PrimaryBiome.movementDifficulty;
 
             // Calculate biome, Hillines & winter modifiers, update explanation &  multiply result by biome modifier
             var RoadModifier = RoadsOfTheRim.CalculateRoadModifier(

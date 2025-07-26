@@ -30,20 +30,15 @@ public static class Caravan_GetInspectString
 
             // remove "resting (using x bedrolls)"
             var usedBedCount = __instance.beds.GetUsedBedCount();
-            int bedrollIndex;
-            string stringToFind;
-            if (usedBedCount == 1)
-            {
+            var stringToFind =
                 // remove singular version
-                stringToFind = $" ({(string)"UsingBedroll".Translate()})";
-                bedrollIndex = stringBuilder.ToString().IndexOf(stringToFind, StringComparison.Ordinal);
-            }
-            else
-            {
-                // remove plural version
-                stringToFind = $" ({(string)"UsingBedrolls".Translate(usedBedCount)})";
-                bedrollIndex = stringBuilder.ToString().IndexOf(stringToFind, StringComparison.Ordinal);
-            }
+                usedBedCount == 1
+                    ? $" ({(string)"UsingBedroll".Translate()})"
+                    :
+                    // remove plural version
+                    $" ({(string)"UsingBedrolls".Translate(usedBedCount)})";
+
+            var bedrollIndex = stringBuilder.ToString().IndexOf(stringToFind, StringComparison.Ordinal);
 
             if (bedrollIndex >= 0)
             {

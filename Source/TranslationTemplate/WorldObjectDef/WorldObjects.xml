@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: road construction leg -->
+  <RoadConstructionLeg.label>road construction leg</RoadConstructionLeg.label>
+  <!-- EN: Section of a planned road -->
+  <RoadConstructionLeg.description>Section of a planned road</RoadConstructionLeg.description>
+  <!-- EN: road construction site -->
+  <RoadConstructionSite.label>road construction site</RoadConstructionSite.label>
+  <!-- EN: The site of a road under construction -->
+  <RoadConstructionSite.description>The site of a road under construction</RoadConstructionSite.description>
+</LanguageData>

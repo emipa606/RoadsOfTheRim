@@ -314,7 +314,10 @@ public class RoadsOfTheRim : Mod
 
         try
         {
-            Find.WorldPathGrid.RecalculateAllPerceivedPathCosts();
+            foreach (var (_, planetLayer) in Find.WorldGrid.PlanetLayers)
+            {
+                Find.WorldPathGrid.RecalculateLayerPerceivedPathCosts(planetLayer);
+            }
         }
         catch
         {
@@ -549,7 +552,7 @@ public class RoadsOfTheRim : Mod
                 diaOption.Disable("RoadsOfTheRim_commsAnotherFactionIsHelping".Translate(site.helpFromFaction));
             }
 
-            if (!FactionsHelp.IsDeveloppedEnough(faction,
+            if (!WorldComponent_FactionRoadConstructionHelp.IsDeveloppedEnough(faction,
                     site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>()))
             {
                 diaOption = new DiaOption("Invalid site");
