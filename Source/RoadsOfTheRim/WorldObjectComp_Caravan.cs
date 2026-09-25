@@ -72,7 +72,7 @@ public class WorldObjectComp_Caravan : WorldObjectComp
     public override void CompTick()
     {
         OldDefsCleanup();
-        if (Find.TickManager.TicksGame % 100 != 0)
+        if (Find.TickManager.TicksGame % 60 != 0)
         {
             return;
         }

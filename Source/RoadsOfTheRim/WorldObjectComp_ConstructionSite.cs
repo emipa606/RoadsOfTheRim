@@ -182,7 +182,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
         {
             if (((RoadConstructionSite)parent).helpFromFaction == null ||
                 CaravanNightRestUtility.RestingNowAt(((RoadConstructionSite)parent).Tile) ||
-                Find.TickManager.TicksGame % 100 != 50)
+                Find.TickManager.TicksGame % 60 != 30)
             {
                 return;
             }
