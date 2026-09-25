@@ -6,4 +6,42 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="RoadsOfTheRim/RoadsOfTheRim.csproj" />
+  <Folder Name="/XML/1.6/Defs/WorldObjectDefs/">
+    <File Path="../1.6/Defs/WorldObjectDefs/WorldObjects.xml" />
+  </Folder>
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/ThingCategoryDefs/">
+    <File Path="../1.6/Defs/ThingCategoryDefs/ThingCategories.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/TerrainDefs/">
+    <File Path="../1.6/Defs/TerrainDefs/Terrain_Road.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/Misc/DesignatorDropdownGroupDef/">
+    <File Path="../1.6/Defs/Misc/DesignatorDropdownGroupDef/DesignatorDropdownGroupDef.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/ResearchProjectDefs/">
+    <File Path="../1.6/Defs/ResearchProjectDefs/ResearchProject_RotR.xml" />
+    <File Path="../1.6/Defs/ResearchProjectDefs/ResearchTabs_LocoNekoMods.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Patches/">
+    <File Path="../1.6/Patches/patches.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/Misc/TerrainAffordanceDefs/">
+    <File Path="../1.6/Defs/Misc/TerrainAffordanceDefs/TerrainAffordances.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/RoadDefs/">
+    <File Path="../1.6/Defs/RoadDefs/RoadDefs.xml" />
+    <File Path="../1.6/Defs/RoadDefs/RoadWorldLayerDefs.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/MapGeneration/">
+    <File Path="../1.6/Defs/MapGeneration/RotR_CleanBuiltRoads.xml" />
+  </Folder>
+  <Folder Name="/XML/1.6/Defs/ThingDefs/">
+    <File Path="../1.6/Defs/ThingDefs/RotR_Buildings.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/settings.xml" />
+  </Folder>
 </Solution>

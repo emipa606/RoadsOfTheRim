@@ -1,6 +1,6 @@
 # [Roads of the Rim (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2280318231)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of Loconekos mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
@@ -9,9 +9,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1613783924
 - Russian settings translation added, thanks Festival!
 - Full russian translation added, thanks kamikadza13!
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
 # Roads of the Rim
 
@@ -35,23 +35,6 @@ I decided to reimplement Jecrell's amazing RimRoads mod since it had not been po
   - Get your allies to help you build
 
 
-
-# =====LATEST NEWS=====
-
-**HOTFIX  2020/06/05**
-Corrected Caravan text that said resting instead of building
-Corrected AISR2G technology text and position
-**UPDATE 2020/05/06**
-
-
--  Both ISR2Gs are now craftable at a Machining table, cost less, and get their own "Road Equipment" category including when forming caravans
--  ISR2Gs from previous versions of the mod should all be converted
--  Glitter roads can be built on water
--  Better messages for caravans and construction legs
--  Cost in Uranium and Components are not increased by terrain any more
-
-
-**Please test and report any bugs here**
 
 # Details
  
@@ -170,18 +153,13 @@ See the summary below to see what percentage of a specific terrain feature is ca
 
 **Quick fix for Construction sites stuck after an update : https://github.com/LocoNeko/RoadsOfTheRim/wiki/How-to-remove-construction-sites-stuck-after-mod-upgrade**
 
-**IMPORTANT NOTE BEFORE REPORTING A BUG**
-Please make sure you have the latest version by verifying integrity as described in [THIS POST](https://support.steampowered.com/kb_article.php?ref=2037-QEUH-3335)
-
-It will save a lot of your time (and a little bit of mine ;-) )
-
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
@@ -189,4 +167,4 @@ It will save a lot of your time (and a little bit of mine ;-) )
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/RoadsOfTheRim?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231) | tags: roads,  construction
+[![Image](https://img.shields.io/github/v/release/emipa606/RoadsOfTheRim?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2280318231) | roads, construction

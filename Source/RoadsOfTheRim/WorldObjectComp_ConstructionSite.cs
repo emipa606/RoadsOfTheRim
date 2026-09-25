@@ -182,7 +182,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
         {
             if (((RoadConstructionSite)parent).helpFromFaction == null ||
                 CaravanNightRestUtility.RestingNowAt(((RoadConstructionSite)parent).Tile) ||
-                Find.TickManager.TicksGame % 60 != 30)
+                Find.TickManager.TicksGame % GenTicks.TicksPerRealSecond != 30)
             {
                 return;
             }
@@ -382,20 +382,23 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             return true;
         }
 
-        var CurrentTile = parentSite.Tile;
-        parentSite.Tile = nextLeg.Tile;
-        var nextNextLeg = nextLeg.Next;
-        // TO DO Here : Check if there's an existing road that is the same or better as the one being built. If there is, skip the next leg
-        if (nextNextLeg != null)
+        if (parentSite != null)
         {
-            nextNextLeg.Previous = null;
-            SetCosts();
-            parentSite.MoveWorkersToNextLeg(
-                CurrentTile); // Move any caravans working on this site to the next leg, and delay faction help if any
-        }
-        else
-        {
-            EndConstruction(caravan); // We have built the last leg. Notify & remove the site
+            var CurrentTile = parentSite.Tile;
+            parentSite.Tile = nextLeg.Tile;
+            var nextNextLeg = nextLeg.Next;
+            // TO DO Here : Check if there's an existing road that is the same or better as the one being built. If there is, skip the next leg
+            if (nextNextLeg != null)
+            {
+                nextNextLeg.Previous = null;
+                SetCosts();
+                parentSite.MoveWorkersToNextLeg(
+                    CurrentTile); // Move any caravans working on this site to the next leg, and delay faction help if any
+            }
+            else
+            {
+                EndConstruction(caravan); // We have built the last leg. Notify & remove the site
+            }
         }
 
         Find.World.worldObjects.Remove(nextLeg);
@@ -505,7 +508,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
         return stringBuilder.ToString();
     }
 
-    private string GetNiceResourceName(string defName)
+    private static string GetNiceResourceName(string defName)
     {
         var defThing = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
         if (defThing == null || string.IsNullOrEmpty(defThing.label))

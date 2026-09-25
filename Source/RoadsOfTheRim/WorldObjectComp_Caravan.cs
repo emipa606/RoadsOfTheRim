@@ -72,7 +72,7 @@ public class WorldObjectComp_Caravan : WorldObjectComp
     public override void CompTick()
     {
         OldDefsCleanup();
-        if (Find.TickManager.TicksGame % 60 != 0)
+        if (Find.TickManager.TicksGame % GenTicks.TicksPerRealSecond != 0)
         {
             return;
         }
@@ -263,7 +263,9 @@ public class WorldObjectComp_Caravan : WorldObjectComp
                 continue;
             }
 
-            pawn.skills.Learn(SkillDefOf.Construction, 3f * ratio);
+            // Pawns with higher construction skill contribute more to construction and should get more experience.
+            var constructionSkill = Math.Clamp(pawn.skills.GetSkill(SkillDefOf.Construction).Level / 5f, 1f, 4f);
+            pawn.skills.Learn(SkillDefOf.Construction, 3f * ratio * constructionSkill);
         }
     }
 
