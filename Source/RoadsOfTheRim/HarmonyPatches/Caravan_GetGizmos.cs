@@ -28,7 +28,7 @@ public static class Caravan_GetGizmos
 
         __result = __result.Concat([RoadsOfTheRim.AddConstructionSite(__instance)])
             .Concat([RoadsOfTheRim.RemoveConstructionSite(__instance.Tile)]);
-        if (isThereAConstructionSiteHere & !isTheCaravanWorkingOnASite &&
+        if (isThereAConstructionSiteHere && !isTheCaravanWorkingOnASite &&
             RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting == null)
         {
             __result = __result.Concat([RoadsOfTheRim.WorkOnSite(__instance)]);

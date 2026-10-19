@@ -7,7 +7,7 @@ using Verse;
 namespace RoadsOfTheRim.HarmonyPatches;
 
 [StaticConstructorOnStartup]
-public class HarmonyPatches
+public static class HarmonyPatches
 {
     static HarmonyPatches()
     {
@@ -17,7 +17,6 @@ public class HarmonyPatches
         // Initialise the list of terrains that are specific to built roads. Doing it here is hacky, but this is a quick way to use defs after they were loaded
         foreach (var thisDef in DefDatabase<RoadDef>.AllDefs)
         {
-            //RoadsOfTheRim.DebugLog("initialising roadDef " + thisDef);
             if (!thisDef.HasModExtension<DefModExtension_RotR_RoadDef>() ||
                 !thisDef.GetModExtension<DefModExtension_RotR_RoadDef>().built
                ) // Only add RoadDefs that are buildable, based on DefModExtension_RotR_RoadDef.built

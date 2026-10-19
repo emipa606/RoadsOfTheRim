@@ -38,9 +38,9 @@ public class DefModExtension_RotR_RoadDef : DefModExtension
 
     public readonly float percentageOfminConstruction = 0f;
 
-    public readonly TechLevel techlevelToBuild = TechLevel.Neolithic;
-
     public readonly ResearchProjectDef techNeededToBuild = null;
+
+    public readonly TechLevel techlevelToBuild = TechLevel.Neolithic;
 
     public readonly float winterModifier = 0f;
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using RimWorld;
 using RimWorld.Planet;
@@ -219,7 +218,6 @@ public class RoadConstructionLeg : WorldObject
 
     public static void Target(RoadConstructionSite site)
     {
-        // Log.Warning("[RotR] - Target(site)");
         Find.WorldTargeter.BeginTargeting(
             target => ActionOnTile(site, target.Tile),
             true, RotR_StaticConstructorOnStartup.ConstructionLeg_MouseAttachment, false, null,

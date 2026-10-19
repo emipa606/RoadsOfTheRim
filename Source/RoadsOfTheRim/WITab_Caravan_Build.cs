@@ -40,7 +40,7 @@ public class WITab_Caravan_Build : WITab
         size = GetRawSize();
     }
 
-    private void DoColumnHeaders()
+    private static void DoColumnHeaders()
     {
         Text.Anchor = TextAnchor.UpperCenter;
         GUI.color = Widgets.SeparatorLabelColor;

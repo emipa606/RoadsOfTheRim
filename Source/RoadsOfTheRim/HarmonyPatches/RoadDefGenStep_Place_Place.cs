@@ -12,7 +12,6 @@ public static class RoadDefGenStep_Place_Place
         return terrain == TerrainDefOf.Mud || terrain == TerrainDefOf.MarshyTerrain;
     }
 
-    [HarmonyPostfix]
     public static void Postfix(ref RoadDefGenStep_Place __instance, Map map, IntVec3 position)
     {
         if (__instance.place == TerrainDefOf.ConcreteBridge && position.GetTerrain(map).IsWater)

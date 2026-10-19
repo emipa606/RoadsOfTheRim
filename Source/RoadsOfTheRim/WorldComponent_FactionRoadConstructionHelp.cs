@@ -82,7 +82,6 @@ public class WorldComponent_FactionRoadConstructionHelp(World world) : WorldComp
         _ = helpRequestFailChance / negotiationValue;
         var roll = Rand.Value;
         var amountOfHelp = helpBaseAmount * (1 + (negotiationValue * roll * 5));
-        //Log.Message(String.Format("[RotR] - Negotiation for road construction help : negotiation value = {0:0.00} , fail chance = {1:P} , roll = {2:0.00} , help = {3:0.00}", negotiationValue , failChance, roll , amountOfHelp));
 
         // Calculate how long the faction needs to start helping
         var closestSettlement = site.ClosestSettlementOfFaction(faction);

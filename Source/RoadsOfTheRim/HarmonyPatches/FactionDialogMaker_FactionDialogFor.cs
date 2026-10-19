@@ -7,7 +7,6 @@ namespace RoadsOfTheRim.HarmonyPatches;
 [HarmonyPatch(typeof(FactionDialogMaker), nameof(FactionDialogMaker.FactionDialogFor))]
 public static class FactionDialogMaker_FactionDialogFor
 {
-    [HarmonyPostfix]
     public static void Postfix(ref DiaNode __result, Pawn negotiator, Faction faction)
     {
         // Allies can help build roads

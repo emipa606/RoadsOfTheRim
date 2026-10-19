@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using RimWorld;
 using RimWorld.Planet;
@@ -47,7 +46,9 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
 
     private float GetPercentageDone(string name)
     {
-        if (!costs.TryGetValue(name, out var costTotal) & !left.TryGetValue(name, out var leftTotal))
+        var costNotFound = !costs.TryGetValue(name, out var costTotal);
+        var leftNotFound = !left.TryGetValue(name, out var leftTotal);
+        if (costNotFound && leftNotFound)
         {
             return 0;
         }
@@ -87,14 +88,6 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             swampinessModifier = swampiness / RoadsOfTheRimSettings.SwampinessCostDouble;
 
             bridgeModifier = 0f;
-            /* TO DO : River crossing
-            List<int> fromTileNeighbors = new List<int>();
-            Find.WorldGrid.GetTileNeighbors(parent.Tile, fromTileNeighbors);
-            foreach (Tile.RiverLink aRiver in fromTile.Rivers )
-            {
-                Log.Message("River in FROM tile : neighbor="+aRiver.neighbor+", river="+aRiver.river.ToString());
-            }
-            */
         }
         catch (Exception e)
         {
@@ -332,7 +325,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             {
                 foreach (var aLink in fromTile.potentialRoads.ToArray())
                 {
-                    if ((aLink.neighbor == toTile_int) & RoadsOfTheRim.IsRoadBetter(parentSite.roadDef, aLink.road))
+                    if (aLink.neighbor == toTile_int && RoadsOfTheRim.IsRoadBetter(parentSite.roadDef, aLink.road))
                     {
                         fromTile.potentialRoads.Remove(aLink);
                     }
@@ -347,7 +340,7 @@ public class WorldObjectComp_ConstructionSite : WorldObjectComp
             {
                 foreach (var aLink in toTile.potentialRoads.ToArray())
                 {
-                    if ((aLink.neighbor == parentSite.Tile) &
+                    if (aLink.neighbor == parentSite.Tile &&
                         RoadsOfTheRim.IsRoadBetter(parentSite.roadDef, aLink.road))
                     {
                         toTile.potentialRoads.Remove(aLink);

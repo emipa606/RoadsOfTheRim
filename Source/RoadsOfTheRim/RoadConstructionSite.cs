@@ -23,6 +23,12 @@ public class RoadConstructionSite : WorldObject
 
     private static readonly Color ColorUnfilled = new(0.3f, 0.3f, 0.3f, 1f);
 
+    public WorldObject LastLeg;
+
+    private string NeighbouringSettlementsDescription;
+
+    private Material ProgressBarMaterial;
+
     public float helpAmount; // How much will the faction help
 
     /*
@@ -39,13 +45,7 @@ public class RoadConstructionSite : WorldObject
 
     public float helpWorkPerTick; // How much will the faction help per tick
 
-    public WorldObject LastLeg;
-
     private List<SettlementInfo> listOfSettlements;
-
-    private string NeighbouringSettlementsDescription;
-
-    private Material ProgressBarMaterial;
     public RoadDef roadDef; // TO DO as part of the phasing out of road buildable
 
     public static void DeleteSite(RoadConstructionSite site)
@@ -300,12 +300,6 @@ public class RoadConstructionSite : WorldObject
         Find.World.worldObjects.Remove(nextLeg);
     }
 
-    /*
-    public void setDestination(int destination)
-    {
-        toTile = destination ;
-    }
-    */
     public string ResourcesAlreadyConsumed()
     {
         return GetComponent<WorldObjectComp_ConstructionSite>().ResourcesAlreadyConsumed();
@@ -417,7 +411,6 @@ public class RoadConstructionSite : WorldObject
             if (helpAmount < helpWorkPerTick)
             {
                 amountOfHelp = helpAmount;
-                //Log.Message(String.Format("[RotR] - faction {0} helps with {1:0.00} work", helpFromFaction.Name, amountOfHelp));
                 EndFactionHelp();
             }
 

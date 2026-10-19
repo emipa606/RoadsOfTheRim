@@ -32,14 +32,6 @@ public class ConstructionMenu(RoadConstructionSite site, Caravan caravan) : Wind
 {
     private readonly List<RoadDef> buildableRoads = [];
 
-    // TO DO : Use the below to dynamically draw the window based on number of buildable roads (which could include technolcogy limits)
-    // public bool resizeable = true ;
-    // private bool resizeLater = true ;
-    // private Rect resizeLaterRect ;
-
-
-    // TO DO : COunt number of buildable roads, set the resize later rect based on that
-
     public override Vector2 InitialSize => new(676 + 128, 544 + 128);
 
     public int CountBuildableRoads()
@@ -135,19 +127,16 @@ public class ConstructionMenu(RoadConstructionSite site, Caravan caravan) : Wind
             // Buildable Road icon
             var theButton = ContentFinder<Texture2D>.Get($"UI/Commands/Build_{aDef.defName}");
             var ButtonRect = new Rect(8, 8, 128, 128);
-            if (Widgets.ButtonImage(ButtonRect, theButton))
+            if (Widgets.ButtonImage(ButtonRect, theButton) && Event.current.button == 0)
             {
-                if (Event.current.button == 0)
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                if (site != null)
                 {
-                    SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                    if (site != null)
-                    {
-                        site.roadDef = aDef;
-                        Close();
-                        RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting = site;
-                        RoadsOfTheRim.RoadBuildingState.Caravan = caravan;
-                        RoadConstructionLeg.Target(site);
-                    }
+                    site.roadDef = aDef;
+                    Close();
+                    RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting = site;
+                    RoadsOfTheRim.RoadBuildingState.Caravan = caravan;
+                    RoadConstructionLeg.Target(site);
                 }
             }
 

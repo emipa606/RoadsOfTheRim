@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace RoadsOfTheRim;
@@ -14,7 +15,6 @@ public class GenStep_CleanBuiltRoads : GenStep
 
     public override void Generate(Map map, GenStepParams parms)
     {
-        //RoadsOfTheRim.DebugLog("Cleaning up roads if I can");
         var terrainGrid = map.terrainGrid;
         foreach (var current in map.AllCells)
         {
@@ -92,10 +92,8 @@ public class GenStep_CleanBuiltRoads : GenStep
     {
         var thingList = cell.GetThingList(map);
         var terrainGrid = map.terrainGrid;
-        //thingList.RemoveAll(item => item !=null);
         foreach (var thingToMove in thingList) // Go through all things on that cell
         {
-            //RoadsOfTheRim.DebugLog("Trying to move " + thingToMove.Label);
             var cellChecked = new List<IntVec3>
             {
                 cell
@@ -114,7 +112,6 @@ public class GenStep_CleanBuiltRoads : GenStep
                         continue;
                     }
 
-                    //RoadsOfTheRim.DebugLog("Moved "+thingToMove.Label);
                     thingToMove.SetPositionDirect(c);
                     goodCellFound = true;
                     break;
@@ -140,9 +137,11 @@ public class GenStep_CleanBuiltRoads : GenStep
                 expandedCells.Add(c);
             }
 
-            foreach (var c2 in GenAdjFast.AdjacentCells8Way(c)) // Add all the current cell's neighbours
+            foreach (var c2 in GenAdjFast.AdjacentCells8Way(c)
+                         .Where(x => x.InBounds(map) &&
+                                     !expandedCells.Contains(x))) // Add all the current cell's neighbours
             {
-                if (!expandedCells.Contains(c2) && !cells.Contains(c2) && c.InBounds(map))
+                if (!cells.Contains(c2))
                 {
                     expandedCells.Add(c2);
                 }

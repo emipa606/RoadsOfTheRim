@@ -19,7 +19,6 @@ public static class WorldTargeter_StopTargeting
             return;
         }
 
-        //RoadsOfTheRim.DebugLog("StopTargeting");
         RoadsOfTheRim.FinaliseConstructionSite(RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting);
         RoadsOfTheRim.RoadBuildingState.CurrentlyTargeting = null;
     }

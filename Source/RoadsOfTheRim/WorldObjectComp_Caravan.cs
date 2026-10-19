@@ -89,8 +89,8 @@ public class WorldObjectComp_Caravan : WorldObjectComp
 
         // Do some work & stop working if finished
         // Caravan is working AND there's a site here AND caravan can work AND the site is indeed the same the caravan was working on
-        if (currentlyWorkingOnSite & IsThereAConstructionSiteHere() &
-            (CaravanCurrentState() == CaravanState.ReadyToWork) && GetCaravan().Tile == GetSite().Tile)
+        if (currentlyWorkingOnSite && IsThereAConstructionSiteHere() &&
+            CaravanCurrentState() == CaravanState.ReadyToWork && GetCaravan().Tile == GetSite().Tile)
         {
             base.CompTick();
             site.TryToSkipBetterRoads(caravan); // No need to work if there's a better road here
@@ -109,7 +109,7 @@ public class WorldObjectComp_Caravan : WorldObjectComp
         }
 
         // Stop working as soon as the caravan moves, or rests, or is downed
-        if (currentlyWorkingOnSite & (CaravanCurrentState() != CaravanState.ReadyToWork))
+        if (currentlyWorkingOnSite && CaravanCurrentState() != CaravanState.ReadyToWork)
         {
             StopWorking();
             var stoppedReason = "";
@@ -196,7 +196,6 @@ public class WorldObjectComp_Caravan : WorldObjectComp
             /* Either there's no site, no roaddef, or no modextension. In any case, not much to do here */
         }
 
-        //site.roadDef.GetModExtension<DefModExtension_RotR_RoadDef>().minConstruction ;
         var totalConstruction = 0f;
         var totalConstructionAboveMinLevel = 0f;
         var animalConstruction = 0f;

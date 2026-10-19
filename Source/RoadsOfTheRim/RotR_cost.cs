@@ -17,6 +17,6 @@ public class RotR_cost
         }
 
         name = xmlRoot.Name;
-        count = (int)ParseHelper.FromString(xmlRoot.FirstChild.Value, typeof(int));
+        count = (int)ParseHelper.FromString(xmlRoot.FirstChild?.Value, typeof(int));
     }
 }

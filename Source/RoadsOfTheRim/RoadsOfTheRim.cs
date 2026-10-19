@@ -90,7 +90,6 @@ public class RoadsOfTheRim : Mod
         }
 
         var BiomeCoef = (1 + ((BiomeMovementDifficulty - 1) * (1 - BiomeModifier))) / BiomeMovementDifficulty;
-        //RoadsOfTheRim.DebugLog("calculateRoadModifier: BiomeCoef=" +BiomeCoef+ ", BiomeMovementDifficulty="+ BiomeMovementDifficulty+ ", HillModifier"+ HillModifier+ ", HillinessOffset="+ HillinessOffset+ ", WinterModifier="+ WinterModifier+ ", WinterOffset="+ WinterOffset);
         return ((BiomeCoef * BiomeMovementDifficulty) + ((1 - HillModifier) * HillinessOffset) +
                 ((1 - WinterModifier) * WinterOffset)) / (BiomeMovementDifficulty + HillinessOffset + WinterOffset);
     }
@@ -115,8 +114,6 @@ public class RoadsOfTheRim : Mod
         var needed = new Dictionary<string, int>();
         var ratio = new Dictionary<string, float>();
         float ratio_final = 1;
-        //RoadsOfTheRim.DebugLog("[RotR] DEBUG ========== doSomeWork() ==========");
-        //RoadsOfTheRim.DebugLog("[RotR] DEBUG ISR2G set to "+useISR2G);
 
         if (DebugSettings.godMode)
         {
@@ -149,12 +146,9 @@ public class RoadsOfTheRim : Mod
 
         foreach (var aThing in CaravanInventoryUtility.AllInventoryItems(caravan))
         {
-            foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources)
+            foreach (var resourceName in DefModExtension_RotR_RoadDef.allResources.Where(r => IsThis(aThing.def, r)))
             {
-                if (IsThis(aThing.def, resourceName))
-                {
-                    available[resourceName] += aThing.stackCount;
-                }
+                available[resourceName] += aThing.stackCount;
             }
         }
 
@@ -195,7 +189,6 @@ public class RoadsOfTheRim : Mod
 
             caravanComp.StopWorking();
         }
-        //RoadsOfTheRim.DebugLog("[RotR] ISR2G DEBUG ratio final = " + ratio_final);
 
         // Consume resources from the caravan 
         _ = site.roadDef.defName ==
@@ -209,7 +202,6 @@ public class RoadsOfTheRim : Mod
                     if (needed[resourceName] <= 0 || !IsThis(aThing.def, resourceName))
                     {
                         continue;
-                        //RoadsOfTheRim.DebugLog("[RotR] ISR2G consumption DEBUG =" + resourceName + " Qty consumed = " + amountUsed);
                     }
 
                     var amountUsed = aThing.stackCount > needed[resourceName]
@@ -227,7 +219,6 @@ public class RoadsOfTheRim : Mod
                         continue;
                     }
 
-                    //RoadsOfTheRim.DebugLog("[RotR] ISR2G consumption DEBUG =" + resourceName + " Qty freely awarded = " + needed[resourceName]);
                     siteComp.ReduceLeft(resourceName, needed[resourceName]);
                     needed[resourceName] = 0;
                 }
@@ -261,11 +252,11 @@ public class RoadsOfTheRim : Mod
         return "RoadsOfTheRimSettingsCategoryLabel".Translate();
     }
 
-    public override void DoSettingsWindowContents(Rect rect)
+    public override void DoSettingsWindowContents(Rect inRect)
     {
         var CurrentOverOverrideCosts = settings.OverrideCosts;
         var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(rect);
+        listing_Standard.Begin(inRect);
         listing_Standard.CheckboxLabeled("RoadsOfTheRimSettingsOverrideCosts".Translate() + ": ",
             ref settings.OverrideCosts);
         listing_Standard.Gap();
@@ -374,16 +365,6 @@ public class RoadsOfTheRim : Mod
             command_Action.Disable("RoadsOfTheRimBuildWorkOnSiteCantWork".Translate());
         }
 
-        // Disable on biomes that don't allow roads
-        // TO DO : did that ever belong here ? testing for each leg should be enough except if somehow a caravan is in an ocean (glitter road ?) building a lower tier road towards the shore ?
-        // In which case, problem is easy to resolve : limit the roads that can be chosen in the menu
-        /*
-        BiomeDef biomeHere = Find.WorldGrid.tiles[caravan.Tile].biome ;
-        if (!biomeHere.allowRoads)
-        {
-            command_Action.Disable("RoadsOfTheRim_BiomePreventsConstruction".Translate(biomeHere.label));
-        }
-        */
         return command_Action;
     }
 
@@ -646,7 +627,7 @@ public class RoadsOfTheRim : Mod
             {
                 foreach (var aLink in fromTile.potentialRoads)
                 {
-                    if ((aLink.neighbor == toTile_int) & IsRoadBetter(aLink.road, bestExistingRoad))
+                    if (aLink.neighbor == toTile_int && IsRoadBetter(aLink.road, bestExistingRoad))
                     {
                         bestExistingRoad = aLink.road;
                     }
@@ -657,7 +638,7 @@ public class RoadsOfTheRim : Mod
             {
                 foreach (var aLink in toTile.potentialRoads)
                 {
-                    if ((aLink.neighbor == fromTile_int) & IsRoadBetter(aLink.road, bestExistingRoad))
+                    if (aLink.neighbor == fromTile_int && IsRoadBetter(aLink.road, bestExistingRoad))
                     {
                         bestExistingRoad = aLink.road;
                     }
